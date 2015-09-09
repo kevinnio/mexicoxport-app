@@ -71,7 +71,7 @@ angular.module('your_app_name.controllers', [])
 					cc:      'hello@startapplabs.com',
 					// bcc:     ['john@doe.com', 'jane@doe.com'],
 					subject: 'Greetings',
-					body:    'How are you? Nice greetings from IonFullApp'
+					body:    'How are you? Nice greetings from mexicoxport'
 				});
 			}
 		);

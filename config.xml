@@ -1,12 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.startapplabs.ionFullApp" version="1.3.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>ionFullApp</name>
+<widget id="com.mexicoport" version="1.0" xmlns="http://www.w3.org/ns/widgets" 
+        xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>mexicoxport</name>
     <description>
-        An Ionic Framework and Cordova project.
+        La aplicación móvil de mexicoxport.com
     </description>
-    <author email="envato@startapplabs.com" href="http://startapplabs.com/">
-      StartApp Labs
-    </author>
+    <author href="http://mexicoxport.com/">mexicoxport</author>
     <content src="index.html" />
     <access origin="*" />
     <preference name="webviewbounce" value="false" />
