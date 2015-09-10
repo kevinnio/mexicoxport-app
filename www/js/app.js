@@ -279,5 +279,5 @@ angular.module('mexicoxport', [
 ;
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/auth/walkthrough');
+  $urlRouterProvider.otherwise('/app/feeds-categories');
 });
