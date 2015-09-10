@@ -1,4 +1,4 @@
-angular.module('your_app_name.services', [])
+angular.module('mexicoxport.services', [])
 
 .service('FeedList', function ($rootScope, FeedLoader, $q){
 	this.get = function(feedSourceUrl) {

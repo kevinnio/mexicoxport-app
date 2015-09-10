@@ -1,4 +1,4 @@
-angular.module('your_app_name.controllers', [])
+angular.module('mexicoxport.controllers', [])
 
 .controller('AuthCtrl', function($scope, $ionicConfig) {
 

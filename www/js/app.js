@@ -8,16 +8,16 @@ angular.module('underscore', [])
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('your_app_name', [
+angular.module('mexicoxport', [
   'ionic',
   'angularMoment',
-  'your_app_name.controllers',
-  'your_app_name.directives',
-  'your_app_name.filters',
-  'your_app_name.services',
-  'your_app_name.factories',
-  'your_app_name.config',
-  'your_app_name.views',
+  'mexicoxport.controllers',
+  'mexicoxport.directives',
+  'mexicoxport.filters',
+  'mexicoxport.services',
+  'mexicoxport.factories',
+  'mexicoxport.config',
+  'mexicoxport.views',
   'underscore',
   'ngMap',
   'ngResource',
