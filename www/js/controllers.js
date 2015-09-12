@@ -1,50 +1,7 @@
 angular.module('mexicoxport.controllers', [])
 
-.controller('AuthCtrl', function($scope, $ionicConfig) {
-
-})
-
-// APP
 .controller('AppCtrl', function($scope, $ionicConfig) {
 
-})
-
-//LOGIN
-.controller('LoginCtrl', function($scope, $state, $templateCache, $q, $rootScope) {
-	$scope.doLogIn = function(){
-		$state.go('app.feeds-categories');
-	};
-
-	$scope.user = {};
-
-	$scope.user.email = "john@doe.com";
-	$scope.user.pin = "12345";
-
-	// We need this for the form validation
-	$scope.selected_tab = "";
-
-	$scope.$on('my-tabs-changed', function (event, data) {
-		$scope.selected_tab = data.title;
-	});
-
-})
-
-.controller('SignupCtrl', function($scope, $state) {
-	$scope.user = {};
-
-	$scope.user.email = "john@doe.com";
-
-	$scope.doSignUp = function(){
-		$state.go('app.feeds-categories');
-	};
-})
-
-.controller('ForgotPasswordCtrl', function($scope, $state) {
-	$scope.recoverPassword = function(){
-		$state.go('app.feeds-categories');
-	};
-
-	$scope.user = {};
 })
 
 .controller('RateApp', function($scope) {
@@ -268,37 +225,6 @@ angular.module('mexicoxport.controllers', [])
 	$scope.checkOpt3 = false;
 
 	$scope.radioChoice = 'B';
-
-	// Triggered on a the logOut button click
-	$scope.showLogOutMenu = function() {
-
-		// Show the action sheet
-		var hideSheet = $ionicActionSheet.show({
-			//Here you can add some more buttons
-			// buttons: [
-			// { text: '<b>Share</b> This' },
-			// { text: 'Move' }
-			// ],
-			destructiveText: 'Logout',
-			titleText: 'Are you sure you want to logout? This app is awsome so I recommend you to stay.',
-			cancelText: 'Cancel',
-			cancel: function() {
-				// add cancel code..
-			},
-			buttonClicked: function(index) {
-				//Called when one of the non-destructive buttons is clicked,
-				//with the index of the button that was clicked and the button object.
-				//Return true to close the action sheet, or false to keep it opened.
-				return true;
-			},
-			destructiveButtonClicked: function(){
-				//Called when the destructive button is clicked.
-				//Return true to close the action sheet, or false to keep it opened.
-				$state.go('auth.walkthrough');
-			}
-		});
-
-	};
 })
 
 // TINDER CARDS

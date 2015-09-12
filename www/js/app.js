@@ -43,17 +43,6 @@ angular.module('mexicoxport', [
   });
 
   // This fixes transitions for transparent background views
-  $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
-    if(toState.name.indexOf('auth.walkthrough') > -1)
-    {
-      // set transitions to android to avoid weird visual effect in the walkthrough transitions
-      $timeout(function(){
-        $ionicConfig.views.transition('android');
-        $ionicConfig.views.swipeBackEnabled(false);
-      	console.log("setting transition to android and disabling swipe back");
-      }, 0);
-    }
-  });
   $rootScope.$on("$stateChangeSuccess", function(event, toState, toParams, fromState, fromParams){
     if(toState.name.indexOf('app.feeds-categories') > -1)
     {
@@ -77,37 +66,6 @@ angular.module('mexicoxport', [
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   $stateProvider
-
-  //INTRO
-  .state('auth', {
-    url: "/auth",
-    templateUrl: "views/auth/auth.html",
-    abstract: true,
-    controller: 'AuthCtrl'
-  })
-
-  .state('auth.walkthrough', {
-    url: '/walkthrough',
-    templateUrl: "views/auth/walkthrough.html"
-  })
-
-  .state('auth.login', {
-    url: '/login',
-    templateUrl: "views/auth/login.html",
-    controller: 'LoginCtrl'
-  })
-
-  .state('auth.signup', {
-    url: '/signup',
-    templateUrl: "views/auth/signup.html",
-    controller: 'SignupCtrl'
-  })
-
-  .state('auth.forgot-password', {
-    url: "/forgot-password",
-    templateUrl: "views/auth/forgot-password.html",
-    controller: 'ForgotPasswordCtrl'
-  })
 
   .state('app', {
     url: "/app",
@@ -279,5 +237,5 @@ angular.module('mexicoxport', [
 ;
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/auth/walkthrough');
+  $urlRouterProvider.otherwise('/app/feeds-categories');
 });
