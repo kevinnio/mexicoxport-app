@@ -1,6 +1,6 @@
 ## Servicios web para app móvil de mexicoxport
 
-Estos scripts proporcionan los endpoints para el servicio web de mexicoxport. Este servicio se le brindará al app móvil las noticias publicadas en mexicoxport.com y sus categorías, todas ellas en formato JSON.
+Estos scripts proporcionan los endpoints para el servicio web de mexicoxport. Este servicio le brindará al app móvil las noticias publicadas en mexicoxport.com y sus categorías, todas ellas en formato JSON.
 
 ### Despliegue
 
