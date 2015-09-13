@@ -14,43 +14,66 @@
  * @copyright Mexicoxport 2015
  */
 
-require_once '../mxport.php';
-$conexion = getMyConection();
+require_once __DIR__.'/utilidades.php';
 
-// Definiendo parámetros
-$categoria_id = isset($_GET['categoria_id']) ? mysqli_escape_string($conexion, $_GET['categoria_id']) : null;
-$noticia_id   = isset($_GET['noticia_id'])   ? mysqli_escape_string($conexion, $_GET['noticia_id'])   : null;
-$por_pagina   = isset($_GET['por_pagina'])   ? mysqli_escape_string($conexion, $_GET['por_pagina'])   : 20;
-$año          = isset($_GET['año'])          ? mysqli_escape_string($conexion, $_GET['año'])          : null;
-$mes          = isset($_GET['mes'])          ? mysqli_escape_string($conexion, $_GET['mes'])          : null;
+function obtener_noticias_en_json() {
+  $parametros = obtener_parametros_de_peticion();
+  $consulta   = construir_consulta_para_noticias($parametros);
+  $noticias   = obtener_noticias_de_la_bd($consulta);
 
-// Construyendo consulta a la base de datos
-$consulta = 'SELECT * FROM noticias WHERE 1=1 ';
-if ($noticia_id)   $consulta .= " AND idNoticia  < $noticia_id";
-if ($categoria_id) $consulta .= " AND idTematica = $categoria_id";
+  $json = json_encode($noticias);
+  header('Content-Type: application/json');
+  header('Content-Length: ' . strlen($json));
 
-$fecha_inicio = null;
-if ($año) {
-  if ($mes) {
-    $fecha_inicio = "$año-$mes-31";
-    $mes--;
-    $fecha_limite = "$año-$mes-31";
-  } else {
-    $fecha_inicio = "$año-12-31";
-    $año--;
-    $fecha_limite = "$año-12-31";
-  }
+  return $json;
 }
-if ($fecha_inicio) $consulta .= " AND FechaNoticia <= '$fecha_inicio' AND FechaNoticia > '$fecha_limite'";
 
-$consulta .= ' ORDER BY FechaNoticia DESC';
-$consulta .= ' LIMIT ' . mysqli_escape_string($conexion, $por_pagina);
+function obtener_parametros_de_peticion() {
+  $parametros_por_defecto = array('por_pagina' => 20);
+  $parametros = array_map(function($parametro) { return sanitizar($parametro); }, $_GET);
 
-// Obteniendo noticias
-$resultados = query($consulta) or die(mysqli_error($conexion));
-for ($noticias = array(); $fila = mysqli_fetch_assoc($resultados); $noticias[] = $fila);
+  return array_merge($parametros_por_defecto, $parametros);
+}
 
-$json = json_encode($noticias);
-header('Content-Type: application/json');
-header('Content-Length: ' . strlen($json));
-echo $json;
+function construir_consulta_para_noticias($parametros) {
+  extract($parametros);
+
+  $consulta = 'SELECT * FROM noticias WHERE 1=1 ';
+  if (isset($noticia_id))   $consulta .= " AND idNoticia  < $noticia_id";
+  if (isset($categoria_id)) $consulta .= " AND idTematica = $categoria_id";
+
+  $consulta .= generar_restriccion_de_fecha($parametros);
+
+  $consulta .= ' ORDER BY FechaNoticia DESC';
+  $consulta .= ' LIMIT ' . $por_pagina;
+
+  return $consulta;
+}
+
+function obtener_noticias_de_la_bd($consulta) {
+  $resultados = query($consulta) or die(mysqli_error(getMyConection()));
+  for ($noticias = array(); $fila = mysqli_fetch_assoc($resultados); $noticias[] = $fila);
+
+  return $noticias;
+}
+
+function generar_restriccion_de_fecha($parametros) {
+  if (isset($parametros['año'])) {
+    if (isset($parametros['mes'])) {
+      $fecha_inicio = $parametros['año'] . '-' . $parametros['mes']-- . '-31';
+      $fecha_limite = $parametros['año'] . '-' . $parametros['mes']   . '-31';
+    } else {
+      $fecha_inicio = $parametros['año']-- . '-12-31';
+      $fecha_limite = $parametros['año']   . '-12-31';
+    }
+  }
+
+  $sql = '';
+  if (isset($fecha_inicio)) {
+    $sql = " AND FechaNoticia <= '$fecha_inicio' AND FechaNoticia > '$fecha_limite'";
+  }
+
+  return $sql;
+}
+
+echo obtener_noticias_en_json();
