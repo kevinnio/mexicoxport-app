@@ -51,7 +51,7 @@ function construir_consulta_para_noticias($parametros) {
 }
 
 function obtener_noticias_de_la_bd($consulta) {
-  $resultados = query($consulta) or die(mysqli_error(getMyConection()));
+  $resultados = query($consulta);
   for ($noticias = array(); $fila = mysqli_fetch_assoc($resultados); $noticias[] = $fila);
 
   return $noticias;
