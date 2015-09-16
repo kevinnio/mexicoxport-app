@@ -19,10 +19,10 @@ require_once __DIR__.'/utilidades.php';
 function obtener_noticias_en_json() {
   $parametros = obtener_parametros_de_peticion();
   $consulta   = construir_consulta_para_noticias($parametros);
-  $noticias   = obtener_noticias_de_la_bd($consulta);
+  $noticias   = utf8_encode_all(obtener_noticias_de_la_bd($consulta));
 
   $json = json_encode($noticias);
-  header('Content-Type: application/json');
+  header('Content-Type: application/json; charset=utf-8');
   header('Content-Length: ' . strlen($json));
 
   return $json;

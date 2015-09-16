@@ -8,6 +8,7 @@
  */
 
 require_once '../mxport.php';
+require_once __DIR__.'/utilidades.php';
 
 $resultados = query('SELECT * FROM nw_tematica ORDER BY Nombre, Tag');
 
@@ -15,7 +16,7 @@ for ($categorias = array(); $fila = mysqli_fetch_assoc($resultados);) {
   $categorias[] = $fila;
 }
 
-$json = json_encode($categorias);
+$json = json_encode(utf8_encode_all($categorias));
 header('Content-Type: application/json');
 header('Content-Length: ' . strlen($json));
 echo $json;
