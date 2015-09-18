@@ -19,13 +19,9 @@ require_once __DIR__.'/utilidades.php';
 function obtener_noticias_en_json() {
   $parametros = obtener_parametros_de_peticion();
   $consulta   = construir_consulta_para_noticias($parametros);
-  $noticias   = utf8_encode_all(obtener_noticias_de_la_bd($consulta));
+  $noticias   = obtener_noticias_de_la_bd($consulta);
 
-  $json = json_encode($noticias);
-  header('Content-Type: application/json; charset=utf-8');
-  header('Content-Length: ' . strlen($json));
-
-  return $json;
+  enviarRespuesta($noticias);
 }
 
 function obtener_parametros_de_peticion() {
@@ -76,4 +72,4 @@ function generar_restriccion_de_fecha($parametros) {
   return $sql;
 }
 
-echo obtener_noticias_en_json();
+obtener_noticias_en_json();

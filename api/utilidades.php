@@ -51,3 +51,13 @@ function utf8_decode_all($data) {
 
   return $result;
 }
+
+function enviarRespuesta($objeto) {
+  $json = json_encode(utf8_encode_all($objeto));
+
+  header('Content-Type: application/json; charset=utf8');
+  header('Content-Length: ' . strlen($json));
+  header('Access-Control-Allow-Origin: *');
+
+  echo $json;
+}
