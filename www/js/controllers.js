@@ -7,7 +7,7 @@ angular.module('mexicoxport.controllers', [])
 .controller('NoticiasCtrl', function($scope, $http, $ionicLoading) {
   $scope.noticias = [];
 
-  $scope.doRefresh = function() {
+  $scope.refrescar = function() {
     $ionicLoading.show({
       template: 'Cargando noticias...'
     });
@@ -20,7 +20,7 @@ angular.module('mexicoxport.controllers', [])
     });
   };
 
-  $scope.doRefresh();
+  $scope.refrescar();
 })
 
 .controller('AjustesCtrl', function($scope, $ionicActionSheet, $state) {
