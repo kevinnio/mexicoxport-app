@@ -16,43 +16,12 @@
 
 // Include project Sass variables
 @import "scss/common/common.variables";
-@import "scss/auth/auth.variables";
 @import "scss/sidemenu/side-menu.variables";
-@import "scss/profile/profile.variables";
-@import "scss/bookmarks/bookmarks.variables";
-@import "scss/feed/feed.variables";
-@import "scss/wordpress/wordpress.variables";
-@import "scss/layouts/layouts.variables";
-@import "scss/miscellaneous/miscellaneous.variables";
-@import "scss/forms/forms.variables";
-@import "scss/settings/settings.variables";
+@import "scss/noticias/noticias.variables";
+@import "scss/ajustes/ajustes.variables";
 
 // Include custom styles
 @import "scss/common/common.styles";
-@import "scss/auth/auth.styles";
-@import "scss/auth/walkthrough.styles";
-@import "scss/auth/login.styles";
-@import "scss/auth/signup.styles";
-@import "scss/auth/forgot-password.styles";
-
 @import "scss/sidemenu/side-menu.styles";
-@import "scss/profile/profile.styles";
-@import "scss/bookmarks/bookmarks.styles";
-
-@import "scss/feed/category-feeds.styles";
-@import "scss/feed/feed-entries.styles";
-@import "scss/feed/feeds-categories.styles";
-
-@import "scss/wordpress/wordpress.styles";
-@import "scss/wordpress/post.styles";
-
-@import "scss/layouts/layouts.styles";
-@import "scss/layouts/slider.styles";
-@import "scss/layouts/tinder-cards.styles";
-
-@import "scss/miscellaneous/miscellaneous.styles";
-@import "scss/miscellaneous/maps.styles";
-@import "scss/miscellaneous/image-picker.styles";
-
-@import "scss/forms/forms.styles";
+@import "scss/noticias/noticias.styles";
 @import "scss/settings/settings.styles";
