@@ -7,20 +7,22 @@ angular.module('mexicoxport.controllers', [])
 .controller('NoticiasCtrl', function($scope, $http, $ionicLoading) {
   $scope.noticias = [];
 
-  $scope.refrescar = function() {
+  $scope.cargarMas = function() {
     $ionicLoading.show({
       template: 'Cargando noticias...'
     });
 
-    $http.get('http://mexicoxport.com/api/noticias.php').success(function(response) {
-      $scope.noticias = response;
+    var url = 'http://mexicoxport.com/api/noticias.php';
+    var ultimaNoticia = $scope.noticias[$scope.noticias.length - 1];
+    if (ultimaNoticia) url += '?noticia_id=' + ultimaNoticia.idNoticia;
+
+    $http.get(url).success(function(noticias) {
+      $scope.noticias = $scope.noticias.concat(noticias);
 
       $ionicLoading.hide();
-      $scope.$broadcast('scroll.refreshComplete');
+      $scope.$broadcast('scroll.infiniteScrollComplete');
     });
   };
-
-  $scope.refrescar();
 })
 
 .controller('AjustesCtrl', function($scope, $ionicActionSheet, $state) {
