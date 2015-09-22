@@ -4,8 +4,8 @@ angular.module('mexicoxport.controllers', [])
 
 })
 
-.controller('NoticiasCtrl', function($scope, $http, $ionicLoading) {
-  $scope.noticias = [];
+.controller('NoticiasCtrl', function($scope, $http, $ionicLoading, AlmacenNoticias) {
+  $scope.noticias = AlmacenNoticias.noticias;
 
   $scope.cargarMas = function() {
     $ionicLoading.show({
@@ -13,11 +13,11 @@ angular.module('mexicoxport.controllers', [])
     });
 
     var url = 'http://mexicoxport.com/api/noticias.php';
-    var ultimaNoticia = $scope.noticias[$scope.noticias.length - 1];
-    if (ultimaNoticia) url += '?noticia_id=' + ultimaNoticia.idNoticia;
+    var ultimaNoticia = AlmacenNoticias.ultimaNoticia();
+    if (ultimaNoticia != undefined) url += '?noticia_id=' + ultimaNoticia.idNoticia;
 
     $http.get(url).success(function(noticias) {
-      $scope.noticias = $scope.noticias.concat(noticias);
+      AlmacenNoticias.agregar(noticias);
 
       $ionicLoading.hide();
       $scope.$broadcast('scroll.infiniteScrollComplete');
