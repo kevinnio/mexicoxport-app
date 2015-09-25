@@ -1,11 +1,9 @@
-<ion-view class="noticia-view">
-  <ion-nav-title>
-    <span>{{ noticia.Titulo }}</span>
-  </ion-nav-title>
-
+<ion-view hide-nav-bar="true" class="noticias-view">
   <ion-content>
+    <pre-img ratio="_16_9">
+      <img ng-src="{{ noticia.Imagen }}" spinner-on-load>
+    </pre-img>
     <div class="noticia-cuerpo">
-      <p class="resumen" ng-bind-html="noticia.Resumen | rawHtml"></p>
       <p ng-bind-html="noticia.Cuerpo | rawHtml"></p>
     </div>
   </ion-content>
