@@ -226,6 +226,7 @@ angular.module('mexicoxport.factories', [])
       },
 
       vaciar: function() {
+        delete this.noticias;
         this.noticias = [];
       }
     };
