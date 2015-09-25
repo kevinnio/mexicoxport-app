@@ -71,6 +71,16 @@ angular.module('mexicoxport', [
     }
   })
 
+  .state('app.noticia', {
+    url: '/noticias/:noticiaId',
+    views: {
+      menuContent: {
+        templateUrl: 'views/app/noticias/show.html',
+        controller: 'NoticiasCtrl'
+      }
+    }
+  })
+
   .state('app.ajustes', {
     url: "/ajustes",
     views: {
