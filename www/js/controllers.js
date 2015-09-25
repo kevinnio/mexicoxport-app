@@ -7,10 +7,10 @@ controllers.controller('NoticiasCtrl', function($scope, $http, $ionicLoading, Al
 
   $scope.refrescar = function() {
     AlmacenNoticias.vaciar();
-    $scope.cargarMas();
+    $scope.cargar();
   };
 
-  $scope.cargarMas = function() {
+  $scope.cargar = function() {
     $ionicLoading.show({
       template: 'Cargando noticias...'
     });
@@ -25,8 +25,19 @@ controllers.controller('NoticiasCtrl', function($scope, $http, $ionicLoading, Al
   };
 });
 
-controllers.controller('NoticiaCtrl', function($scope, $stateParams, AlmacenNoticias, $log) {
-  $scope.noticia = AlmacenNoticias.buscar($stateParams.noticiaId);
+controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoading, AlmacenNoticias, DescargarNoticiasService) {
+  if (AlmacenNoticias.noticias.length > 0) {
+    $scope.noticia = AlmacenNoticias.buscar($stateParams.noticiaId);
+  } else {
+    $ionicLoading.show();
+
+    DescargarNoticiasService.obtenerNoticias(AlmacenNoticias.ultimaNoticia(), function(noticias) {
+      AlmacenNoticias.agregar(noticias);
+      $scope.noticia = AlmacenNoticias.buscar($stateParams.noticiaId);
+
+      $ionicLoading.hide();
+    });
+  }
 });
 
 controllers.controller('AjustesCtrl', function($scope, $ionicActionSheet, $state) {
