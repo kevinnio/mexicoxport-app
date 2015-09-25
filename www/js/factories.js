@@ -223,6 +223,10 @@ angular.module('mexicoxport.factories', [])
 
       ultimaNoticia: function() {
         return this.noticias[this.noticias.length - 1];
+      },
+
+      vaciar: function() {
+        this.noticias = [];
       }
     };
 })
