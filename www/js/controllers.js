@@ -7,6 +7,11 @@ angular.module('mexicoxport.controllers', [])
 .controller('NoticiasCtrl', function($scope, $http, $ionicLoading, AlmacenNoticias) {
   $scope.noticias = AlmacenNoticias.noticias;
 
+  $scope.refrescar = function() {
+    AlmacenNoticias.vaciar();
+    $scope.cargarMas();
+  };
+
   $scope.cargarMas = function() {
     $ionicLoading.show({
       template: 'Cargando noticias...'
@@ -20,6 +25,7 @@ angular.module('mexicoxport.controllers', [])
       AlmacenNoticias.agregar(noticias);
 
       $ionicLoading.hide();
+      $scope.$broadcast('scroll.refreshComplete');
       $scope.$broadcast('scroll.infiniteScrollComplete');
     });
   };
