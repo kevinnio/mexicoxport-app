@@ -2,8 +2,11 @@
   <ion-nav-title>
     <span>{{ noticia.Titulo }}</span>
   </ion-nav-title>
+
   <ion-content>
-    <p class="resumen" ng-bind-html="noticia.Resumen | rawHtml"></p>
-    <p ng-bind-html="noticia.Cuerpo | rawHtml"></p>
+    <div class="noticia-cuerpo">
+      <p class="resumen" ng-bind-html="noticia.Resumen | rawHtml"></p>
+      <p ng-bind-html="noticia.Cuerpo | rawHtml"></p>
+    </div>
   </ion-content>
 </ion-view>
