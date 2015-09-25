@@ -1,10 +1,8 @@
-angular.module('mexicoxport.controllers', [])
+var controllers = angular.module('mexicoxport.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicConfig) {
+controllers.controller('AppCtrl', function($scope, $ionicConfig) {});
 
-})
-
-.controller('NoticiasCtrl', function($scope, $http, $ionicLoading, AlmacenNoticias) {
+controllers.controller('NoticiasCtrl', function($scope, $http, $ionicLoading, AlmacenNoticias, DescargarNoticiasService) {
   $scope.noticias = AlmacenNoticias.noticias;
 
   $scope.refrescar = function() {
@@ -17,11 +15,7 @@ angular.module('mexicoxport.controllers', [])
       template: 'Cargando noticias...'
     });
 
-    var url = 'http://mexicoxport.com/api/noticias.php';
-    var ultimaNoticia = AlmacenNoticias.ultimaNoticia();
-    if (ultimaNoticia != undefined) url += '?noticia_id=' + ultimaNoticia.idNoticia;
-
-    $http.get(url).success(function(noticias) {
+    DescargarNoticiasService.obtenerNoticias(AlmacenNoticias.ultimaNoticia(), function(noticias) {
       AlmacenNoticias.agregar(noticias);
 
       $ionicLoading.hide();
@@ -29,9 +23,13 @@ angular.module('mexicoxport.controllers', [])
       $scope.$broadcast('scroll.infiniteScrollComplete');
     });
   };
-})
+});
 
-.controller('AjustesCtrl', function($scope, $ionicActionSheet, $state) {
+controllers.controller('NoticiaCtrl', function($scope, $stateParams, AlmacenNoticias, $log) {
+  $scope.noticia = AlmacenNoticias.buscar($stateParams.noticiaId);
+});
+
+controllers.controller('AjustesCtrl', function($scope, $ionicActionSheet, $state) {
   $scope.airplaneMode = true;
   $scope.wifi = false;
   $scope.bluetooth = true;
@@ -42,6 +40,4 @@ angular.module('mexicoxport.controllers', [])
   $scope.checkOpt3 = false;
 
   $scope.radioChoice = 'B';
-})
-
-;
+});
