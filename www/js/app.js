@@ -76,7 +76,7 @@ angular.module('mexicoxport', [
     views: {
       menuContent: {
         templateUrl: 'views/app/noticias/show.html',
-        controller: 'NoticiasCtrl'
+        controller: 'NoticiaCtrl'
       }
     }
   })
