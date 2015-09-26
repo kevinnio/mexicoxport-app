@@ -78,15 +78,49 @@
       }
     }
   }
-
-  img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
 }
 
-.noticia-cuerpo {
-  padding: 0.5em;
-  text-align: justify;
+.noticia {
+  font-family: serif;
+  font-weight: bold;
+
+  .wrapper {
+    position: relative;
+
+    .titulo {
+      width: 90%;
+      min-height: 2em;
+
+      padding: 0.5em;
+
+      position: absolute;
+      bottom: 0;
+
+      font-weight: bolder;
+      text-transform: uppercase;
+      font-size: 1.3em;
+
+      color: white;
+      background: #008FD5;
+      opacity: 0.9;
+    }
+
+    .imagen {
+      height: 18em;
+      overflow-y: hidden;
+      box-shadow: 0 0 1.2em 0.5em #666;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  .cuerpo {
+    padding: 0.5em;
+    margin: 1em 0em !important;
+    text-align: justify;
+  }
+
 }
