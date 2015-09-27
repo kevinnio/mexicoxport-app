@@ -1,4 +1,4 @@
-var controllers = angular.module('mexicoxport.controllers', [])
+var controllers = angular.module('mexicoxport.controllers', []);
 
 controllers.controller('AppCtrl', function($scope, $ionicConfig) {});
 
