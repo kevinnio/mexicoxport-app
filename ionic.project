@@ -1,6 +1,6 @@
 {
   "name": "mexicoxport-app",
-  "app_id": "46286195",
+  "app_id": "",
   "gulpStartupTasks": [
     "sass",
     "templatecache",
