@@ -112,3 +112,19 @@ services.service('DescargarNoticiasService', function($http, $log) {
   };
 
 });
+
+services.service('DescargarCategoriasService', function($http, $log) {
+
+  this.obtenerCategorias = function(callback) {
+    $log.debug('Iniciando descarga de categorías.');
+
+    var url = 'http://mexicoxport.com/api/categorias.php';
+
+    $log.debug('Descargando categorías de ' + url + '...');
+    $http.get(url).success(function(categorias) {
+      $log.debug(categorias.length + ' categorias descargadas.');
+      if (callback !== null && callback !== undefined) callback(categorias);
+    });
+  };
+
+});
