@@ -16,7 +16,4 @@ for ($categorias = array(); $fila = mysqli_fetch_assoc($resultados);) {
   $categorias[] = $fila;
 }
 
-$json = json_encode(utf8_encode_all($categorias));
-header('Content-Type: application/json');
-header('Content-Length: ' . strlen($json));
-echo $json;
+enviarRespuesta($categorias);
