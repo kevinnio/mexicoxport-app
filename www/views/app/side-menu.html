@@ -15,7 +15,8 @@
     <ion-content>
       <ion-list>
         <ion-item nav-clear class="item-divider">Categorías</ion-item>
-        <ion-item nav-clear menu-close ng-repeat="categoria in categorias" href="#">
+        <ion-item nav-clear menu-close ng-repeat="categoria in categorias"
+                  ui-sref="app.categorias({categoriaId: categoria.idTematica})">
           <h2 class="menu-text">{{ categoria.Nombre }}</h2>
         </ion-item>
       </ion-list>
