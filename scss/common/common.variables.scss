@@ -8,7 +8,7 @@ $spinner-color: #FFFFFF;
 $multi-bg: darken(#666666, 30%);
 $overlay-bg: darken(#fcfcfc, 80%);
 
-$pre-img-ratios: ();
+$pre-img-ratios: ((4,3), (16,9));
 
 // App colors
 $top-bar-bg: $theme-color-2;

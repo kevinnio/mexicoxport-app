@@ -1,31 +1,46 @@
-angular.module('mexicoxport.controllers', [])
+var controllers = angular.module('mexicoxport.controllers', []);
 
-.controller('AppCtrl', function($scope, $ionicConfig) {
+controllers.controller('AppCtrl', function($scope, $ionicConfig) {});
 
-})
+controllers.controller('NoticiasCtrl', function($scope, $http, $ionicLoading, AlmacenNoticias, DescargarNoticiasService) {
+  $scope.noticias = AlmacenNoticias.noticias;
 
-.controller('NoticiasCtrl', function($scope, $http, $ionicLoading) {
-  $scope.noticias = [];
+  $scope.refrescar = function() {
+    AlmacenNoticias.vaciar();
+    $scope.cargar();
+  };
 
-  $scope.cargarMas = function() {
+  $scope.cargar = function() {
     $ionicLoading.show({
       template: 'Cargando noticias...'
     });
 
-    var url = 'http://mexicoxport.com/api/noticias.php';
-    var ultimaNoticia = $scope.noticias[$scope.noticias.length - 1];
-    if (ultimaNoticia) url += '?noticia_id=' + ultimaNoticia.idNoticia;
-
-    $http.get(url).success(function(noticias) {
-      $scope.noticias = $scope.noticias.concat(noticias);
+    DescargarNoticiasService.obtenerNoticias(AlmacenNoticias.ultimaNoticia(), function(noticias) {
+      AlmacenNoticias.agregar(noticias);
 
       $ionicLoading.hide();
+      $scope.$broadcast('scroll.refreshComplete');
       $scope.$broadcast('scroll.infiniteScrollComplete');
     });
   };
-})
+});
 
-.controller('AjustesCtrl', function($scope, $ionicActionSheet, $state) {
+controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoading, AlmacenNoticias, DescargarNoticiasService) {
+  if (AlmacenNoticias.noticias.length > 0) {
+    $scope.noticia = AlmacenNoticias.buscar($stateParams.noticiaId);
+  } else {
+    $ionicLoading.show();
+
+    DescargarNoticiasService.obtenerNoticias(AlmacenNoticias.ultimaNoticia(), function(noticias) {
+      AlmacenNoticias.agregar(noticias);
+      $scope.noticia = AlmacenNoticias.buscar($stateParams.noticiaId);
+
+      $ionicLoading.hide();
+    });
+  }
+});
+
+controllers.controller('AjustesCtrl', function($scope, $ionicActionSheet, $state) {
   $scope.airplaneMode = true;
   $scope.wifi = false;
   $scope.bluetooth = true;
@@ -36,6 +51,4 @@ angular.module('mexicoxport.controllers', [])
   $scope.checkOpt3 = false;
 
   $scope.radioChoice = 'B';
-})
-
-;
+});
