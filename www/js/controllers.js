@@ -1,6 +1,14 @@
 var controllers = angular.module('mexicoxport.controllers', []);
 
-controllers.controller('AppCtrl', function($scope, $ionicConfig) {});
+controllers.controller('AppCtrl', function($scope, AlmacenCategorias, DescargarCategoriasService) {
+  $scope.categorias = AlmacenCategorias.todas();
+
+  if ($scope.categorias.length <= 0) {
+    DescargarCategoriasService.obtenerCategorias(function(categorias) {
+      for (var i = 0; i < categorias.length; AlmacenCategorias.agregar(categorias[i++]));
+    });
+  }
+});
 
 controllers.controller('NoticiasCtrl', function($scope, $http, $ionicLoading, AlmacenNoticias, DescargarNoticiasService) {
   $scope.noticias = AlmacenNoticias.noticias;
