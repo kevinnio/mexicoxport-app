@@ -1,5 +1,19 @@
 var controllers = angular.module('mexicoxport.controllers', []);
 
+var descargarNoticias = function(scope, loading, almacen, noticiasService, cb) {
+  loading.show();
+
+  noticiasService.obtenerNoticias(almacen.ultimaNoticia(), function(noticias) {
+    almacen.agregar(noticias);
+    if (cb !== null && cb !== undefined) cb(noticias);
+
+    scope.$broadcast('scroll.refreshComplete');
+    scope.$broadcast('scroll.infiniteScrollComplete');
+
+    loading.hide();
+  });
+};
+
 controllers.controller('AppCtrl', function($scope, AlmacenCategorias, DescargarCategoriasService) {
   $scope.categorias = AlmacenCategorias.todas();
 
@@ -10,41 +24,42 @@ controllers.controller('AppCtrl', function($scope, AlmacenCategorias, DescargarC
   }
 });
 
-controllers.controller('NoticiasCtrl', function($scope, $http, $ionicLoading, AlmacenNoticias, DescargarNoticiasService) {
-  $scope.noticias = AlmacenNoticias.noticias;
+controllers.controller('NoticiasCtrl', function(scope, loading, almacen, noticiasService) {
+  scope.noticias = almacen.noticias;
 
-  $scope.refrescar = function() {
-    AlmacenNoticias.vaciar();
-    $scope.cargar();
+  scope.refrescar = function() {
+    almacen.vaciar();
+    scope.cargar();
   };
 
-  $scope.cargar = function() {
-    $ionicLoading.show({
-      template: 'Cargando noticias...'
-    });
-
-    DescargarNoticiasService.obtenerNoticias(AlmacenNoticias.ultimaNoticia(), function(noticias) {
-      AlmacenNoticias.agregar(noticias);
-
-      $ionicLoading.hide();
-      $scope.$broadcast('scroll.refreshComplete');
-      $scope.$broadcast('scroll.infiniteScrollComplete');
-    });
+  scope.cargar = function() {
+    descargarNoticias(scope, loading, almacen, noticiasService);
   };
 });
 
 controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoading, AlmacenNoticias, DescargarNoticiasService) {
-  if (AlmacenNoticias.noticias.length > 0) {
+  var mostrar = function() {
     $scope.noticia = AlmacenNoticias.buscar($stateParams.noticiaId);
+  }
+
+  if (AlmacenNoticias.noticias.length > 0) {
+    mostrar();
   } else {
-    $ionicLoading.show();
+    descargarNoticias($scope, $ionicLoading, AlmacenNoticias, DescargarNoticiasService, mostrar);
+  }
+});
 
-    DescargarNoticiasService.obtenerNoticias(AlmacenNoticias.ultimaNoticia(), function(noticias) {
-      AlmacenNoticias.agregar(noticias);
-      $scope.noticia = AlmacenNoticias.buscar($stateParams.noticiaId);
+controllers.controller('CategoriaCtrl', function($scope, $stateParams, $ionicLoading, AlmacenNoticias, DescargarNoticiasService) {
+  $scope.categoriaActual = $stateParams.categoriaId;
 
-      $ionicLoading.hide();
-    });
+  var mostrar = function() {
+    $scope.noticias = AlmacenNoticias.deCategoria($stateParams.categoriaId);
+  };
+
+  if (AlmacenNoticias.noticias.length > 0) {
+    mostrar();
+  } else {
+    descargarNoticias($scope, $ionicLoading, AlmacenNoticias, DescargarNoticiasService, mostrar);
   }
 });
 
