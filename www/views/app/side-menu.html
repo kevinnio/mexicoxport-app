@@ -11,18 +11,13 @@
     <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>
 
-  <ion-side-menu side="left" class="main-menu" expose-aside-when="large">
+  <ion-side-menu side="left" class="main-menu">
     <ion-content>
-      <ion-list id="listaCategorias">
-        <ion-item>Categorías</ion-item>
-      </ion-list>
-
-      <hr>
-
       <ion-list>
-        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.settings">
-          <i class="icon ion-gear-a"></i>
-          <h2 class="menu-text">Ajustes</h2>
+        <ion-item nav-clear class="item-divider">Categorías</ion-item>
+        <ion-item nav-clear menu-close ng-repeat="categoria in categorias"
+                  ui-sref="app.categorias({categoriaId: categoria.idTematica})">
+          <h2 class="menu-text">{{ categoria.Nombre }}</h2>
         </ion-item>
       </ion-list>
     </ion-content>

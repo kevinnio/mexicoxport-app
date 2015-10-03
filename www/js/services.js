@@ -102,12 +102,28 @@ services.service('DescargarNoticiasService', function($http, $log) {
     $log.debug('Iniciando descarga de noticias.');
 
     var url = 'http://mexicoxport.com/api/noticias.php';
-    if (ultimaNoticia !== null) url += '?noticia_id=' + ultimaNoticia.idNoticia;
+    if (ultimaNoticia !== undefined) url += '?noticia_id=' + ultimaNoticia.idNoticia;
 
     $log.debug('Descargando noticias de ' + url + '...');
     $http.get(url).success(function(noticias) {
       $log.debug(noticias.length + ' noticias descargadas.');
       callback(noticias);
+    });
+  };
+
+});
+
+services.service('DescargarCategoriasService', function($http, $log) {
+
+  this.obtenerCategorias = function(callback) {
+    $log.debug('Iniciando descarga de categorías.');
+
+    var url = 'http://mexicoxport.com/api/categorias.php';
+
+    $log.debug('Descargando categorías de ' + url + '...');
+    $http.get(url).success(function(categorias) {
+      $log.debug(categorias.length + ' categorias descargadas.');
+      if (callback !== null && callback !== undefined) callback(categorias);
     });
   };
 
