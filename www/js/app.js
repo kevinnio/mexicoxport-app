@@ -66,7 +66,7 @@ angular.module('mexicoxport', [
     views: {
       'menuContent': {
         templateUrl: "views/app/noticias/index.html",
-        controller: 'CategoriasCtrl'
+        controller: 'CategoriaCtrl'
       }
     }
   })

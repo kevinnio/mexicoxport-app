@@ -70,6 +70,16 @@ factories.factory('AlmacenNoticias', function() {
     vaciar: function() {
       delete this.noticias;
       this.noticias = [];
+    },
+
+    deCategoria: function(categoriaId) {
+      var noticias = [];
+
+      for (var i = 0; i < this.noticias.length; i++) {
+        if (this.noticias[i].idTematica == categoriaId) noticias.push(this.noticias[i]);
+      }
+
+      return noticias;
     }
   };
 });
