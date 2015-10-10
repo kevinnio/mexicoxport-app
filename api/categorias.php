@@ -10,10 +10,14 @@
 require_once '../mxport.php';
 require_once __DIR__.'/utilidades.php';
 
-$resultados = query('SELECT * FROM nw_tematica ORDER BY Nombre, Tag');
+$campos_categorias = array(
+  'id'     => 'idTematica',
+  'nombre' => 'Nombre',
+);
 
-for ($categorias = array(); $fila = mysqli_fetch_assoc($resultados);) {
-  $categorias[] = $fila;
-}
+$campos     = implode(', ', array_values($campos_categorias));
+$resultados = query("SELECT $campos FROM nw_tematica ORDER BY Nombre");
+for ($categorias = array(); $fila = mysqli_fetch_assoc($resultados); $categorias[] = $fila);
+$categorias = renombrar_campos($categorias, $campos_categorias);
 
 enviarRespuesta($categorias);
