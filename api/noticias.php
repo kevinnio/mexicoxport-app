@@ -50,7 +50,7 @@ function construir_consulta_para_noticias($parametros) {
 
   $consulta .= generar_restriccion_de_fecha($parametros);
 
-  $consulta .= ' ORDER BY FechaNoticia DESC';
+  $consulta .= ' ORDER BY FechaNoticia DESC, idNoticia DESC';
   $consulta .= ' LIMIT ' . $por_pagina;
 
   return $consulta;
