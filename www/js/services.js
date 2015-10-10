@@ -121,7 +121,7 @@ services.service('DescargarNoticiasService', function($http, $log) {
       $log.debug('Noticia obtenida.');
       callback(noticia);
     });
-  }
+  };
 
 });
 
