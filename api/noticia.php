@@ -24,7 +24,7 @@ $campos_de_noticias = array(
 extract($_GET);
 
 $campos    = implode(', ', array_values($campos_de_noticias));
-$resultado = query("SELECT $campos FROM noticias WHERE idNoticia = " . sanitizar($idNoticia));
+$resultado = query("SELECT $campos FROM noticias WHERE idNoticia = " . sanitizar($noticia_id));
 
 if ($resultado) {
   $noticia = renombrar_campos(array(mysqli_fetch_assoc($resultado)), $campos_de_noticias);
