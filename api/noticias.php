@@ -34,7 +34,7 @@ function obtener_parametros_de_peticion() {
 function construir_consulta_para_noticias($parametros) {
   extract($parametros);
 
-  $consulta = 'SELECT * FROM noticias WHERE 1=1 ';
+  $consulta = 'SELECT idNoticia, Titulo, Resumen, FechaNoticia, Imagen FROM noticias WHERE 1=1 ';
   if (isset($noticia_id))   $consulta .= " AND idNoticia  < $noticia_id";
   if (isset($categoria_id)) $consulta .= " AND idTematica = $categoria_id";
 
