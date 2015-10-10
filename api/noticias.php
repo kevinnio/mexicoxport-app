@@ -21,6 +21,12 @@ function obtener_noticias_en_json() {
   $consulta   = construir_consulta_para_noticias($parametros);
   $noticias   = renombrar_campos(obtener_noticias_de_la_bd($consulta), campos_de_noticias());
 
+  foreach ($noticias as &$noticia) {
+    $imagen_nombre = basename($noticia['imagen']);
+    $dir_imagen = trim(str_replace($imagen_nombre, '', $noticia['imagen']), '/');
+    $noticia['miniatura'] = "$dir_imagen/mcith/mcith_$imagen_nombre";
+  }
+
   enviarRespuesta($noticias);
 }
 
