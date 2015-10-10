@@ -1,19 +1,23 @@
-<ion-view hide-nav-bar="true" class="noticias-view">
-  <ion-content class="noticia">
+<ion-view class="noticias-view">
+  <ion-content class="noticia" ng-show="noticia">
     <div class="wrapper">
       <div class="titulo">
-        {{ noticia.Titulo }}
+        {{ noticia.titulo }}
       </div>
 
       <div class="imagen">
         <pre-img ratio="_4_3">
-          <img ng-src="{{ noticia.Imagen }}" spinner-on-load>
+          <img ng-src="{{ noticia.imagen }}" spinner-on-load>
         </pre-img>
       </div>
     </div>
 
     <div class="card cuerpo">
-      <p ng-bind-html="noticia.Cuerpo | rawHtml"></p>
+      <p ng-bind-html="noticia.cuerpo | rawHtml"></p>
+      <div class="small-text">
+        <strong>Publicada el: </strong>{{ noticia.fecha | date:"dd 'de' MMMM 'de' yyyy" }}<br>
+        <strong>Fuente: </strong>{{ noticia.fuente }}
+      </div>
     </div>
   </ion-content>
 </ion-view>

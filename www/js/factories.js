@@ -49,7 +49,7 @@ factories.factory('AlmacenNoticias', function() {
 
     buscar: function(id) {
       for (var i = 0; i < this.noticias.length; i++) {
-        if (this.noticias[i].idNoticia == id) return this.noticias[i];
+        if (this.noticias[i].id == id) return this.noticias[i];
       }
 
       return null;
@@ -70,6 +70,16 @@ factories.factory('AlmacenNoticias', function() {
     vaciar: function() {
       delete this.noticias;
       this.noticias = [];
+    },
+
+    deCategoria: function(categoriaId) {
+      var noticias = [];
+
+      for (var i = 0; i < this.noticias.length; i++) {
+        if (this.noticias[i].id == categoriaId) noticias.push(this.noticias[i]);
+      }
+
+      return noticias;
     }
   };
 });
@@ -88,7 +98,7 @@ factories.factory('AlmacenCategorias', function() {
 
     buscar: function(id) {
       for (var i = 0; i < categorias.length; i++) {
-        if (categorias[i].idTematica == id) return categorias[i];
+        if (categorias[i].id == id) return categorias[i];
       }
     }
   };

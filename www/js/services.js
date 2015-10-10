@@ -98,16 +98,28 @@ services.service('PushNotificationsService', function ($rootScope, $cordovaPush,
 
 services.service('DescargarNoticiasService', function($http, $log) {
 
-  this.obtenerNoticias = function(ultimaNoticia, callback) {
+  this.obtenerNoticias = function(ultimaNoticia, categoriaId, callback) {
     $log.debug('Iniciando descarga de noticias.');
 
-    var url = 'http://mexicoxport.com/api/noticias.php';
-    if (ultimaNoticia !== undefined) url += '?noticia_id=' + ultimaNoticia.idNoticia;
-
-    $log.debug('Descargando noticias de ' + url + '...');
-    $http.get(url).success(function(noticias) {
+    $log.debug('Descargando noticias...');
+    $http({
+      url: 'http://mexicoxport.com/api/noticias.php',
+      method: 'GET',
+      params: {noticia_id:   ultimaNoticia && ultimaNoticia.id,
+               categoria_id: categoriaId}
+    }).success(function(noticias) {
       $log.debug(noticias.length + ' noticias descargadas.');
       callback(noticias);
+    });
+  };
+
+  this.obtenerNoticia = function(id, callback) {
+    $log.debug('Obteniendo noticia con id ' + id + '...');
+
+    var url = 'http://mexicoxport.com/api/noticia.php?noticia_id=' + id;
+    $http.get(url).success(function(noticia) {
+      $log.debug('Noticia obtenida.');
+      callback(noticia);
     });
   };
 
