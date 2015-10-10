@@ -61,3 +61,26 @@ function enviarRespuesta($objeto) {
 
   echo $json;
 }
+
+/**
+ * Renombra los campos de filas recién obtenidas de la base de datos según la definición de
+ * pares propiedad-campo pasados como segundo parámetro.
+ *
+ * @param array $filas
+ * @param array $campos
+ *
+ * @return array
+ */
+function renombrar_campos($filas, $campos) {
+  $nuevas_filas = array();
+
+  foreach ($filas as $fila) {
+    $nueva_fila = array();
+    foreach ($campos as $propiedad => $campo) {
+      $nueva_fila[$propiedad] = $fila[$campo];
+    }
+    $nuevas_filas[] = $nueva_fila;
+  }
+
+  return $nuevas_filas;
+}

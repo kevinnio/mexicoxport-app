@@ -19,9 +19,18 @@ require_once __DIR__.'/utilidades.php';
 function obtener_noticias_en_json() {
   $parametros = obtener_parametros_de_peticion();
   $consulta   = construir_consulta_para_noticias($parametros);
-  $noticias   = obtener_noticias_de_la_bd($consulta);
+  $noticias   = renombrar_campos(obtener_noticias_de_la_bd($consulta), campos_de_noticias());
 
   enviarRespuesta($noticias);
+}
+
+function campos_de_noticias() {
+  return array('id'      => 'idNoticia',
+               'titulo'  => 'Titulo',
+               'resumen' => 'Resumen',
+               'imagen'  => 'Imagen',
+               'vistas'  => 'Views',
+               'fecha'   => 'FechaNoticia');
 }
 
 function obtener_parametros_de_peticion() {
@@ -34,7 +43,7 @@ function obtener_parametros_de_peticion() {
 function construir_consulta_para_noticias($parametros) {
   extract($parametros);
 
-  $campos = 'idNoticia, Titulo, Resumen, FechaNoticia, Imagen, Views';
+  $campos = implode(', ', array_values(campos_de_noticias()));
   $consulta = "SELECT $campos FROM noticias WHERE 1=1 ";
   if (isset($noticia_id))   $consulta .= " AND idNoticia  < $noticia_id";
   if (isset($categoria_id)) $consulta .= " AND idTematica = $categoria_id";
