@@ -111,6 +111,16 @@ services.service('DescargarNoticiasService', function($http, $log) {
     });
   };
 
+  this.obtenerNoticia = function(id, callback) {
+    $log.debug('Obteniendo noticia con id ' + id + '...');
+
+    var url = 'http://mexicoxport.com/api/noticia.php?idNoticia=' + id;
+    $http.get(url).success(function(noticia) {
+      $log.debug('Noticia obtenida.');
+      callback(noticia);
+    });
+  }
+
 });
 
 services.service('DescargarCategoriasService', function($http, $log) {
