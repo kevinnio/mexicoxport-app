@@ -4,7 +4,7 @@
 
   .entry-time {
     * {
-      color: #CCC;
+      color: $entry-time-color;
       font-size: 0.8em;
     }
   }
@@ -47,6 +47,8 @@
       {
         font-size: inherit !important;
       }
+
+      padding-bottom: 0.6em;
     }
 
     .entry-actions
