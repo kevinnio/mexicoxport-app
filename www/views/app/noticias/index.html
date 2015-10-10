@@ -1,6 +1,6 @@
 <ion-view class="noticias-view">
   <ion-nav-title>
-    <span>{{ categoria.nombre }}</span>
+    <span>{{ categoriaActual.nombre }}</span>
   </ion-nav-title>
   <ion-content>
     <ion-refresher pulling-text="Jala para recargar..." on-refresh="refrescar()"></ion-refresher>
@@ -27,7 +27,7 @@
           </div>
         </div>
       </div>
-      <ion-infinite-scroll on-infinite="cargar()" distance="2%"></ion-infinite-scroll>
+      <ion-infinite-scroll on-infinite="cargar()" distance="1%"></ion-infinite-scroll>
     </div>
   </ion-content>
 </ion-view>
