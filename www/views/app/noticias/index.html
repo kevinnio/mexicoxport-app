@@ -1,6 +1,6 @@
 <ion-view class="noticias-view">
   <ion-nav-title>
-    <span>{{ categoriaActual.nombre }}</span>
+    <img id="mainLogo" src="/img/logo.png">
   </ion-nav-title>
   <ion-content>
     <ion-refresher pulling-text="Jala para recargar..." on-refresh="refrescar()"></ion-refresher>
@@ -9,7 +9,7 @@
       <div ng-repeat="entry in noticias" class="list card entry-item">
         <div class="entry-heading item item-text-wrap">
           <h2 class="entry-title" ng-bind-html="entry.titulo | rawHtml"></h2>
-          <p class="entry-author">
+          <p class="entry-title">
             Publicada el <span>{{ entry.fecha | date:"dd 'de' MMMM 'de' yyyy" }}</span>
           </p>
         </div>
