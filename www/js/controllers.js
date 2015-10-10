@@ -44,16 +44,13 @@ controllers.controller('NoticiasCtrl', function($scope, $ionicLoading, Descargar
   };
 });
 
-controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoading, AlmacenNoticias, DescargarNoticiasService) {
-  var mostrar = function() {
-    $scope.noticia = AlmacenNoticias.buscar($stateParams.id);
-  }
+controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoading, DescargarNoticiasService) {
+  $ionicLoading.show();
 
-  if (AlmacenNoticias.noticias.length > 0) {
-    mostrar();
-  } else {
-    descargarNoticias($scope, $ionicLoading, AlmacenNoticias, DescargarNoticiasService, mostrar);
-  }
+  DescargarNoticiasService.obtenerNoticia($stateParams.id, function(noticia) {
+    $scope.noticia = noticia;
+    $ionicLoading.hide();
+  });
 });
 
 controllers.controller('CategoriaCtrl', function($scope, $stateParams, $ionicLoading, AlmacenNoticias, DescargarNoticiasService) {

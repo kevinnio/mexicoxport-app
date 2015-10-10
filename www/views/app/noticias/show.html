@@ -2,18 +2,18 @@
   <ion-content class="noticia">
     <div class="wrapper">
       <div class="titulo">
-        {{ noticia.Titulo }}
+        {{ noticia.titulo }}
       </div>
 
       <div class="imagen">
         <pre-img ratio="_4_3">
-          <img ng-src="{{ noticia.Imagen }}" spinner-on-load>
+          <img ng-src="{{ noticia.imagen }}" spinner-on-load>
         </pre-img>
       </div>
     </div>
 
     <div class="card cuerpo">
-      <p ng-bind-html="noticia.Cuerpo | rawHtml"></p>
+      <p ng-bind-html="noticia.cuerpo | rawHtml"></p>
     </div>
   </ion-content>
 </ion-view>
