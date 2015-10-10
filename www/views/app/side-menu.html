@@ -17,7 +17,7 @@
         <ion-item nav-clear class="item-divider">Categorías</ion-item>
         <ion-item nav-clear menu-close ng-repeat="categoria in categorias"
                   ng-class="{ active: categoriaActual == categoria.id }"
-                  ui-sref="app.categorias({categoriaId: categoria.id})">
+                  ui-sref="app.categorias({id: categoria.id})">
           <h2 class="menu-text">{{ categoria.nombre }}</h2>
         </ion-item>
       </ion-list>

@@ -1,19 +1,5 @@
 var controllers = angular.module('mexicoxport.controllers', []);
 
-var descargarNoticias = function(scope, loading, noticiasService, ultimaNoticia, cb) {
-  loading.show();
-
-  noticiasService.obtenerNoticias(ultimaNoticia, function(noticias) {
-    scope.noticias = scope.noticias.concat(noticias);
-    if (cb !== null && cb !== undefined) cb(noticias);
-
-    scope.$broadcast('scroll.refreshComplete');
-    scope.$broadcast('scroll.infiniteScrollComplete');
-
-    loading.hide();
-  });
-};
-
 controllers.controller('AppCtrl', function($scope, AlmacenCategorias, DescargarCategoriasService) {
   $scope.categorias = AlmacenCategorias.todas();
 
@@ -33,14 +19,23 @@ controllers.controller('NoticiasCtrl', function($scope, $ionicLoading, Descargar
   };
 
   $scope.cargar = function() {
+    var ultimaNoticia = $scope.obtenerUltimaNoticia();
+    DescargarNoticiasService.obtenerNoticias(ultimaNoticia, null, function(noticias) {
+      $scope.noticias = $scope.noticias.concat(noticias);
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    });
+  };
+
+  $scope.obtenerUltimaNoticia = function() {
     var ultimaNoticia;
+
     if ($scope.noticias.length > 0) {
       ultimaNoticia = $scope.noticias[$scope.noticias.length - 1];
     } else {
       ultimaNoticia = null;
     }
 
-    descargarNoticias($scope, $ionicLoading, DescargarNoticiasService, ultimaNoticia);
+    return ultimaNoticia;
   };
 });
 
@@ -53,18 +48,19 @@ controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoadi
   });
 });
 
-controllers.controller('CategoriaCtrl', function($scope, $stateParams, $ionicLoading, AlmacenNoticias, DescargarNoticiasService) {
-  $scope.categoriaActual = $stateParams.categoriaId;
+controllers.controller('CategoriaCtrl', function($controller, $scope, $stateParams, AlmacenCategorias, DescargarNoticiasService) {
+  $controller('NoticiasCtrl', {$scope: $scope});
 
-  var mostrar = function() {
-    $scope.noticias = AlmacenNoticias.deCategoria($stateParams.categoriaId);
+  $scope.categoria = AlmacenCategorias.buscar($stateParams.id);
+
+  $scope.cargar = function() {
+    var ultimaNoticia = $scope.obtenerUltimaNoticia();
+
+    DescargarNoticiasService.obtenerNoticias(ultimaNoticia, $stateParams.id, function(noticias) {
+      $scope.noticias = $scope.noticias.concat(noticias);
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    });
   };
-
-  if (AlmacenNoticias.noticias.length > 0) {
-    mostrar();
-  } else {
-    descargarNoticias($scope, $ionicLoading, AlmacenNoticias, DescargarNoticiasService, mostrar);
-  }
 });
 
 controllers.controller('AjustesCtrl', function($scope, $ionicActionSheet, $state) {
