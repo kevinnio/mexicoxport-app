@@ -1,10 +1,10 @@
 var controllers = angular.module('mexicoxport.controllers', []);
 
-var descargarNoticias = function(scope, loading, almacen, noticiasService, cb) {
+var descargarNoticias = function(scope, loading, noticiasService, ultimaNoticia, cb) {
   loading.show();
 
-  noticiasService.obtenerNoticias(almacen.ultimaNoticia(), function(noticias) {
-    almacen.agregar(noticias);
+  noticiasService.obtenerNoticias(ultimaNoticia, function(noticias) {
+    scope.noticias = scope.noticias.concat(noticias);
     if (cb !== null && cb !== undefined) cb(noticias);
 
     scope.$broadcast('scroll.refreshComplete');
@@ -24,22 +24,29 @@ controllers.controller('AppCtrl', function($scope, AlmacenCategorias, DescargarC
   }
 });
 
-controllers.controller('NoticiasCtrl', function(scope, loading, almacen, noticiasService) {
-  scope.noticias = almacen.noticias;
+controllers.controller('NoticiasCtrl', function($scope, $ionicLoading, DescargarNoticiasService) {
+  $scope.noticias = [];
 
-  scope.refrescar = function() {
-    almacen.vaciar();
-    scope.cargar();
+  $scope.refrescar = function() {
+    $scope.noticias = [];
+    $scope.cargar();
   };
 
-  scope.cargar = function() {
-    descargarNoticias(scope, loading, almacen, noticiasService);
+  $scope.cargar = function() {
+    var ultimaNoticia;
+    if ($scope.noticias.length > 0) {
+      ultimaNoticia = $scope.noticias[$scope.noticias.length - 1];
+    } else {
+      ultimaNoticia = null;
+    }
+
+    descargarNoticias($scope, $ionicLoading, DescargarNoticiasService, ultimaNoticia);
   };
 });
 
 controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoading, AlmacenNoticias, DescargarNoticiasService) {
   var mostrar = function() {
-    $scope.noticia = AlmacenNoticias.buscar($stateParams.noticiaId);
+    $scope.noticia = AlmacenNoticias.buscar($stateParams.id);
   }
 
   if (AlmacenNoticias.noticias.length > 0) {

@@ -49,7 +49,7 @@ factories.factory('AlmacenNoticias', function() {
 
     buscar: function(id) {
       for (var i = 0; i < this.noticias.length; i++) {
-        if (this.noticias[i].idNoticia == id) return this.noticias[i];
+        if (this.noticias[i].id == id) return this.noticias[i];
       }
 
       return null;

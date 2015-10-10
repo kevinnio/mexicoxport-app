@@ -8,19 +8,19 @@
     <div class="entries-list">
       <div ng-repeat="entry in noticias" class="list card entry-item">
         <div class="entry-heading item item-text-wrap">
-          <h2 class="entry-title" ng-bind-html="entry.Titulo | rawHtml"></h2>
+          <h2 class="entry-title" ng-bind-html="entry.titulo | rawHtml"></h2>
           <p class="entry-author">
-            Publicada el <span>{{ entry.FechaNoticia | date:"dd 'de' MMMM 'de' yyyy" }}</span>
+            Publicada el <span>{{ entry.fecha | date:"dd 'de' MMMM 'de' yyyy" }}</span>
           </p>
         </div>
         <div class="entry-content item item-text-wrap">
-          <p class="entry-excerpt" ng-bind-html="entry.Resumen | rawHtml"></p>
+          <p class="entry-excerpt" ng-bind-html="entry.resumen | rawHtml"></p>
           <div class="entry-actions row">
             <div class="actions col col-center col-66">
             </div>
             <div class="read-more col col-center col-33">
               <a class="button button-small button-block button-assertive"
-                 ui-sref="app.noticia( { noticiaId: entry.idNoticia } )">
+                 ui-sref="app.noticia( { id: entry.id } )">
                 Ver más
               </a>
             </div>

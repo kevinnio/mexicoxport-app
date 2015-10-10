@@ -102,7 +102,7 @@ services.service('DescargarNoticiasService', function($http, $log) {
     $log.debug('Iniciando descarga de noticias.');
 
     var url = 'http://mexicoxport.com/api/noticias.php';
-    if (ultimaNoticia !== undefined) url += '?noticia_id=' + ultimaNoticia.idNoticia;
+    if (ultimaNoticia !== null) url += '?noticia_id=' + ultimaNoticia.id;
 
     $log.debug('Descargando noticias de ' + url + '...');
     $http.get(url).success(function(noticias) {
