@@ -5,20 +5,18 @@
   <ion-content>
     <ion-refresher pulling-text="Jala para recargar..." on-refresh="refrescar()"></ion-refresher>
 
-    <div class="entries-list">
-      <div ng-repeat="noticia in noticias" class="list card entry-item"
-           ui-sref="app.noticia( { id: noticia.id } )">
-        <div class="entry-heading item item-text-wrap">
-          <h2 class="entry-title" ng-bind-html="noticia.titulo | rawHtml"></h2>
+    <div class="list">
+      <div ng-repeat="noticia in noticias" class="entry-item">
+        <a ui-sref="app.noticia( { id: noticia.id } )" class="item item-thumbnail-left item-text-wrap">
+          <img class="miniatura" ng-src="{{ noticia.miniatura }}">
+          <h2 ng-bind-html="noticia.titulo | rawHtml"></h2>
           <p class="entry-time">
             <i class="icon ion-clock"></i>
             <span am-time-ago="noticia.fecha + ' ' + noticia.hora"></span>
           </p>
-        </div>
-        <div class="entry-content item item-text-wrap">
-          <p class="entry-excerpt" ng-bind-html="noticia.resumen | rawHtml"></p>
-        </div>
+        </a>
       </div>
+
       <ion-infinite-scroll on-infinite="cargar()" distance="1%"></ion-infinite-scroll>
     </div>
   </ion-content>

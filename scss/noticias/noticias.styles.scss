@@ -87,6 +87,11 @@
       }
     }
   }
+
+  .miniatura {
+    width: 100% !important;
+    height: auto !important;
+  }
 }
 
 .noticia {
@@ -124,7 +129,7 @@
     }
   }
 
-  .cuerpo {
+  .cuerpo, .resumen {
     padding: 0.5em;
     margin: 1em 0 !important;
     text-align: justify;
