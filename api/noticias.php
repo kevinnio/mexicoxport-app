@@ -36,7 +36,8 @@ function campos_de_noticias() {
                'resumen' => 'Resumen',
                'imagen'  => 'Imagen',
                'vistas'  => 'Views',
-               'fecha'   => 'FechaNoticia');
+               'fecha'   => 'FechaNoticia',
+               'hora'    => 'time(FechaAlta)');
 }
 
 function obtener_parametros_de_peticion() {
@@ -56,7 +57,7 @@ function construir_consulta_para_noticias($parametros) {
 
   $consulta .= generar_restriccion_de_fecha($parametros);
 
-  $consulta .= ' ORDER BY FechaNoticia DESC, idNoticia DESC';
+  $consulta .= ' ORDER BY FechaNoticia DESC, time(FechaAlta) DESC, idNoticia DESC';
   $consulta .= ' LIMIT ' . $por_pagina;
 
   return $consulta;
