@@ -12,6 +12,10 @@
       </div>
     </div>
 
+    <div class="card resumen">
+      <p ng-bind-html="noticia.resumen | rawHtml"></p>
+    </div>
+
     <div class="card cuerpo">
       <p ng-bind-html="noticia.cuerpo | rawHtml"></p>
       <div class="small-text">
