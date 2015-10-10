@@ -11,7 +11,7 @@ controllers.controller('AppCtrl', function($scope, AlmacenCategorias, DescargarC
 });
 
 controllers.controller('NoticiasCtrl', function($scope, $ionicLoading, DescargarNoticiasService) {
-  $scope.categoriaActual = {nombre: 'Más recientes'}
+  $scope.categoriaActual = {nombre: 'Últimas noticias'};
   $scope.noticias = [];
 
   $scope.refrescar = function() {
