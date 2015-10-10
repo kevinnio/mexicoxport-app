@@ -14,9 +14,12 @@
   <ion-side-menu side="left" class="main-menu">
     <ion-content>
       <ion-list>
+        <ion-item nav-clear menu-close
+                  ui-sref="app.noticias">
+          <h2 class="menu-text">Más recientes</h2>
+        </ion-item>
         <ion-item nav-clear class="item-divider">Categorías</ion-item>
         <ion-item nav-clear menu-close ng-repeat="categoria in categorias"
-                  ng-class="{ active: categoriaActual == categoria.id }"
                   ui-sref="app.categorias({id: categoria.id})">
           <h2 class="menu-text">{{ categoria.nombre }}</h2>
         </ion-item>
