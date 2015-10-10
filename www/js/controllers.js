@@ -22,6 +22,7 @@ controllers.controller('NoticiasCtrl', function($scope, $ionicLoading, Descargar
     var ultimaNoticia = $scope.obtenerUltimaNoticia();
     DescargarNoticiasService.obtenerNoticias(ultimaNoticia, null, function(noticias) {
       $scope.noticias = $scope.noticias.concat(noticias);
+      $scope.$broadcast('scroll.refreshComplete');
       $scope.$broadcast('scroll.infiniteScrollComplete');
     });
   };
@@ -51,13 +52,14 @@ controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoadi
 controllers.controller('CategoriaCtrl', function($controller, $scope, $stateParams, AlmacenCategorias, DescargarNoticiasService) {
   $controller('NoticiasCtrl', {$scope: $scope});
 
-  $scope.categoria = AlmacenCategorias.buscar($stateParams.id);
+  $scope.categoriaActual = AlmacenCategorias.buscar($stateParams.id);
 
   $scope.cargar = function() {
     var ultimaNoticia = $scope.obtenerUltimaNoticia();
 
     DescargarNoticiasService.obtenerNoticias(ultimaNoticia, $stateParams.id, function(noticias) {
       $scope.noticias = $scope.noticias.concat(noticias);
+      $scope.$broadcast('scroll.refreshComplete');
       $scope.$broadcast('scroll.infiniteScrollComplete');
     });
   };
