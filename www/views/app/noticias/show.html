@@ -1,4 +1,4 @@
-<ion-view hide-nav-bar="true" class="noticias-view">
+<ion-view class="noticias-view">
   <ion-content class="noticia" ng-show="noticia">
     <div class="wrapper">
       <div class="titulo">
@@ -14,6 +14,10 @@
 
     <div class="card cuerpo">
       <p ng-bind-html="noticia.cuerpo | rawHtml"></p>
+      <div class="small-text">
+        <strong>Publicada el: </strong>{{ noticia.fecha | date:"dd 'de' MMMM 'de' yyyy" }}<br>
+        <strong>Fuente: </strong>{{ noticia.fuente }}
+      </div>
     </div>
   </ion-content>
 </ion-view>

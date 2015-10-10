@@ -81,7 +81,6 @@
 }
 
 .noticia {
-  font-weight: bold;
 
   .wrapper {
     position: relative;
@@ -107,7 +106,6 @@
     .imagen {
       height: 18em;
       overflow-y: hidden;
-      box-shadow: 0 0 1.2em 0.5em #666;
 
       img {
         width: 100%;
@@ -119,8 +117,12 @@
 
   .cuerpo {
     padding: 0.5em;
-    margin: 1em 0em !important;
+    margin: 1em 0 !important;
     text-align: justify;
+  }
+
+  .small-text {
+    font-size: smaller;
   }
 
 }
