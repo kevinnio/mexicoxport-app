@@ -21,7 +21,8 @@ angular.module('mexicoxport', [
   'youtube-embed'
 ])
 
-.run(function($ionicPlatform, PushNotificationsService, $rootScope, $ionicConfig, $timeout) {
+.run(function($ionicPlatform, PushNotificationsService, $rootScope, $ionicConfig, $timeout, amMoment) {
+  amMoment.changeLocale('es');
 
   $ionicPlatform.on("deviceready", function(){
     if(window.cordova && window.cordova.plugins.Keyboard) {

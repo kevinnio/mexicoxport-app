@@ -9,8 +9,9 @@
       <div ng-repeat="entry in noticias" class="list card entry-item">
         <div class="entry-heading item item-text-wrap">
           <h2 class="entry-title" ng-bind-html="entry.titulo | rawHtml"></h2>
-          <p class="entry-title">
-            Publicada el <span>{{ entry.fecha | date:"dd 'de' MMMM 'de' yyyy" }}</span>
+          <p class="entry-time">
+            <i class="icon ion-clock"></i>
+            <span am-time-ago="entry.fecha + ' ' + entry.hora"></span>
           </p>
         </div>
         <div class="entry-content item item-text-wrap">

@@ -2,6 +2,13 @@
 {
   background-color: $content-bg !important;
 
+  .entry-time {
+    * {
+      color: #CCC;
+      font-size: 0.8em;
+    }
+  }
+
   .entry-heading
   {
     padding-top: 8px;
