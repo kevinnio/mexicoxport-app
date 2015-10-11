@@ -1,6 +1,6 @@
 <?php
 
-require_once '../mxport.php';
+require_once __DIR__ . '/../mxport.php';
 
 /**
  * Prepara un dato recibido desde la temible Internet para ser introducido en la base de datos.

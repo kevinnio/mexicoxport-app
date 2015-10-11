@@ -14,7 +14,7 @@
  * @copyright Mexicoxport 2015
  */
 
-require_once __DIR__.'/utilidades.php';
+require_once __DIR__ . '/../utilidades.php';
 
 function obtener_noticias_en_json() {
   $parametros = obtener_parametros_de_peticion();

@@ -103,7 +103,7 @@ services.service('DescargarNoticiasService', function($http, $log) {
 
     $log.debug('Descargando noticias...');
     $http({
-      url: 'http://mexicoxport.com/api/noticias.php',
+      url: 'http://mexicoxport.com/api/noticias/index.php',
       method: 'GET',
       params: {noticia_id:   ultimaNoticia && ultimaNoticia.id,
                categoria_id: categoriaId}
@@ -116,8 +116,11 @@ services.service('DescargarNoticiasService', function($http, $log) {
   this.obtenerNoticia = function(id, callback) {
     $log.debug('Obteniendo noticia con id ' + id + '...');
 
-    var url = 'http://mexicoxport.com/api/noticia.php?noticia_id=' + id;
-    $http.get(url).success(function(noticia) {
+    $http({
+      url: 'http://mexicoxport.com/api/noticias/show.php',
+      method: 'GET',
+      params: {noticia_id: id}
+    }).success(function(noticia) {
       $log.debug('Noticia obtenida.');
       callback(noticia);
     });
@@ -130,7 +133,7 @@ services.service('DescargarCategoriasService', function($http, $log) {
   this.obtenerCategorias = function(callback) {
     $log.debug('Iniciando descarga de categorías.');
 
-    var url = 'http://mexicoxport.com/api/categorias.php';
+    var url = 'http://mexicoxport.com/api/categorias/index.php';
 
     $log.debug('Descargando categorías de ' + url + '...');
     $http.get(url).success(function(categorias) {

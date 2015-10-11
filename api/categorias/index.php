@@ -7,8 +7,7 @@
  * @copyright Mexicoxport 2015
  */
 
-require_once '../mxport.php';
-require_once __DIR__.'/utilidades.php';
+require_once __DIR__ . '/../utilidades.php';
 
 $campos_categorias = array(
   'id'     => 'idTematica',
