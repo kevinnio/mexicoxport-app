@@ -21,6 +21,12 @@ function obtener_noticias_en_json() {
   $consulta   = construir_consulta_para_noticias($parametros);
   $noticias   = renombrar_campos(obtener_noticias_de_la_bd($consulta), campos_de_noticias());
 
+  foreach ($noticias as &$noticia) {
+    $imagen_nombre = basename($noticia['imagen']);
+    $dir_imagen = trim(str_replace($imagen_nombre, '', $noticia['imagen']), '/');
+    $noticia['miniatura'] = "$dir_imagen/mcith/mcith_$imagen_nombre";
+  }
+
   enviarRespuesta($noticias);
 }
 
@@ -30,7 +36,8 @@ function campos_de_noticias() {
                'resumen' => 'Resumen',
                'imagen'  => 'Imagen',
                'vistas'  => 'Views',
-               'fecha'   => 'FechaNoticia');
+               'fecha'   => 'FechaNoticia',
+               'hora'    => 'time(FechaAlta)');
 }
 
 function obtener_parametros_de_peticion() {
@@ -50,7 +57,7 @@ function construir_consulta_para_noticias($parametros) {
 
   $consulta .= generar_restriccion_de_fecha($parametros);
 
-  $consulta .= ' ORDER BY FechaNoticia DESC, idNoticia DESC';
+  $consulta .= ' ORDER BY FechaNoticia DESC, time(FechaAlta) DESC, idNoticia DESC';
   $consulta .= ' LIMIT ' . $por_pagina;
 
   return $consulta;
