@@ -96,47 +96,41 @@
 
 .noticia {
 
-  .wrapper {
-    position: relative;
+  .titulo {
+    width: 100%;
+    min-height: 2em;
 
-    .titulo {
-      width: 90%;
-      min-height: 2em;
+    padding: 0.5em;
 
-      padding: 0.5em;
+    font-weight: bolder;
+    text-transform: uppercase;
+    font-size: 1.3em;
 
-      position: absolute;
-      bottom: 0;
+    color: white;
+    background: #008FD5;
+    opacity: 0.9;
+  }
 
-      font-weight: bolder;
-      text-transform: uppercase;
-      font-size: 1.3em;
+  .imagen {
+    height: 18em;
+    overflow-y: hidden;
 
-      color: white;
-      background: #008FD5;
-      opacity: 0.9;
-    }
-
-    .imagen {
-      height: 18em;
-      overflow-y: hidden;
-
-      img {
-        width: 100%;
-        height: auto;
-        z-index: -99;
-      }
+    img {
+      width: 100%;
+      height: auto;
+      z-index: -99;
     }
   }
 
-  .cuerpo, .resumen {
+  .cuerpo, .detalles {
     padding: 0.5em;
-    margin: 1em 0 !important;
+    margin: 0;
     text-align: justify;
   }
 
-  .small-text {
+  .detalles {
     font-size: smaller;
+    margin-top: 1em;
   }
 
 }
