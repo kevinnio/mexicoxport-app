@@ -33,9 +33,7 @@ function obtener_noticias_en_json() {
 function campos_de_noticias() {
   return array('id'      => 'idNoticia',
                'titulo'  => 'Titulo',
-               'resumen' => 'Resumen',
                'imagen'  => 'Imagen',
-               'vistas'  => 'Views',
                'fecha'   => 'FechaNoticia',
                'hora'    => 'time(FechaAlta)');
 }
