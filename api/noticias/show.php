@@ -18,6 +18,7 @@ $campos_de_noticias = array(
   'fuente'  => 'Fuente',
   'fecha'   => 'FechaNoticia',
   'vistas'  => 'Views',
+  'hora'    => 'time(FechaAlta)',
 );
 
 extract($_GET);
