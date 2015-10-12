@@ -35,7 +35,8 @@ function campos_de_noticias() {
                'titulo'  => 'Titulo',
                'imagen'  => 'Imagen',
                'fecha'   => 'FechaNoticia',
-               'hora'    => 'time(FechaAlta)');
+               'hora'    => 'time(FechaAlta)',
+               'vistas'  => 'Views');
 }
 
 function obtener_parametros_de_peticion() {
