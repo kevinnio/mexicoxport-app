@@ -46,6 +46,7 @@ function construir_consulta_para_noticias($parametros) {
   $campos = implode(', ', array_values(campos_de_noticias()));
   $consulta  = "SELECT $campos FROM noticias WHERE 1=1 ";
   $consulta .= generar_restriccion_de_fecha();
+  if (isset($parametros['noticia_id'])) $consulta .= ' AND idNoticia < '.$parametros['noticia_id'];
   $consulta .= ' ORDER BY Views DESC, FechaNoticia DESC, time(FechaAlta) DESC, idNoticia DESC';
   $consulta .= ' LIMIT '.$parametros['por_pagina'];
 
