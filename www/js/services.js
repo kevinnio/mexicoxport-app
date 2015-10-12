@@ -113,6 +113,19 @@ services.service('DescargarNoticiasService', function($http, $log) {
     });
   };
 
+  this.obtenerTop = function(ultimaNoticia, callback) {
+    $log.debug('Descargando top de noticias...');
+
+    $http({url: 'http://mexicoxport.com/api/noticias/top.php',
+           method: 'GET',
+           params: {noticia_id: ultimaNoticia && ultimaNoticia.id}})
+      .success(function(noticias) {
+        $log.debug('Top de noticias descargado.');
+        callback(noticias);
+      }
+    );
+  };
+
   this.obtenerNoticia = function(id, callback) {
     $log.debug('Obteniendo noticia con id ' + id + '...');
 

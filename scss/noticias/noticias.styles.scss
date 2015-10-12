@@ -2,9 +2,12 @@
 {
   background-color: $content-bg !important;
 
-  .entry-time {
+  .entry-data {
+    display: inline-block;
+    margin-right: 0.5em;
+
     * {
-      color: $entry-time-color;
+      color: $entry-data-color;
       font-size: 0.8em;
     }
   }

@@ -10,14 +10,19 @@
         <a ui-sref="app.noticia( { id: noticia.id } )" class="item item-thumbnail-left item-text-wrap">
           <img class="miniatura" ng-src="{{ noticia.miniatura }}">
           <h2 ng-bind-html="noticia.titulo | rawHtml"></h2>
-          <p class="entry-time">
+          <p class="entry-data">
             <i class="icon ion-clock"></i>
             <span am-time-ago="noticia.fecha + ' ' + noticia.hora"></span>
+          </p>
+          <p class="entry-data">
+            <i class="icon ion-eye"></i>
+            <span>{{ noticia.vistas | number }}</span>
           </p>
         </a>
       </div>
 
-      <ion-infinite-scroll on-infinite="cargar()" distance="1%"></ion-infinite-scroll>
+      <ion-infinite-scroll ng-if="infiniteScroll" on-infinite="cargar()" distance="1%">
+      </ion-infinite-scroll>
     </div>
   </ion-content>
 </ion-view>
