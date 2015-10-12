@@ -14,14 +14,14 @@
   <ion-side-menu side="left" class="main-menu">
     <ion-content>
       <ion-list>
-        <ion-item nav-clear menu-close
-                  ui-sref="app.noticias">
-          <h2 class="menu-text">Últimas noticias</h2>
+        <ion-item nav-clear menu-close ui-sref="app.noticias">
+          <h2 class="menu-text">Más recientes</h2>
         </ion-item>
-        <ion-item nav-clear menu-close
-                  ui-sref="app.top">
-          <h2 class="menu-text">Lo + visto</h2>
+        <ion-item nav-clear menu-close ui-sref="app.top">
+          <h2 class="menu-text">Lo más visto</h2>
         </ion-item>
+      </ion-list>
+      <ion-list>
         <ion-item nav-clear class="item-divider">Categorías</ion-item>
         <ion-item nav-clear menu-close ng-repeat="categoria in categorias"
                   ui-sref="app.categorias({id: categoria.id})">
