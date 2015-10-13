@@ -7,8 +7,7 @@
  * @copyright Mexicoxport 2015
  */
 
-require_once '../mxport.php';
-require_once __DIR__.'/utilidades.php';
+require_once __DIR__ . '/../utilidades.php';
 
 $campos_de_noticias = array(
   'id'      => 'idNoticia',
@@ -19,6 +18,7 @@ $campos_de_noticias = array(
   'fuente'  => 'Fuente',
   'fecha'   => 'FechaNoticia',
   'vistas'  => 'Views',
+  'hora'    => 'time(FechaAlta)',
 );
 
 extract($_GET);

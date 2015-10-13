@@ -14,7 +14,7 @@
  * @copyright Mexicoxport 2015
  */
 
-require_once __DIR__.'/utilidades.php';
+require_once __DIR__ . '/../utilidades.php';
 
 function obtener_noticias_en_json() {
   $parametros = obtener_parametros_de_peticion();
@@ -33,11 +33,10 @@ function obtener_noticias_en_json() {
 function campos_de_noticias() {
   return array('id'      => 'idNoticia',
                'titulo'  => 'Titulo',
-               'resumen' => 'Resumen',
                'imagen'  => 'Imagen',
-               'vistas'  => 'Views',
                'fecha'   => 'FechaNoticia',
-               'hora'    => 'time(FechaAlta)');
+               'hora'    => 'time(FechaAlta)',
+               'vistas'  => 'Views');
 }
 
 function obtener_parametros_de_peticion() {

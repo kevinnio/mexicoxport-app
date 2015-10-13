@@ -36,3 +36,10 @@ directives.directive('spinnerOnLoad', function() {
     }
   };
 });
+
+directives.directive('noticiaSmall', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'views/common/noticia-small.html'
+  };
+});

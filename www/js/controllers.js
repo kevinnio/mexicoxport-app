@@ -10,9 +10,9 @@ controllers.controller('AppCtrl', function($scope, AlmacenCategorias, DescargarC
   }
 });
 
-controllers.controller('NoticiasCtrl', function($scope, $ionicLoading, DescargarNoticiasService) {
-  $scope.categoriaActual = {nombre: 'Últimas noticias'};
+controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService) {
   $scope.noticias = [];
+  $scope.infiniteScroll = true;
 
   $scope.refrescar = function() {
     $scope.noticias = [];
@@ -22,10 +22,14 @@ controllers.controller('NoticiasCtrl', function($scope, $ionicLoading, Descargar
   $scope.cargar = function() {
     var ultimaNoticia = $scope.obtenerUltimaNoticia();
     DescargarNoticiasService.obtenerNoticias(ultimaNoticia, null, function(noticias) {
-      $scope.noticias = $scope.noticias.concat(noticias);
-      $scope.$broadcast('scroll.refreshComplete');
-      $scope.$broadcast('scroll.infiniteScrollComplete');
+      $scope.postCargar(noticias);
     });
+  };
+
+  $scope.postCargar = function(noticias) {
+    $scope.noticias = $scope.noticias.concat(noticias);
+    $scope.$broadcast('scroll.refreshComplete');
+    $scope.$broadcast('scroll.infiniteScrollComplete');
   };
 
   $scope.obtenerUltimaNoticia = function() {
@@ -50,20 +54,34 @@ controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoadi
   });
 });
 
-controllers.controller('CategoriaCtrl', function($controller, $scope, $stateParams, AlmacenCategorias, DescargarNoticiasService) {
-  $controller('NoticiasCtrl', {$scope: $scope});
-
-  $scope.categoriaActual = AlmacenCategorias.buscar($stateParams.id);
+controllers.controller('CategoriaCtrl', function($controller, $scope, $stateParams, DescargarNoticiasService) {
+  $controller('NoticiasCtrl', { $scope: $scope });
 
   $scope.cargar = function() {
     var ultimaNoticia = $scope.obtenerUltimaNoticia();
 
     DescargarNoticiasService.obtenerNoticias(ultimaNoticia, $stateParams.id, function(noticias) {
-      $scope.noticias = $scope.noticias.concat(noticias);
-      $scope.$broadcast('scroll.refreshComplete');
-      $scope.$broadcast('scroll.infiniteScrollComplete');
+      $scope.postCargar(noticias);
     });
   };
+});
+
+controllers.controller('TopCtrl', function($controller, $scope, $ionicLoading, DescargarNoticiasService) {
+  $controller('NoticiasCtrl', { $scope: $scope });
+
+  $scope.infiniteScroll = false;
+
+  $scope.cargar = function() {
+    $ionicLoading.show();
+
+    var ultimaNoticia = $scope.obtenerUltimaNoticia();
+    DescargarNoticiasService.obtenerTop(ultimaNoticia, function(noticias) {
+      $scope.postCargar(noticias);
+      $ionicLoading.hide();
+    });
+  };
+
+  $scope.cargar();
 });
 
 controllers.controller('AjustesCtrl', function($scope, $ionicActionSheet, $state) {
