@@ -1,0 +1,15 @@
+$feed-category-bg: $theme-color-3;
+$feed-category-color: #FFFFFF;
+
+//Feed entries
+$entry-heading-color: $theme-color-2;
+$entry-title-color: #FFFFFF;
+$entry-data-color: #AAA;
+
+$entry-excerpt-lines: 10;
+$entry-font-size: 14px;
+
+$feed-categories-img-ratio: 1 1;
+
+// Merge maps
+$pre-img-ratios: append($pre-img-ratios, $feed-categories-img-ratio);

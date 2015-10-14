@@ -1,4 +1,4 @@
-angular.module('your_app_name.filters', [])
+angular.module('mexicoxport.filters', [])
 
 .filter('rawHtml', function($sce){
   return function(val) {

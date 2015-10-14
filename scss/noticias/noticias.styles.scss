@@ -1,0 +1,143 @@
+.noticias-view
+{
+  background-color: $content-bg !important;
+
+  .entry-data {
+    display: inline-block;
+    margin-right: 0.5em;
+
+    * {
+      color: $entry-data-color;
+      font-size: 0.8em;
+    }
+  }
+
+  .entry-heading
+  {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background-color: darken($entry-heading-color, 10%);
+    border-color: #000;
+
+    .entry-title
+    {
+      color: $entry-title-color;
+    }
+
+    .entry-author
+    {
+      font-weight: 500;
+    }
+  }
+
+  .entry-content
+  {
+    padding-top: 8px;
+    padding-bottom: 0px;
+
+    .entry-excerpt
+    {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      @include display(flex);
+      @include flex-direction(column);
+      -webkit-line-clamp: $entry-excerpt-lines; /* number of lines to show */
+      line-height: $entry-font-size + 4;        /* fallback */
+      font-size: $entry-font-size;        /* fallback */
+      max-height: ($entry-font-size + 4) * $entry-excerpt-lines;       /* fallback */
+
+      *
+      {
+        font-size: inherit !important;
+      }
+
+      padding-bottom: 0.6em;
+    }
+
+    .entry-actions
+    {
+      padding: 10px 0px;
+
+      .col
+      {
+        padding:0px;
+      }
+
+      .actions
+      {
+        .button-icon
+        {
+          min-height: initial;
+          line-height: 28px;
+          padding: 0px;
+          vertical-align: middle;
+          margin-right: 10px;
+        }
+
+        .button-icon:before
+        {
+          font-size: 28px;
+          line-height: 28px;
+        }
+      }
+
+      .read-more
+      {
+        .button
+        {
+          margin:0px;
+        }
+      }
+    }
+  }
+
+  .miniatura {
+    width: 100% !important;
+    height: auto !important;
+  }
+}
+
+.noticia {
+
+  .titulo {
+    width: 100%;
+    min-height: 2em;
+
+    padding: 0.5em;
+
+    font-weight: bolder;
+    text-transform: uppercase;
+    font-size: 1.3em;
+
+    color: white;
+    background: #008FD5;
+    opacity: 0.9;
+  }
+
+  .imagen {
+    height: 18em;
+    overflow-y: hidden;
+
+    img {
+      width: 100%;
+      height: auto;
+      z-index: -99;
+    }
+  }
+
+  .cuerpo, .detalles {
+    padding: 0.5em;
+    margin: 0;
+    text-align: justify;
+  }
+
+  .detalles {
+    font-size: smaller;
+    margin-top: 1em;
+  }
+
+}
+
+#mainLogo {
+  padding-top: 0.5em;
+}
