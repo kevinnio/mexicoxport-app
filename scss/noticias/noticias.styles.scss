@@ -39,7 +39,6 @@
     {
       overflow: hidden;
       text-overflow: ellipsis;
-      @include display(flex);
       @include flex-direction(column);
       -webkit-line-clamp: $entry-excerpt-lines; /* number of lines to show */
       line-height: $entry-font-size + 4;        /* fallback */
