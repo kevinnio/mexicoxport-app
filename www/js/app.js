@@ -12,13 +12,7 @@ angular.module('mexicoxport', [
   'mexicoxport.factories',
   'mexicoxport.config',
   'mexicoxport.views',
-  'underscore',
-  'ngMap',
-  'ngResource',
-  'ngCordova',
-  'slugifier',
-  'ionic.contrib.ui.tinderCards',
-  'youtube-embed'
+	'ngCordova'
 ])
 
 .run(function($ionicPlatform, PushNotificationsService, $rootScope, $ionicConfig, $timeout, amMoment) {
