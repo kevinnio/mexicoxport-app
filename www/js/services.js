@@ -98,14 +98,14 @@ services.service('PushNotificationsService', function ($rootScope, $cordovaPush,
 
 services.service('DescargarNoticiasService', function($http, $log) {
 
-  this.obtenerNoticias = function(ultimaNoticia, categoriaId, callback) {
+  this.recientes = function(cantidadNoticias, categoriaId, callback) {
     $log.debug('Iniciando descarga de noticias.');
 
     $log.debug('Descargando noticias...');
     $http({
       url: 'http://mexicoxport.com/api/noticias/index.php',
       method: 'GET',
-      params: {noticia_id:   ultimaNoticia && ultimaNoticia.id,
+      params: {ultima: cantidadNoticias,
                categoria_id: categoriaId}
     }).success(function(noticias) {
       $log.debug(noticias.length + ' noticias descargadas.');
@@ -113,12 +113,11 @@ services.service('DescargarNoticiasService', function($http, $log) {
     });
   };
 
-  this.obtenerTop = function(ultimaNoticia, callback) {
+  this.top = function(callback) {
     $log.debug('Descargando top de noticias...');
 
     $http({url: 'http://mexicoxport.com/api/noticias/top.php',
-           method: 'GET',
-           params: {noticia_id: ultimaNoticia && ultimaNoticia.id}})
+           method: 'GET'})
       .success(function(noticias) {
         $log.debug('Top de noticias descargado.');
         callback(noticias);
@@ -126,7 +125,7 @@ services.service('DescargarNoticiasService', function($http, $log) {
     );
   };
 
-  this.obtenerNoticia = function(id, callback) {
+  this.noticia = function(id, callback) {
     $log.debug('Obteniendo noticia con id ' + id + '...');
 
     $http({
@@ -143,7 +142,7 @@ services.service('DescargarNoticiasService', function($http, $log) {
 
 services.service('DescargarCategoriasService', function($http, $log) {
 
-  this.obtenerCategorias = function(callback) {
+  this.categorias = function(callback) {
     $log.debug('Iniciando descarga de categorías.');
 
     var url = 'http://mexicoxport.com/api/categorias/index.php';

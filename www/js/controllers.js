@@ -4,7 +4,7 @@ controllers.controller('AppCtrl', function($scope, AlmacenCategorias, DescargarC
   $scope.categorias = AlmacenCategorias.todas();
 
   if ($scope.categorias.length <= 0) {
-    DescargarCategoriasService.obtenerCategorias(function(categorias) {
+    DescargarCategoriasService.categorias(function(categorias) {
       for (var i = 0; i < categorias.length; AlmacenCategorias.agregar(categorias[i++]));
     });
   }
@@ -20,8 +20,7 @@ controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService
   };
 
   $scope.cargar = function() {
-    var ultimaNoticia = $scope.obtenerUltimaNoticia();
-    DescargarNoticiasService.obtenerNoticias(ultimaNoticia, null, function(noticias) {
+    DescargarNoticiasService.recientes($scope.noticias.length, null, function(noticias) {
       $scope.postCargar(noticias);
     });
   };
@@ -48,7 +47,7 @@ controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService
 controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoading, DescargarNoticiasService) {
   $ionicLoading.show();
 
-  DescargarNoticiasService.obtenerNoticia($stateParams.id, function(noticia) {
+  DescargarNoticiasService.noticia($stateParams.id, function(noticia) {
     $scope.noticia = noticia;
     $ionicLoading.hide();
   });
@@ -58,9 +57,8 @@ controllers.controller('CategoriaCtrl', function($controller, $scope, $statePara
   $controller('NoticiasCtrl', { $scope: $scope });
 
   $scope.cargar = function() {
-    var ultimaNoticia = $scope.obtenerUltimaNoticia();
-
-    DescargarNoticiasService.obtenerNoticias(ultimaNoticia, $stateParams.id, function(noticias) {
+    var categoriaId = $stateParams.id;
+    DescargarNoticiasService.recientes($scope.noticias.length, categoriaId, function(noticias) {
       $scope.postCargar(noticias);
     });
   };
@@ -74,8 +72,7 @@ controllers.controller('TopCtrl', function($controller, $scope, $ionicLoading, D
   $scope.cargar = function() {
     $ionicLoading.show();
 
-    var ultimaNoticia = $scope.obtenerUltimaNoticia();
-    DescargarNoticiasService.obtenerTop(ultimaNoticia, function(noticias) {
+    DescargarNoticiasService.top(function(noticias) {
       $scope.postCargar(noticias);
       $ionicLoading.hide();
     });
