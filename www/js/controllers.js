@@ -80,16 +80,3 @@ controllers.controller('TopCtrl', function($controller, $scope, $ionicLoading, D
 
   $scope.cargar();
 });
-
-controllers.controller('AjustesCtrl', function($scope, $ionicActionSheet, $state) {
-  $scope.airplaneMode = true;
-  $scope.wifi = false;
-  $scope.bluetooth = true;
-  $scope.personalHotspot = true;
-
-  $scope.checkOpt1 = true;
-  $scope.checkOpt2 = true;
-  $scope.checkOpt3 = false;
-
-  $scope.radioChoice = 'B';
-});
