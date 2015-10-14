@@ -47,7 +47,7 @@ directives.directive('noticiaBig', function() {
   return {
     restrict: 'E',
     scope: {
-      noticia: '@'
+      noticia: '='
     },
     templateUrl: 'views/common/noticia-big.html'
   };
