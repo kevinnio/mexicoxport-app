@@ -1,7 +1,9 @@
-<a ui-sref="app.noticia( { id: noticia.id } )" class="card">
-  <div class="noticia-big">
-    <img ng-src="noticia.imagen">
-    <p class="titulo">{{ noticia.titulo }}</p>
-    <p class="resumen">{{ noticia.resumen }}</p>
+<a ui-sref="app.noticia( { id: noticia.id } )">
+  <div class="card noticia-big">
+    <div class="item item-text-wrap">
+      <img ng-src="{{ noticia.imagen }}">
+      <h3 ng-bind-html="noticia.titulo | rawHtml"></h3>
+      <p ng-bind-html="noticia.resumen | rawHtml"></p>
+    </div>
   </div>
 </a>
