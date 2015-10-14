@@ -1,18 +1,18 @@
 <?php
-
 /**
  * Devuelve noticias obtenidas de la base de datos de mexicoxport.com en formato JSON.
  * Las noticias se devuelven por páginas y ordenadas de más reciente a más antigua.
  *
- * @param int   $categoria_id  ID de la categoría de la que se quieren ver noticias (default: todas)
- * @param int   $noticia_id    ID de la última noticia de la página anterior
+ * @param int   $ultima        Última fila recibida (default: 0)
  * @param int   $por_pagina    Cantidad de noticias a devolver en una página (default: 20)
+ * @param int   $categoria_id  ID de la categoría de la que se quieren ver noticias (default: todas)
  * @param int   $año           Si esta presente, indica el año del que se desean consultar noticias
  * @param int   $mes           Si esta presente, indica el mes del que se desean consultar noticias
  *
  * @author Kevin Perez <kevindperezm@gmail.com>
  * @copyright Mexicoxport 2015
  */
+
 
 require_once __DIR__ . '/../utilidades.php';
 
@@ -40,7 +40,8 @@ function campos_de_noticias() {
 }
 
 function obtener_parametros_de_peticion() {
-  $parametros_por_defecto = array('por_pagina' => 20);
+  $parametros_por_defecto = array('por_pagina' => 20,
+                                  'ultima'     => 0);
   $parametros = array_map(function($parametro) { return sanitizar($parametro); }, $_GET);
 
   return array_merge($parametros_por_defecto, $parametros);
@@ -51,13 +52,12 @@ function construir_consulta_para_noticias($parametros) {
 
   $campos = implode(', ', array_values(campos_de_noticias()));
   $consulta = "SELECT $campos FROM noticias WHERE 1=1 ";
-  if (isset($noticia_id))   $consulta .= " AND idNoticia  < $noticia_id";
   if (isset($categoria_id)) $consulta .= " AND idTematica = $categoria_id";
 
   $consulta .= generar_restriccion_de_fecha($parametros);
 
   $consulta .= ' ORDER BY FechaNoticia DESC, time(FechaAlta) DESC, idNoticia DESC';
-  $consulta .= ' LIMIT ' . $por_pagina;
+  $consulta .= generar_limite($parametros['ultima'], $parametros['por_pagina']);
 
   return $consulta;
 }
@@ -86,6 +86,14 @@ function generar_restriccion_de_fecha($parametros) {
   }
 
   return $sql;
+}
+
+function generar_limite($ultima_fila, $por_pagina) {
+  if ($ultima_fila <= 0) {
+    return " LIMIT $por_pagina";
+  } else {
+    return " LIMIT $ultima_fila, $por_pagina";
+  }
 }
 
 obtener_noticias_en_json();
