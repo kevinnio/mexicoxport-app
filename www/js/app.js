@@ -86,16 +86,6 @@ angular.module('mexicoxport', [
     }
   })
 
-  .state('app.ajustes', {
-    url: "/ajustes",
-    views: {
-      'menuContent': {
-        templateUrl: "views/app/ajustes.html",
-        controller: 'AjustesCtrl'
-      }
-    }
-  })
-
 ;
 
   $urlRouterProvider.otherwise('/app/noticias');
