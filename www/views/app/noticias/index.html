@@ -5,8 +5,10 @@
   <ion-content>
     <ion-refresher pulling-text="Jala para recargar..." on-refresh="refrescar()"></ion-refresher>
 
+    <noticia-big noticia="noticias[0]"></noticia-big>
+
     <div class="list">
-      <div ng-repeat="noticia in noticias" class="entry-item">
+      <div ng-repeat="noticia in noticias" ng-if="$index > 0" class="entry-item">
         <noticia-small></noticia-small>
       </div>
 
