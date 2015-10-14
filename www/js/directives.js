@@ -21,7 +21,6 @@ directives.directive('preImg', function() {
   };
 });
 
-
 directives.directive('spinnerOnLoad', function() {
   return {
     restrict: 'A',
@@ -41,5 +40,15 @@ directives.directive('noticiaSmall', function() {
   return {
     restrict: 'E',
     templateUrl: 'views/common/noticia-small.html'
+  };
+});
+
+directives.directive('noticiaBig', function() {
+  return {
+    restrict: 'E',
+    scope: {
+      noticia: '@'
+    },
+    templateUrl: 'views/common/noticia-big.html'
   };
 });
