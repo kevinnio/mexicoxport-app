@@ -45,7 +45,9 @@ controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService
 });
 
 controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoading, DescargarNoticiasService) {
-  $ionicLoading.show();
+  $ionicLoading.show({
+    hideOnStateChange: true
+  });
 
   DescargarNoticiasService.noticia($stateParams.id, function(noticia) {
     $scope.noticia = noticia;
@@ -70,7 +72,9 @@ controllers.controller('TopCtrl', function($controller, $scope, $ionicLoading, D
   $scope.infiniteScroll = false;
 
   $scope.cargar = function() {
-    $ionicLoading.show();
+    $ionicLoading.show({
+      hideOnStateChange: true
+    });
 
     DescargarNoticiasService.top(function(noticias) {
       $scope.postCargar(noticias);
