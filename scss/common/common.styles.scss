@@ -42,6 +42,8 @@
 {
   position: relative;
   background-color: $pre-img-bg;
+  overflow: hidden;
+  margin-bottom: 0.5em;
 
 	// If the image is rounded
 	&.rounded-image
@@ -81,6 +83,10 @@
 	height: $spinner-size;
 	line-height: $spinner-size;
   color: $spinner-color;
+  top: 50%;
+  left: 50%;
+  margin-top: -($spinner-size / 2);
+  margin-left: -($spinner-size / 2);
 	@include animation(spin 2s infinite linear);
 }
 ion-spinner.spinner-on-load

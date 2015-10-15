@@ -52,3 +52,11 @@ directives.directive('noticiaBig', function() {
     templateUrl: 'views/common/noticia-big.html'
   };
 });
+
+directives.directive('noticiaDetails', function() {
+  return {
+    restrict: 'E',
+    require: '^noticias',
+    templateUrl: 'views/common/noticia-details.html'
+  }
+});
