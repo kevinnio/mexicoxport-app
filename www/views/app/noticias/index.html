@@ -5,14 +5,16 @@
   <ion-content>
     <ion-refresher pulling-text="Jala para recargar..." on-refresh="refrescar()"></ion-refresher>
 
-    <noticia-big noticia="noticias[0]"></noticia-big>
+    <noticia-big noticia="noticias[0]" ng-if="noticias.length > 0"></noticia-big>
 
     <div class="list">
       <div ng-repeat="noticia in noticias" ng-if="$index > 0" class="entry-item">
         <noticia-small></noticia-small>
       </div>
 
-      <ion-infinite-scroll ng-if="infiniteScroll" on-infinite="cargar()" distance="1%">
+      <ion-infinite-scroll ng-if="infiniteScroll"
+                           on-infinite="cargar()"
+                           distance="1%" >
       </ion-infinite-scroll>
     </div>
   </ion-content>
