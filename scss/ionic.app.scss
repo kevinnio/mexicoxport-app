@@ -6,8 +6,6 @@
 // Include Ionic override variables
 @import "scss/utils/override_variables";
 
-// Include Bourbon
-@import "www/lib/bourbon/app/assets/stylesheets/_bourbon";
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
@@ -18,10 +16,8 @@
 @import "scss/common/common.variables";
 @import "scss/sidemenu/side-menu.variables";
 @import "scss/noticias/noticias.variables";
-@import "scss/ajustes/ajustes.variables";
 
 // Include custom styles
 @import "scss/common/common.styles";
 @import "scss/sidemenu/side-menu.styles";
 @import "scss/noticias/noticias.styles";
-@import "scss/ajustes/ajustes.styles";

@@ -1,0 +1,12 @@
+<a ui-sref="app.noticia( { id: noticia.id } )">
+  <div class="card noticia-big">
+    <div class="item item-text-wrap entry-item">
+      <pre-img ratio="_16_9">
+        <img ng-src="{{ noticia.imagen }}" spinner-on-load>
+      </pre-img>
+      <h2 ng-bind-html="noticia.titulo | rawHtml"></h2>
+      <p ng-bind-html="noticia.resumen | rawHtml"></p>
+      <noticia-details></noticia-details>
+    </div>
+  </div>
+</a>

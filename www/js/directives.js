@@ -21,7 +21,6 @@ directives.directive('preImg', function() {
   };
 });
 
-
 directives.directive('spinnerOnLoad', function() {
   return {
     restrict: 'A',
@@ -42,4 +41,22 @@ directives.directive('noticiaSmall', function() {
     restrict: 'E',
     templateUrl: 'views/common/noticia-small.html'
   };
+});
+
+directives.directive('noticiaBig', function() {
+  return {
+    restrict: 'E',
+    scope: {
+      noticia: '='
+    },
+    templateUrl: 'views/common/noticia-big.html'
+  };
+});
+
+directives.directive('noticiaDetails', function() {
+  return {
+    restrict: 'E',
+    require: '^noticias',
+    templateUrl: 'views/common/noticia-details.html'
+  }
 });
