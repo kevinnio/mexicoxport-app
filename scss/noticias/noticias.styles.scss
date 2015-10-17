@@ -39,7 +39,6 @@
     {
       overflow: hidden;
       text-overflow: ellipsis;
-      @include display(flex);
       @include flex-direction(column);
       -webkit-line-clamp: $entry-excerpt-lines; /* number of lines to show */
       line-height: $entry-font-size + 4;        /* fallback */
@@ -140,4 +139,18 @@
 
 #mainLogo {
   padding-top: 0.5em;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.noticia-big {
+  margin: 0;
+  margin-bottom: 1em;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
 }

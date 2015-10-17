@@ -42,6 +42,8 @@
 {
   position: relative;
   background-color: $pre-img-bg;
+  overflow: hidden;
+  margin-bottom: 0.5em;
 
 	// If the image is rounded
 	&.rounded-image
@@ -73,14 +75,6 @@
 }
 
 // spinner-on-load
-@include keyframes(spin) {
-  from {
-    @include transform(rotate(0deg));
-  }
-  to {
-    @include transform(rotate(359deg));
-  }
-}
 .spinner-on-load
 {
 	position: absolute;
@@ -89,9 +83,11 @@
 	height: $spinner-size;
 	line-height: $spinner-size;
   color: $spinner-color;
+  top: 50%;
+  left: 50%;
+  margin-top: -($spinner-size / 2);
+  margin-left: -($spinner-size / 2);
 	@include animation(spin 2s infinite linear);
-	@include calc(top, "50% - #{($spinner-size/2)}");
-	@include calc(left, "50% - #{($spinner-size/2)}");
 }
 ion-spinner.spinner-on-load
 {
@@ -100,8 +96,6 @@ ion-spinner.spinner-on-load
 	width: $spinner-svg-size;
   height: $spinner-svg-size;
 	line-height: inherit;
-	@include calc(top, "50% - #{($spinner-svg-size/2)}");
-	@include calc(left, "50% - #{($spinner-svg-size/2)}");
 }
 
 // Multimedia background
