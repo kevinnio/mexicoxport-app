@@ -2,7 +2,7 @@ angular.module('underscore', []).factory('_', function() {
   return window._;
 });
 
-angular.module('mexicoxport', [
+var app = angular.module('mexicoxport', [
   'ionic',
   'angularMoment',
   'mexicoxport.controllers',
@@ -13,30 +13,35 @@ angular.module('mexicoxport', [
   'mexicoxport.config',
   'mexicoxport.views',
 	'ngCordova'
-])
+]);
 
-.run(function($ionicPlatform, PushNotificationsService, $rootScope, $ionicConfig, $timeout, amMoment) {
+app.run(function($ionicPlatform, PushNotificationsService, amMoment, $ionicPopup) {
   amMoment.changeLocale('es');
 
-  $ionicPlatform.on("deviceready", function(){
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-
-    if(window.StatusBar) {
-      StatusBar.styleDefault();
-    }
-
-    PushNotificationsService.register();
+  $ionicPlatform.on("deviceready", function() {
+    revisarConexionDeInternet($ionicPopup);
+    registrarOnDeviceReadyCallback(PushNotificationsService);
   });
 
-  $ionicPlatform.on("resume", function(){
-    PushNotificationsService.register();
+});
+
+function revisarConexionDeInternet($ionicPopup) {
+  /* Esto siempre devuelve TRUE en un navegador web */
+  if (window.Connection && navigator.connection.type != Connection.NONE) return;
+
+  $ionicPopup.confirm({
+    title: "No hay conexión a Internet",
+    content: "Esta aplicación requiere una conexión a Internet activa en tu dispositivo."
+  }).then(function(result) {
+    result || ionic.Platform.exitApp();
   });
-})
+}
 
+function registrarOnDeviceReadyCallback(PushNotificationsService) {
+  PushNotificationsService.register();
+}
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   $stateProvider
 
   .state('app', {
