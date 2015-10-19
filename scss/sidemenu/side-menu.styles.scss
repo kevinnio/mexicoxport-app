@@ -1,9 +1,9 @@
 ion-side-menu
 {
-	ion-content
-	{
-		background-color: darken($main-menu-bg, 12);
-	}
+
+  ion-content {
+	background: $theme-color-4;
+  }
 
 	ion-item.item
 	{
@@ -87,5 +87,15 @@ ion-side-menu
 		{
 			color: darken($main-menu-color, 40);
 		}
+	}
+
+	.item-divider {
+	  background: $theme-color-2;
+	  color: white !important;
+	}
+
+  	.logo {
+	  padding: .5em 0;
+	  text-align: center;
 	}
 }
