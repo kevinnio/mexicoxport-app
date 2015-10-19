@@ -42,16 +42,14 @@ function registrarOnDeviceReadyCallback(PushNotificationsService) {
 }
 
 app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
-  $stateProvider
-
-  .state('app', {
+  $stateProvider.state('app', {
     url: "/app",
     abstract: true,
     templateUrl: "views/app/side-menu.html",
     controller: 'AppCtrl'
-  })
+  });
 
-  .state('app.noticias', {
+  $stateProvider.state('app.noticias', {
     url: "/noticias",
     views: {
       'menuContent': {
@@ -59,9 +57,9 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         controller: 'NoticiasCtrl'
       }
     }
-  })
+  });
 
-  .state('app.categorias', {
+  $stateProvider.state('app.categorias', {
     url: "/categorias/:id",
     views: {
       'menuContent': {
@@ -69,9 +67,9 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         controller: 'CategoriaCtrl'
       }
     }
-  })
+  });
 
-  .state('app.noticia', {
+  $stateProvider.state('app.noticia', {
     url: '/noticias/:id',
     views: {
       menuContent: {
@@ -79,9 +77,9 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         controller: 'NoticiaCtrl'
       }
     }
-  })
+  });
 
-  .state('app.top', {
+  $stateProvider.state('app.top', {
     url: '/noticias/top',
     views: {
       menuContent: {
@@ -89,9 +87,16 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         controller: 'TopCtrl'
       }
     }
-  })
+  });
 
-;
+  $stateProvider.state('app.about', {
+    url: '/about',
+    views: {
+      menuContent: {
+        templateUrl: 'views/app/about.html'
+      }
+    }
+  });
 
   $urlRouterProvider.otherwise('/app/noticias');
 });
