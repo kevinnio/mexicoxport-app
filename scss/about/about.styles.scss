@@ -1,24 +1,47 @@
 .about {
   background: $theme-color-2;
 
-  .container {
-    padding-top: 5em;
-    width: 100%;
-    border: 1px dotted black;
+  .container, footer {
     text-align: center;
+  }
+
+  .container {
+    padding: 5em 0;
+    height: 85vh;
+    width: 100%;
 
     img {
       max-width: 12em;
       height: auto;
     }
 
-    p, span {
+    p, span, .icon, h3 {
       color: white;
-      text-shadow: 0 0.1em black;
+    }
+
+    .slogan {
+      font-style: italic;
     }
 
     .address {
       margin-top: 3em;
+    }
+
+    span {
+      display: block;
+      color: #EEE !important;
+    }
+
+    p {
+      margin-top: 1em;
+    }
+  }
+
+  footer {
+    img {
+      height: 14vh;
+      max-height: 70px;
+      width: auto;
     }
   }
 }
