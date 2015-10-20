@@ -7,7 +7,7 @@
 
   .container {
     padding: 5em 0;
-    height: 85vh;
+    height: 85%;
     width: 100%;
 
     img {
@@ -37,7 +37,9 @@
     }
 
     .networks {
+      margin-top: 1em;
       font-size: 3em;
+
       a {
         margin: 0 0.2em;
       }
@@ -45,10 +47,23 @@
   }
 
   footer {
+    position: relative;
+
     img {
-      height: 14vh;
-      max-height: 70px;
+      height: 5em;
       width: auto;
+    }
+
+    .version {
+      position: absolute;
+      width: 6em;
+      height: 2em;
+      left: 50%;
+      margin-left: -3em;
+      top: 50%;
+      margin-top: -1em;
+      font-size: 1em;
+      color: darkgray !important;
     }
   }
 }

@@ -1,6 +1,7 @@
 var controllers = angular.module('mexicoxport.controllers', []);
 
 controllers.controller('AppCtrl', function($scope, AlmacenCategorias, DescargarCategoriasService) {
+  $scope.version = '1.0';
   $scope.categorias = AlmacenCategorias.todas();
 
   if ($scope.categorias.length <= 0) {
