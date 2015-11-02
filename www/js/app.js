@@ -20,7 +20,7 @@ var app = angular.module('mexicoxport', [
 app.run(function($ionicPlatform, $ionicPush, amMoment, $ionicPopup) {
   amMoment.changeLocale('es');
 
-  $ionicPlatform.on("deviceready", function() {
+  $ionicPlatform.ready(function() {
     revisarConexionDeInternet($ionicPopup);
     registrarOnDeviceReadyCallback($ionicPush);
   });
@@ -41,12 +41,12 @@ function revisarConexionDeInternet($ionicPopup) {
 
 function registrarOnDeviceReadyCallback(pushService) {
   pushService.init({
-    "debug": true,
-    "onNotification": function (notification) {
+    debug: true,
+    onNotification: function (notification) {
       var payload = notification.payload;
       console.log(notification, payload);
     },
-    "onRegister": function (data) {
+    onRegister: function (data) {
       console.log(data.token);
     }
   });
