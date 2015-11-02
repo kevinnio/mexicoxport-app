@@ -21,23 +21,10 @@ app.run(function($ionicPlatform, $ionicPush, amMoment, $ionicPopup) {
   amMoment.changeLocale('es');
 
   $ionicPlatform.ready(function() {
-    revisarConexionDeInternet($ionicPopup);
     registrarOnDeviceReadyCallback($ionicPush);
   });
 
 });
-
-function revisarConexionDeInternet($ionicPopup) {
-  /* Esto siempre devuelve TRUE en un navegador web */
-  if (window.Connection && navigator.connection.type != Connection.NONE) return;
-
-  $ionicPopup.confirm({
-    title: "No hay conexión a Internet",
-    content: "Esta aplicación requiere una conexión a Internet activa en tu dispositivo."
-  }).then(function() {
-    ionic.Platform.exitApp();
-  });
-}
 
 function registrarOnDeviceReadyCallback(pushService) {
   pushService.init({
