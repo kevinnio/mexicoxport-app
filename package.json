@@ -47,7 +47,8 @@
     "nl.x-services.plugins.socialsharing",
     "com.synconset.imagepicker",
     "cordova-plugin-geolocation",
-    "cordova-plugin-splashscreen"
+    "cordova-plugin-splashscreen",
+    "phonegap-plugin-push"
   ],
   "cordovaPlatforms": [
     "ios",

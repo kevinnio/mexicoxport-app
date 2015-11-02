@@ -4,6 +4,8 @@ angular.module('underscore', []).factory('_', function() {
 
 var app = angular.module('mexicoxport', [
   'ionic',
+  'ionic.service.core',
+  'ionic.service.push',
   'angularMoment',
   'mexicoxport.controllers',
   'mexicoxport.directives',
