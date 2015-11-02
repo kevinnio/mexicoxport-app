@@ -58,5 +58,5 @@ directives.directive('noticiaDetails', function() {
     restrict: 'E',
     require: '^noticias',
     templateUrl: 'views/common/noticia-details.html'
-  }
+  };
 });

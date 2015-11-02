@@ -32,8 +32,8 @@ function revisarConexionDeInternet($ionicPopup) {
   $ionicPopup.confirm({
     title: "No hay conexión a Internet",
     content: "Esta aplicación requiere una conexión a Internet activa en tu dispositivo."
-  }).then(function(result) {
-    result || ionic.Platform.exitApp();
+  }).then(function() {
+    ionic.Platform.exitApp();
   });
 }
 
