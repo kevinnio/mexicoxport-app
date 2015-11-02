@@ -17,12 +17,12 @@ var app = angular.module('mexicoxport', [
 	'ngCordova'
 ]);
 
-app.run(function($ionicPlatform, PushNotificationsService, amMoment, $ionicPopup) {
+app.run(function($ionicPlatform, $ionicPush, amMoment, $ionicPopup) {
   amMoment.changeLocale('es');
 
   $ionicPlatform.on("deviceready", function() {
     revisarConexionDeInternet($ionicPopup);
-    registrarOnDeviceReadyCallback(PushNotificationsService);
+    registrarOnDeviceReadyCallback($ionicPush);
   });
 
 });
@@ -39,8 +39,19 @@ function revisarConexionDeInternet($ionicPopup) {
   });
 }
 
-function registrarOnDeviceReadyCallback(PushNotificationsService) {
-  PushNotificationsService.register();
+function registrarOnDeviceReadyCallback(pushService) {
+  pushService.init({
+    "debug": true,
+    "onNotification": function (notification) {
+      var payload = notification.payload;
+      console.log(notification, payload);
+    },
+    "onRegister": function (data) {
+      console.log(data.token);
+    }
+  });
+
+  pushService.register();
 }
 
 app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
