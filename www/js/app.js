@@ -15,13 +15,20 @@ var app = angular.module('mexicoxport', [
 	'ngCordova'
 ]);
 
-app.run(function($ionicPlatform, PushNotificationsService, amMoment, $ionicPopup) {
+app.run(function($ionicPlatform, PushNotificationsService, amMoment, $ionicPopup, GOOGLE_API_KEY, $log) {
   amMoment.changeLocale('es');
 
-  $ionicPlatform.on("deviceready", function() {
+  var setupCallback = function() {
     registrarOnDeviceReadyCallback(PushNotificationsService);
-  });
 
+    gapi.client.setApiKey(GOOGLE_API_KEY);
+    gapi.client.load('youtube-data', 'v3').then(function() {
+      $log.debug('Youtube Data API cargada.');
+    })
+  };
+
+  $ionicPlatform.ready(setupCallback);
+  $ionicPlatform.on("deviceready", setupCallback);
 });
 
 function registrarOnDeviceReadyCallback(PushNotificationsService) {
