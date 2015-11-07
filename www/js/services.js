@@ -155,3 +155,20 @@ services.service('DescargarCategoriasService', function($http, $log) {
   };
 
 });
+
+services.service('DescargarVideosService', function($log, GOOGLE_API_KEY, MEXICOXPORT_TV_PLAYLIST_ID) {
+  this.descargar = function(exitoCallback, errorCallback) {
+    gapi.client.setApiKey(GOOGLE_API_KEY);
+
+    $log.debug('Descargando información de videos de MexicoxportTv.');
+
+    gapi.client.request({
+      path:'/youtube/v3/playlistItems',
+      params: {
+        part: 'snippet',
+        playlistId: MEXICOXPORT_TV_PLAYLIST_ID,
+        maxResults: 25
+      }
+    }).then(exitoCallback, errorCallback);
+  };
+});
