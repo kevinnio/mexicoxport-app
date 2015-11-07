@@ -17,28 +17,34 @@ var app = angular.module('mexicoxport', [
 	'ngCordova'
 ]);
 
-app.run(function($ionicPlatform, $ionicPush, amMoment, $ionicPopup) {
+app.run(function($ionicPlatform, $ionicPush, amMoment, $ionicUser) {
   amMoment.changeLocale('es');
 
   $ionicPlatform.ready(function() {
-    registrarOnDeviceReadyCallback($ionicPush);
+    var user = $ionicUser.current();
+    if ( ! user.id) {
+      user.id = $ionicUser.anonymousId();
+    }
+    registrarOnDeviceReadyCallback($ionicPush, $ionicUser);
   });
 
 });
 
-function registrarOnDeviceReadyCallback(pushService) {
-  pushService.init({
+function registrarOnDeviceReadyCallback($ionicPush, $ionicUser) {
+  $ionicPush.init({
     debug: true,
     onNotification: function (notification) {
-      var payload = notification.payload;
-      console.log(notification, payload);
+      alert('Push received!');
     },
     onRegister: function (data) {
-      console.log(data.token);
+      var user = $ionicUser.current();
+      user.addPushToken(data.token);
+      user.save();
+      console.log(user.id);
     }
   });
 
-  pushService.register();
+  $ionicPush.register();
 }
 
 app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
