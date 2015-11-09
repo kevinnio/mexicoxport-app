@@ -1,8 +1,8 @@
-<div class="item item-thumbnail-left item-text-wrap">
+<a class="item item-thumbnail-left item-text-wrap" ng-href="https://youtube.com/watch?v={{ video.snippet.resourceId.videoId }}">
   <img ng-src="{{ video.snippet.thumbnails.default.url }}">
   <p>{{ video.snippet.title }}</p>
   <p class="entry-data">
     <i class="icon ion-play"></i>
     <span am-time-ago="video.snippet.publishedAt"></span>
   </p>
-</div>
+</a>
