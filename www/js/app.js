@@ -78,6 +78,16 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     }
   });
 
+  $stateProvider.state('app.tv', {
+    url: '/tv',
+    views: {
+      menuContent: {
+        templateUrl: 'views/app/tv/index.html',
+        controller: 'TvCtrl'
+      }
+    }
+  });
+
   $stateProvider.state('app.about', {
     url: '/about',
     views: {
