@@ -8,7 +8,8 @@
     <div class="list">
       <video-small ng-repeat="video in videos"></video-small>
 
-      <ion-infinite-scroll on-infinite="nextPage()"
+      <ion-infinite-scroll ng-if="canLoad()"
+                           on-infinite="nextPage()"
                            distance="3%">
       </ion-infinite-scroll>
     </div>

@@ -103,4 +103,9 @@ controllers.controller('TvCtrl', function($scope, TvService) {
     $scope.service.reset();
     $scope.nextPage();
   };
+
+  $scope.canLoad = function() {
+    return $scope.videos.length <= 0 ||
+           $scope.videos.length < $scope.service.getTotal();
+  };
 });
