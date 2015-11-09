@@ -85,3 +85,22 @@ controllers.controller('TopCtrl', function($controller, $scope, $ionicLoading, D
 
   $scope.cargar();
 });
+
+controllers.controller('TvCtrl', function($scope, TvService) {
+  $scope.videos = [];
+  $scope.service = TvService;
+
+  $scope.nextPage = function() {
+    $scope.service.nextPage(function(videos) {
+      $scope.videos = $scope.videos.concat(videos);
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+      $scope.$broadcast('scroll.refreshComplete');
+    });
+  };
+
+  $scope.refresh = function() {
+    $scope.videos = [];
+    $scope.service.reset();
+    $scope.nextPage();
+  };
+});
