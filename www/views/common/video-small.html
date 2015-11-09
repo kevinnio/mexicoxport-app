@@ -1,0 +1,8 @@
+<div class="item item-thumbnail-left item-text-wrap">
+  <img ng-src="{{ video.snippet.thumbnails.default.url }}">
+  <p>{{ video.snippet.title }}</p>
+  <p class="entry-data">
+    <i class="icon ion-play"></i>
+    <span am-time-ago="video.snippet.publishedAt"></span>
+  </p>
+</div>

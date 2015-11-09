@@ -60,3 +60,11 @@ directives.directive('noticiaDetails', function() {
     templateUrl: 'views/common/noticia-details.html'
   };
 });
+
+directives.directive('videoSmall', function() {
+  return {
+    restrict: 'E',
+    require: '^tv',
+    templateUrl: 'views/common/video-small.html'
+  };
+});
