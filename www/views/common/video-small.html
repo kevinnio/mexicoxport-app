@@ -1,6 +1,9 @@
 <a class="item item-thumbnail-left item-text-wrap" ng-href="https://youtube.com/watch?v={{ video.snippet.resourceId.videoId }}">
   <img ng-src="{{ video.snippet.thumbnails.default.url }}">
-  <p>{{ video.snippet.title }}</p>
+  <p>
+    <h3>{{ video.snippet.title }}</h3>
+    <h5>{{ video.snippet.description }}</h5>
+  </p>
   <p class="entry-data">
     <i class="icon ion-play"></i>
     <span am-time-ago="video.snippet.publishedAt"></span>
