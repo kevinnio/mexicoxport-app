@@ -158,6 +158,7 @@ services.service('DescargarCategoriasService', function($http, $log) {
 
 services.service('TvService', function($log, GOOGLE_API_KEY, MEXICOXPORT_TV_PLAYLIST_ID) {
   var nextPageToken = null;
+  var total = 0;
 
   this.nextPage = function(exitoCallback, errorCallback) {
     gapi.client.setApiKey(GOOGLE_API_KEY);
@@ -174,6 +175,7 @@ services.service('TvService', function($log, GOOGLE_API_KEY, MEXICOXPORT_TV_PLAY
       }
     }).then(function(response) {
       nextPageToken = response.result.nextPageToken;
+      total = response.result.pageInfo.totalResults;
       exitoCallback(response.result.items);
     }, errorCallback);
   };
@@ -181,4 +183,8 @@ services.service('TvService', function($log, GOOGLE_API_KEY, MEXICOXPORT_TV_PLAY
   this.reset = function() {
     nextPageToken = null;
   };
+
+  this.getTotal = function() {
+    return total;
+  }
 });
