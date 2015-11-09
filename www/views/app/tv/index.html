@@ -1,0 +1,16 @@
+<ion-view class="noticias-view">
+  <ion-nav-title>
+    <img id="mainLogo" ng-src="img/logo.png">
+  </ion-nav-title>
+  <ion-content>
+    <ion-refresher pulling-text="Jala para recargar..." on-refresh="refresh()"></ion-refresher>
+
+    <div class="list">
+      <video-small ng-repeat="video in videos"></video-small>
+
+      <ion-infinite-scroll on-infinite="nextPage()"
+                           distance="3%">
+      </ion-infinite-scroll>
+    </div>
+  </ion-content>
+</ion-view>
