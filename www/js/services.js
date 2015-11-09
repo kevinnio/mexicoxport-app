@@ -156,8 +156,10 @@ services.service('DescargarCategoriasService', function($http, $log) {
 
 });
 
-services.service('DescargarVideosService', function($log, GOOGLE_API_KEY, MEXICOXPORT_TV_PLAYLIST_ID) {
-  this.descargar = function(exitoCallback, errorCallback) {
+services.service('TvService', function($log, GOOGLE_API_KEY, MEXICOXPORT_TV_PLAYLIST_ID) {
+  var nextPageToken = null;
+
+  this.nextPage = function(exitoCallback, errorCallback) {
     gapi.client.setApiKey(GOOGLE_API_KEY);
 
     $log.debug('Descargando información de videos de MexicoxportTv.');
@@ -167,8 +169,16 @@ services.service('DescargarVideosService', function($log, GOOGLE_API_KEY, MEXICO
       params: {
         part: 'snippet',
         playlistId: MEXICOXPORT_TV_PLAYLIST_ID,
-        maxResults: 25
+        maxResults: 25,
+        pageToken: nextPageToken
       }
-    }).then(exitoCallback, errorCallback);
+    }).then(function(response) {
+      nextPageToken = response.result.nextPageToken;
+      exitoCallback(response.result.items);
+    }, errorCallback);
+  };
+
+  this.reset = function() {
+    nextPageToken = null;
   };
 });
