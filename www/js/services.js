@@ -186,5 +186,5 @@ services.service('TvService', function($log, GOOGLE_API_KEY, MEXICOXPORT_TV_PLAY
 
   this.getTotal = function() {
     return total;
-  }
+  };
 });
