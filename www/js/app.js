@@ -15,7 +15,8 @@ var app = angular.module('mexicoxport', [
 	'ngCordova'
 ]);
 
-app.run(function($ionicPlatform, PushNotificationsService, amMoment, $ionicPopup) {
+app.run(function($ionicPlatform, $rootScope, $state, PushNotificationsService, amMoment, $ionicPopup) {
+  $rootScope.$state = $state;
   amMoment.changeLocale('es');
 
   var setupCallback = function() {

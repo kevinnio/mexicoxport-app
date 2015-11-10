@@ -18,27 +18,33 @@
       </p>
 
       <ion-list>
-        <ion-item nav-clear menu-close ui-sref="app.noticias">
+        <ion-item nav-clear menu-close ui-sref="app.noticias"
+                  ng-class="{ current: $state.includes('app.noticias') }">
           <h2 class="menu-text">Inicio</h2>
         </ion-item>
-        <ion-item nav-clear menu-close ui-sref="app.tv">
+        <ion-item nav-clear menu-close ui-sref="app.tv"
+                  ng-class="{ current: $state.includes('app.tv') }">
           <h2 class="menu-text">Méxicoxport TV</h2>
         </ion-item>
-        <ion-item nav-clear menu-close ui-sref="app.top">
+        <ion-item nav-clear menu-close ui-sref="app.top"
+                  ng-class="{ current: $state.includes('app.top') }">
           <h2 class="menu-text">Lo más visto</h2>
         </ion-item>
       </ion-list>
       <ion-list>
         <ion-item nav-clear class="item-divider">Categorías</ion-item>
         <ion-item nav-clear menu-close ng-repeat="categoria in categorias"
-                  ui-sref="app.categorias({id: categoria.id})">
+                  ui-sref="app.categorias({id: categoria.id})"
+                  ng-class="{ current: $state.href('app.categorias', { id: categoria.id })
+                                       .includes($location.path()) }">
           <h2 class="menu-text">{{ categoria.nombre }}</h2>
         </ion-item>
       </ion-list>
 
       <ion-list>
         <ion-item nav-clear class="item-divider">Más opciones</ion-item>
-        <ion-item nav-clear menu-close ui-sref="app.about">
+        <ion-item nav-clear menu-close ui-sref="app.about"
+                  ng-class="{ current: $state.includes('app.about') }">
           <h2 class="menu-text">Acerca de</h2>
         </ion-item>
       </ion-list>
