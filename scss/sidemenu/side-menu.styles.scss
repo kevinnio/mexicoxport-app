@@ -89,9 +89,14 @@ ion-side-menu
 		}
 	}
 
-	.item-divider {
-	  background: $theme-color-2;
+	.current * {
+	  background: $theme-color-2 !important;
 	  color: white !important;
+	}
+
+	.item-divider {
+	  background: $item-dark-bg;
+	  color: gray;
 	}
 
   	.logo {
