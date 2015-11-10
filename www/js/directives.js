@@ -85,5 +85,5 @@ directives.directive('browseTo', function ($ionicGesture) {
         $ionicGesture.off(tapGesture, 'tap', handleTap);
       });
     }
-  }
+  };
 });
