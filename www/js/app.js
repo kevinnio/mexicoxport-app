@@ -15,21 +15,15 @@ var app = angular.module('mexicoxport', [
 	'ngCordova'
 ]);
 
-app.run(function($ionicPlatform, $rootScope, $state, PushNotificationsService, amMoment, $ionicPopup) {
-  $rootScope.$state = $state;
-  amMoment.changeLocale('es');
-
+app.run(function($ionicPlatform, $rootScope, $state, amMoment) {
   var setupCallback = function() {
-    registrarOnDeviceReadyCallback(PushNotificationsService);
+    $rootScope.$state = $state;
+    amMoment.changeLocale('es');
   };
 
   $ionicPlatform.ready(setupCallback);
   $ionicPlatform.on("deviceready", setupCallback);
 });
-
-function registrarOnDeviceReadyCallback(PushNotificationsService) {
-  PushNotificationsService.register();
-}
 
 app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   $stateProvider.state('app', {
