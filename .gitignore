@@ -32,5 +32,4 @@ gulp-tasks/distribution.copy.js
 APK/
 
 /build
-*.keystore
-.keystore-password
+/keys
