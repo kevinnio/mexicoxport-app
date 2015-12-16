@@ -1,6 +1,6 @@
 {
   "name": "mexicoxport-app",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "La aplicación móvil de mexicoxport.com",
   "dependencies": {
     "async": "^1.4.0",
