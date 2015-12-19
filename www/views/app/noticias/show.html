@@ -1,9 +1,11 @@
 <ion-view class="noticias-view">
-  <ion-content class="noticia" ng-show="noticia">
-    <button class="button-positive button-share" ng-click="compartirNoticia(noticia)">
-        <i class="icon ion-android-share-alt"></i>
-      </button>
+  <ion-nav-buttons side="primary">
+    <button class="button button-calm button-share" ng-click="compartirNoticia(noticia)">
+      <i class="icon ion-android-share-alt"></i>
+    </button>
+  </ion-nav-buttons>
 
+  <ion-content class="noticia" ng-show="noticia">
     <div class="imagen">
       <pre-img ratio="_4_3">
         <img ng-src="{{ noticia.imagen }}" spinner-on-load>
