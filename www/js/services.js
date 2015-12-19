@@ -92,3 +92,23 @@ services.service('TvService', function($log, GOOGLE_API_KEY, MEXICOXPORT_TV_PLAY
     return total;
   };
 });
+
+services.service('ShareStats', function($http, $log) {
+  this.registerShareEvent = function() {
+    $log.debug('Registering share event within web API...');
+
+    var date = new Date();
+    $http({
+      url: 'http://mexicoxport.com/api/noticias/share.php',
+      method: 'GET',
+      params: {
+        month: date.getMonth(),
+        year: date.getYear()
+      }
+    }).success(function() {
+      $log.debug('Share event registered.');
+    }).error(function() {
+      $log.debug('An error ocurred while registering share event. Please debug it.');
+    });
+  };
+});
