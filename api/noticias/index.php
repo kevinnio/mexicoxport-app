@@ -3,16 +3,16 @@
  * Devuelve noticias obtenidas de la base de datos de mexicoxport.com en formato JSON.
  * Las noticias se devuelven por páginas y ordenadas de más reciente a más antigua.
  *
- * @param int   $ultima        Última fila recibida (default: 0)
- * @param int   $por_pagina    Cantidad de noticias a devolver en una página (default: 20)
- * @param int   $categoria_id  ID de la categoría de la que se quieren ver noticias (default: todas)
- * @param int   $año           Si esta presente, indica el año del que se desean consultar noticias
- * @param int   $mes           Si esta presente, indica el mes del que se desean consultar noticias
+ * @param int    $ultima        Última fila recibida (default: 0)
+ * @param int    $por_pagina    Cantidad de noticias a devolver en una página (default: 20)
+ * @param int    $categoria_id  ID de la categoría de la que se quieren ver noticias (default: todas)
+ * @param int    $año           Si esta presente, indica el año del que se desean consultar noticias
+ * @param int    $mes           Si esta presente, indica el mes del que se desean consultar noticias
+ * @param string $buscar        Texto para buscar en el título, resumen y cuerpo de las noticias
  *
  * @author Kevin Perez <kevindperezm@gmail.com>
  * @copyright Mexicoxport 2015
  */
-
 
 require_once __DIR__ . '/../utilidades.php';
 
@@ -55,6 +55,10 @@ function construir_consulta_para_noticias($parametros) {
   if (isset($categoria_id)) $consulta .= " AND idTematica = $categoria_id";
 
   $consulta .= generar_restriccion_de_fecha($parametros);
+
+  if (isset($parametros['buscar']) && ! empty($parametros['buscar'])) {
+    $consulta .= " AND Titulo LIKE '%{$parametros['buscar']}%'";
+  }
 
   $consulta .= ' ORDER BY FechaNoticia DESC, time(FechaAlta) DESC, idNoticia DESC';
   $consulta .= generar_limite($parametros['ultima'], $parametros['por_pagina']);
