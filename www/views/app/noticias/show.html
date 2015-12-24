@@ -1,4 +1,10 @@
 <ion-view class="noticias-view">
+  <ion-nav-buttons side="primary">
+    <button class="button button-calm button-share" ng-click="compartirNoticia(noticia)">
+      <i class="icon ion-android-share-alt"></i>
+    </button>
+  </ion-nav-buttons>
+
   <ion-content class="noticia" ng-show="noticia">
     <div class="imagen">
       <pre-img ratio="_4_3">
@@ -17,7 +23,7 @@
 
     <div class="card detalles">
       <strong>Publicada el: </strong>{{ noticia.fecha | date:"dd 'de' MMMM 'de' yyyy" }}<br>
-      <strong>Fuente: </strong>{{ noticia.fuente }}
+      <strong>Fuente: </strong>{{ noticia.fuente }}<br>
     </div>
   </ion-content>
 </ion-view>

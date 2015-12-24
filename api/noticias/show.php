@@ -29,6 +29,7 @@ $resultado = query("SELECT $campos FROM noticias WHERE idNoticia = " . sanitizar
 if ($resultado) {
   $noticia = renombrar_campos(array(mysqli_fetch_assoc($resultado)), $campos_de_noticias);
   $noticia = $noticia[0];
+  $noticia['url'] = url_para_noticia($noticia);
   $views = $noticia["Views"] + 1;
   query("UPDATE noticias SET Views = $views WHERE idNoticia = ". sanitizar($idNoticia));
   enviarRespuesta($noticia);
