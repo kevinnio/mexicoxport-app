@@ -1,7 +1,16 @@
 <ion-view class="noticias-view">
-  <ion-nav-title>
-    <img id="mainLogo" ng-src="img/logo.png">
-  </ion-nav-title>
+
+  <ion-nav-buttons side="right">
+    <div class="bar bar-header item-input-inset">
+      <label class="item-input-wrapper textbox-search">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="search" onsearch="cargarBusqueda()" placeholder="Buscar" ng-model="busqueda.keywords">
+      </label>
+    </div>
+
+    <a class="button button-icon icon positive ion-search" ng-click="cargarBusqueda()"></a>
+  </ion-nav-buttons>
+
   <ion-content>
     <ion-refresher pulling-text="Jala para recargar..." on-refresh="refrescar()"></ion-refresher>
 
