@@ -18,7 +18,7 @@ require_once __DIR__ . '/../utilidades.php';
 
 function obtener_noticias_en_json() {
   $parametros = obtener_parametros_de_peticion();
-  $consulta   = construir_consulta_para_noticias($parametros);
+  $consulta   = construir_consulta_para_noticias($parametros, null);
   $noticias   = renombrar_campos(obtener_noticias_de_la_bd($consulta), campos_de_noticias());
 
   foreach ($noticias as &$noticia) {
@@ -27,7 +27,27 @@ function obtener_noticias_en_json() {
     $noticia['miniatura'] = "$dir_imagen/mcith/mcith_$imagen_nombre";
   }
 
-  enviarRespuesta($noticias);
+  enviarRespuesta(generar_respuesta($noticias, $parametros));
+}
+
+function generar_respuesta($noticias, $parametros) {
+  if ($parametros['v'] == '2') {
+    $respuesta = array();
+    $respuesta['noticias'] = $noticias;
+    $respuesta['total'] = obtener_total_de_noticias($parametros);
+  } else {
+    $respuesta = $noticias;
+  }
+
+  return $respuesta;
+}
+
+function obtener_total_de_noticias($parametros) {
+  $consulta = construir_consulta_para_noticias($parametros, 'count(*)');
+  $resultados = query($consulta);
+  $fila = mysqli_fetch_array($resultados);
+
+  return $fila[0];
 }
 
 function campos_de_noticias() {
@@ -47,10 +67,10 @@ function obtener_parametros_de_peticion() {
   return array_merge($parametros_por_defecto, $parametros);
 }
 
-function construir_consulta_para_noticias($parametros) {
+function construir_consulta_para_noticias($parametros, $campos) {
   extract($parametros);
 
-  $campos = implode(', ', array_values(campos_de_noticias()));
+  if (is_null($campos)) $campos = implode(', ', array_values(campos_de_noticias()));
   $consulta = "SELECT $campos FROM noticias WHERE 1=1 ";
   if (isset($categoria_id)) $consulta .= " AND idTematica = $categoria_id";
 
