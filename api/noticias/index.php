@@ -45,7 +45,7 @@ function generar_respuesta($noticias, $parametros) {
 function obtener_total_de_noticias($parametros) {
   $consulta = construir_consulta_para_noticias($parametros, 'count(*)');
   $resultados = query($consulta);
-  $fila = mysqli_fetch_array($resultados);
+  $fila = mysqli_fetch_array($resultados, MYSQLI_NUM);
 
   return $fila[0];
 }
