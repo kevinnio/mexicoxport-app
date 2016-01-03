@@ -13,7 +13,7 @@
   <ion-content>
     <ion-refresher pulling-text="Jala para recargar..." on-refresh="refrescar()"></ion-refresher>
 
-
+    <h2 ng-show="busqueda.mostrar && total <= 0" class="sin-noticias">No hay noticias</h2>
 
     <noticia-big noticia="noticias[0]" ng-if="noticias.length > 0"></noticia-big>
 
