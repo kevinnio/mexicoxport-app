@@ -15,7 +15,9 @@ controllers.controller('AppCtrl', function($scope, $location, AlmacenCategorias,
 controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService, $ionicLoading) {
   $scope.noticias = [];
   $scope.infiniteScroll = true;
-  $scope.busqueda = {};
+  $scope.busqueda = {
+    mostrar: false
+  };
 
   $scope.refrescar = function() {
     $scope.noticias = [];
@@ -23,7 +25,7 @@ controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService
   };
 
   $scope.cargar = function(callback) {
-    DescargarNoticiasService.recientes($scope.noticias.length, null, $scope.busqueda.keywords, function(noticias) {
+    DescargarNoticiasService.recientes($scope.noticias.length, null, $scope.busqueda.keywords, function(respuesta) {
       $scope.postCargar(noticias);
       if (callback) callback();
     });
@@ -35,7 +37,13 @@ controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService
     $scope.$broadcast('scroll.infiniteScrollComplete');
   };
 
-  $scope.cargarBusqueda = function() {
+  $scope.mostrarBusqueda = function() {
+    $scope.busqueda.mostrar = ! $scope.busqueda.mostrar;
+  };
+
+  $scope.cargarBusqueda = function(event) {
+    if (event.keyCode != 13) return;
+
     $ionicLoading.show();
     $scope.noticias = [];
     $scope.cargar(function() {
@@ -70,10 +78,11 @@ controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoadi
 controllers.controller('CategoriaCtrl', function($controller, $scope, $stateParams, DescargarNoticiasService) {
   $controller('NoticiasCtrl', { $scope: $scope });
 
-  $scope.cargar = function() {
+  $scope.cargar = function(callback) {
     var categoriaId = $stateParams.id;
-    DescargarNoticiasService.recientes($scope.noticias.length, categoriaId, $scope.buscar, function(noticias) {
+    DescargarNoticiasService.recientes($scope.noticias.length, categoriaId, $scope.busqueda.keywords, function(noticias) {
       $scope.postCargar(noticias);
+      if (callback) callback();
     });
   };
 });
