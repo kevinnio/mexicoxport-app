@@ -26,7 +26,7 @@ controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService
 
   $scope.cargar = function(callback) {
     DescargarNoticiasService.recientes($scope.noticias.length, null, $scope.busqueda.keywords, function(respuesta) {
-      $scope.postCargar(noticias);
+      $scope.postCargar(respuesta.noticias);
       if (callback) callback();
     });
   };
