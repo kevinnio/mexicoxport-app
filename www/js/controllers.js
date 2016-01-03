@@ -14,6 +14,7 @@ controllers.controller('AppCtrl', function($scope, $location, AlmacenCategorias,
 
 controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService, $ionicLoading) {
   $scope.noticias = [];
+  $scope.total = 0;
   $scope.infiniteScroll = true;
   $scope.busqueda = {
     mostrar: false
@@ -26,13 +27,17 @@ controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService
 
   $scope.cargar = function(callback) {
     DescargarNoticiasService.recientes($scope.noticias.length, null, $scope.busqueda.keywords, function(respuesta) {
-      $scope.postCargar(respuesta.noticias);
+      $scope.postCargar(respuesta);
       if (callback) callback();
     });
   };
 
-  $scope.postCargar = function(noticias) {
-    $scope.noticias = $scope.noticias.concat(noticias);
+  $scope.postCargar = function(respuesta) {
+    $scope.noticias = $scope.noticias.concat(respuesta.noticias);
+
+    if (respuesta.total !== null) $scope.total = respuesta.total;
+    $scope.infiniteScroll = $scope.noticias.length < $scope.total;
+
     $scope.$broadcast('scroll.refreshComplete');
     $scope.$broadcast('scroll.infiniteScrollComplete');
   };
