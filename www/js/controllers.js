@@ -42,12 +42,8 @@ controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService
     $scope.$broadcast('scroll.infiniteScrollComplete');
   };
 
-  $scope.mostrarBusqueda = function() {
-    $scope.busqueda.mostrar = ! $scope.busqueda.mostrar;
-  };
-
-  $scope.cargarBusqueda = function(event) {
-    if (event.keyCode != 13) return;
+  $scope.buscar = function(event) {
+    if ($scope.busqueda.keywords && event && event.keyCode != 13) return;
 
     $ionicLoading.show();
     $scope.noticias = [];
@@ -98,12 +94,10 @@ controllers.controller('TopCtrl', function($controller, $scope, $ionicLoading, D
   $scope.infiniteScroll = false;
 
   $scope.cargar = function() {
-    $ionicLoading.show({
-      hideOnStateChange: true
-    });
+    $ionicLoading.show({ hideOnStateChange: true });
 
     DescargarNoticiasService.top(function(noticias) {
-      $scope.postCargar(noticias);
+      $scope.postCargar({noticias: noticias});
       $ionicLoading.hide();
     });
   };

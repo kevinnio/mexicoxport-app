@@ -157,6 +157,18 @@ a {
 
 .sin-noticias {
   text-align: center;
-  margin-top: 2em;
-  color: gray;
+  margin-top: 2.5em;
+
+  * { color: gray; }
+  img { height: 3em; width: auto; margin-top: 2em; opacity: 0.5; }
+}
+
+#buscarCampo {
+  margin: auto 0;
+  height: 2.3em;
+  border-bottom: none;
+}
+
+#buscarBoton {
+  margin-bottom: 0.3em;
 }

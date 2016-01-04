@@ -13,9 +13,9 @@ services.service('DescargarNoticiasService', function($http, $log, MEXICOXPORT_A
                categoria_id: categoriaId,
                buscar: keywords,
                v: MEXICOXPORT_API_VERSION}
-    }).success(function(noticias) {
-      $log.debug(noticias.length + ' noticias descargadas.');
-      callback(noticias);
+    }).success(function(respuesta) {
+      $log.debug(respuesta.noticias.length + ' noticias descargadas.');
+      callback(respuesta);
     });
   };
 
