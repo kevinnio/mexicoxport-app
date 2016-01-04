@@ -1,9 +1,25 @@
 <ion-view class="noticias-view">
-  <ion-nav-title>
-    <img id="mainLogo" ng-src="img/logo.png">
-  </ion-nav-title>
+
+  <ion-nav-buttons side="left">
+    <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+    <div class="bar bar-header item-input-inset" id="buscarCampo">
+      <label class="item item-input">
+        <input type="search" placeholder="Buscar noticias..." ng-keyup="buscar($event)"
+               ng-model="busqueda.keywords">
+      </label>
+    </div>
+  </ion-nav-buttons>
+
+  <ion-nav-buttons side="right">
+    <a id="buscarBoton" class="button button-icon icon positive ion-search" ng-click="buscar(null)"></a>
+  </ion-nav-buttons>
+
   <ion-content>
     <ion-refresher pulling-text="Jala para recargar..." on-refresh="refrescar()"></ion-refresher>
+
+    <div class="sin-noticias" ng-show="busqueda.keywords && total <= 0">
+      <h4>No hay noticias que concidan con "{{busqueda.keywords}}"</h4>
+    </div>
 
     <noticia-big noticia="noticias[0]" ng-if="noticias.length > 0"></noticia-big>
 

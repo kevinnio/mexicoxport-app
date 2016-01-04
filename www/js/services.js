@@ -1,8 +1,8 @@
 var services = angular.module('mexicoxport.services', []);
 
-services.service('DescargarNoticiasService', function($http, $log) {
+services.service('DescargarNoticiasService', function($http, $log, MEXICOXPORT_API_VERSION) {
 
-  this.recientes = function(cantidadNoticias, categoriaId, callback) {
+  this.recientes = function(cantidadNoticias, categoriaId, keywords, callback) {
     $log.debug('Iniciando descarga de noticias.');
 
     $log.debug('Descargando noticias...');
@@ -10,10 +10,12 @@ services.service('DescargarNoticiasService', function($http, $log) {
       url: 'http://mexicoxport.com/api/noticias/index.php',
       method: 'GET',
       params: {ultima: cantidadNoticias,
-               categoria_id: categoriaId}
-    }).success(function(noticias) {
-      $log.debug(noticias.length + ' noticias descargadas.');
-      callback(noticias);
+               categoria_id: categoriaId,
+               buscar: keywords,
+               v: MEXICOXPORT_API_VERSION}
+    }).success(function(respuesta) {
+      $log.debug(respuesta.noticias.length + ' noticias descargadas.');
+      callback(respuesta);
     });
   };
 
