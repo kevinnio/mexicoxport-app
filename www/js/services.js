@@ -100,17 +100,22 @@ services.service('ShareStats', function($http, $log) {
     $log.debug('Registering share event within web API...');
 
     var date = new Date();
-    $http({
-      url: 'http://mexicoxport.com/api/noticias/share.php',
+
+    var request = {
       method: 'GET',
+      url: 'http://mexicoxport.com/api/noticias/share.php',
       params: {
-        month: date.getMonth(),
-        year: date.getYear()
+        month: date.getMonth() + 1,
+        year: date.getFullYear()
       }
-    }).success(function() {
+    };
+
+    $http(request).then(function(response) {
       $log.debug('Share event registered.');
-    }).error(function() {
+    }, function(response) {
       $log.debug('An error ocurred while registering share event. Please debug it.');
+      $log.debug(response.status);
+      $log.debug(response.data);
     });
   };
 });

@@ -24,4 +24,9 @@ if ($row) {
   $sql = "INSERT INTO mobile_share_stats (month, year, count) VALUES ($month, $year, 1)";
 }
 
-if ( ! query($sql)) die('An error ocurred. ' . mysqli_error(getMyConection()));
+if (query($sql)) {
+  header("Access-Control-Allow-Origin: *");
+  echo '{"saved": true}';
+} else {
+  die('An error ocurred. ' . mysqli_error(getMyConection()));
+}

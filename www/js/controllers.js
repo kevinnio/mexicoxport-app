@@ -66,7 +66,7 @@ controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService
 
 });
 
-controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoading, DescargarNoticiasService) {
+controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoading, DescargarNoticiasService, $cordovaSocialSharing, ShareStats) {
   $ionicLoading.show({
     hideOnStateChange: true
   });
@@ -82,7 +82,7 @@ controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoadi
                                 null,
                                 "http://mexicoxport.com" + noticia.url)
       .then(function() {
-        registerShareEvent();
+        ShareStats.registerShareEvent();
         console.log('Exito al compartir');
       }, function(err) {
         console.log('Error al compartir');
