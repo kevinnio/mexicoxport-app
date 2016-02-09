@@ -124,15 +124,17 @@
     }
   }
 
-  .cuerpo, .detalles {
+  .cuerpo {
     padding: 0.5em;
     margin: 0;
     text-align: justify;
+    background: white;
+    border-top: 1px solid #EEE;
+    border-bottom: 1px solid #EEE;
   }
 
   .detalles {
     font-size: smaller;
-    margin-top: 1em;
   }
 
 }
@@ -171,4 +173,10 @@ a {
 
 #buscarBoton {
   margin-bottom: 0.3em;
+}
+
+.separado {
+  padding: 1em 0.5em;
+  background: white;
+  color: gray;
 }

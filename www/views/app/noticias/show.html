@@ -16,14 +16,17 @@
       {{ noticia.titulo }}
     </div>
 
-    <div class="card cuerpo">
-      <p ng-bind-html="noticia.resumen | rawHtml"></p>
-      <p ng-bind-html="noticia.cuerpo | rawHtml"></p>
+    <div class="separado">
+      {{ noticia.fecha | date:"EEEE, dd 'de' MMMM 'de' yyyy" }}
     </div>
 
-    <div class="card detalles">
-      <strong>Publicada el: </strong>{{ noticia.fecha | date:"dd 'de' MMMM 'de' yyyy" }}<br>
-      <strong>Fuente: </strong>{{ noticia.fuente }}<br>
+    <div class="cuerpo">
+      <p ng-bind-html="noticia.resumen | rawHtml"></p>
+      <p ng-bind-html="noticia.cuerpo.trim() | rawHtml"></p>
+    </div>
+
+    <div class="separado">
+      <strong>Fuente: </strong>{{ noticia.fuente }}
     </div>
   </ion-content>
 </ion-view>
