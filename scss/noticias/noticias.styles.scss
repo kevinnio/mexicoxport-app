@@ -1,6 +1,6 @@
 .noticias-view
 {
-  background-color: $content-bg !important;
+  background-color: white !important;
 
   .entry-data {
     display: inline-block;
@@ -128,9 +128,7 @@
     padding: 0.5em;
     margin: 0;
     text-align: justify;
-    background: white;
     border-top: 1px solid #EEE;
-    border-bottom: 1px solid #EEE;
   }
 
   .detalles {
@@ -179,4 +177,8 @@ a {
   padding: 1em 0.5em;
   background: white;
   color: gray;
+}
+
+.notas-relacionadas {
+  border-top: 1px solid #EEE;
 }

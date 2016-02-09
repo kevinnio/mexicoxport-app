@@ -73,7 +73,9 @@ controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoadi
 
   DescargarNoticiasService.noticia($stateParams.id, function(noticia) {
     $scope.noticia = noticia;
-    $ionicLoading.hide();
+    DescargarNoticiasService.relacionadas(noticia, function(noticia) {
+      $ionicLoading.hide();
+    });
   });
 
   $scope.compartirNoticia = function(noticia) {

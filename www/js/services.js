@@ -44,6 +44,24 @@ services.service('DescargarNoticiasService', function($http, $log, MEXICOXPORT_A
     });
   };
 
+  this.relacionadas = function(noticia, callback) {
+    $log.debug('Obteniendo relacionados de noticia con id ' + noticia.id + '...');
+
+    $http({
+      url: 'http://mexicoxport.com/api/noticias/related.php',
+      method: 'GET',
+      params: {
+        keywords: noticia.titulo.replace(' ', ','),
+        cantidad: 5,
+      }
+    }).success(function(relacionadas) {
+      noticia.relacionadas = relacionadas;
+      callback(noticia);
+    }).error(function() {
+      callback(noticia);
+    });
+  };
+
 });
 
 services.service('DescargarCategoriasService', function($http, $log) {

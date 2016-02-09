@@ -28,5 +28,15 @@
     <div class="separado">
       <strong>Fuente: </strong>{{ noticia.fuente }}
     </div>
+
+    <div class="notas-relacionadas separado">
+      <h4>Noticias relacionadas:</h4>
+      <div class="list">
+        <h5 ng-show=" ! noticia.relacionadas.length">No hay noticias relacionadas</h5>
+        <div ng-repeat="noticia in noticia.relacionadas" class="entry-item">
+          <noticia-small></noticia-small>
+        </div>
+      </div>
+    </div>
   </ion-content>
 </ion-view>
