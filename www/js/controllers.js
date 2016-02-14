@@ -129,21 +129,17 @@ controllers.controller('CategoriaCtrl', function($controller, $scope, $statePara
   };
 });
 
-controllers.controller('TopCtrl', function($controller, $scope, $ionicLoading, DescargarNoticiasService) {
+controllers.controller('TopCtrl', function($controller, $scope, DescargarNoticiasService) {
   $controller('NoticiasCtrl', { $scope: $scope });
 
-  $scope.infiniteScroll = false;
-
   $scope.cargar = function() {
-    $ionicLoading.show({ hideOnStateChange: true });
-
-    DescargarNoticiasService.top(function(noticias) {
+    var mostrarNoticias = function(noticias) {
+      $scope.infiniteScroll = false;
       $scope.postCargar({noticias: noticias});
-      $ionicLoading.hide();
-    });
-  };
+    };
 
-  $scope.cargar();
+    DescargarNoticiasService.top(mostrarNoticias);
+  };
 });
 
 controllers.controller('TvCtrl', function($scope, TvService) {
