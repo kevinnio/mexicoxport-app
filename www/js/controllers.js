@@ -12,7 +12,7 @@ controllers.controller('AppCtrl', function($scope, $location, AlmacenCategorias,
   }
 });
 
-controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService, $ionicLoading, $ionicPopup) {
+controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService, $ionicLoading, AlertaSinConexion) {
   $scope.noticias = [];
   $scope.total = 0;
   $scope.infiniteScroll = true;
@@ -27,32 +27,14 @@ controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService
   };
 
   $scope.cargar = function(callback) {
-    var mostrarNoticias = function(respuesta) {
-      $scope.postCargar(respuesta);
-      if (callback) callback();
-    };
-
-    var mostrarErrorDeCarga = function() {
-      $ionicPopup.alert({
-        template: '<h4 class="text-center">Error de conexión</h4>' +
-                  '<h5 class="text-center">Verifica tu conexión a Internet</h5>',
-        buttons: [
-          { text: 'OK',
-            type: 'button-calm'}
-        ]
-      }).then(function() {
-        $scope.errorCarga = true;
-        $scope.infiniteScroll = false;
-        $scope.$broadcast('scroll.infiniteScrollComplete');
-        $scope.$broadcast('scroll.refreshComplete');
+    DescargarNoticiasService.recientes($scope.noticias.length, null, $scope.busqueda.keywords,
+      function(respuesta) {
+        $scope.postCargar(respuesta);
+        if (callback) callback();
+      },
+      function() {
+        AlertaSinConexion.mostrar($scope);
       });
-    };
-
-    DescargarNoticiasService.recientes($scope.noticias.length,
-                                       null,
-                                       $scope.busqueda.keywords,
-                                       mostrarNoticias,
-                                       mostrarErrorDeCarga);
   };
 
   $scope.postCargar = function(respuesta) {
