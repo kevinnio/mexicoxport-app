@@ -19,16 +19,16 @@ services.service('DescargarNoticiasService', function($http, $log, MEXICOXPORT_A
     }).error(errorCallback);
   };
 
-  this.top = function(callback) {
+  this.top = function(exitoCallback, errorCallback) {
     $log.debug('Descargando top de noticias...');
 
-    $http({url: 'http://mexicoxport.com/api/noticias/top.php',
-           method: 'GET'})
-      .success(function(noticias) {
-        $log.debug('Top de noticias descargado.');
-        callback(noticias);
-      }
-    );
+    $http({
+      url: 'http://mexicoxport.com/api/noticias/top.php',
+      method: 'GET'
+    }).success(function(noticias) {
+      $log.debug('Top de noticias descargado.');
+      exitoCallback(noticias);
+    }).error(errorCallback);
   };
 
   this.noticia = function(id, callback) {

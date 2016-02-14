@@ -111,16 +111,19 @@ controllers.controller('CategoriaCtrl', function($controller, $scope, $statePara
   };
 });
 
-controllers.controller('TopCtrl', function($controller, $scope, DescargarNoticiasService) {
+controllers.controller('TopCtrl', function($controller, $scope, DescargarNoticiasService, AlertaSinConexion) {
   $controller('NoticiasCtrl', { $scope: $scope });
 
   $scope.cargar = function() {
-    var mostrarNoticias = function(noticias) {
-      $scope.infiniteScroll = false;
-      $scope.postCargar({noticias: noticias});
-    };
-
-    DescargarNoticiasService.top(mostrarNoticias);
+    DescargarNoticiasService.top(
+      function(noticias) {
+        $scope.infiniteScroll = false;
+        $scope.postCargar({noticias: noticias});
+      },
+      function() {
+        AlertaSinConexion.mostrar($scope);
+      }
+    );
   };
 });
 
