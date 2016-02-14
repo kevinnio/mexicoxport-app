@@ -12,7 +12,35 @@ controllers.controller('AppCtrl', function($scope, $location, AlmacenCategorias,
   }
 });
 
-controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService, $ionicLoading, AlertaSinConexion) {
+controllers.controller('TvCtrl', function($scope, TvService, AlertaSinConexion) {
+  $scope.infiniteScroll = true;
+  $scope.videos = [];
+
+  $scope.siguientePagina = function() {
+    TvService.siguientePagina(
+      function(videos) {
+        $scope.videos = $scope.videos.concat(videos);
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+        $scope.$broadcast('scroll.refreshComplete');
+      },
+      function() {
+        AlertaSinConexion.mostrar($scope);
+      }
+    );
+  };
+
+  $scope.recargar = function() {
+    $scope.videos = [];
+    TvService.reiniciar() && $scope.siguientePagina();
+  };
+
+  $scope.puedeCargarMas = function() {
+    return $scope.infiniteScroll && ($scope.videos.length <= 0 ||
+      $scope.videos.length < TvService.getTotal());
+  };
+});
+
+controllers.controller('NoticiasCtrl', function($scope, $stateParams, DescargarNoticiasService, $ionicLoading, AlertaSinConexion) {
   $scope.noticias = [];
   $scope.total = 0;
   $scope.infiniteScroll = true;
@@ -27,14 +55,16 @@ controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService
   };
 
   $scope.cargar = function(callback) {
-    DescargarNoticiasService.recientes($scope.noticias.length, null, $scope.busqueda.keywords,
+    var categoriaId = $stateParams.categoriaId || null;
+    DescargarNoticiasService.recientes($scope.noticias.length, categoriaId, $scope.busqueda.keywords,
       function(respuesta) {
         $scope.postCargar(respuesta);
         if (callback) callback();
       },
       function() {
         AlertaSinConexion.mostrar($scope);
-      });
+      }
+    );
   };
 
   $scope.postCargar = function(respuesta) {
@@ -71,6 +101,22 @@ controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService
 
 });
 
+controllers.controller('TopCtrl', function($controller, $scope, DescargarNoticiasService, AlertaSinConexion) {
+  $controller('NoticiasCtrl', { $scope: $scope });
+
+  $scope.cargar = function() {
+    DescargarNoticiasService.top(
+      function(noticias) {
+        $scope.infiniteScroll = false;
+        $scope.postCargar({noticias: noticias});
+      },
+      function() {
+        AlertaSinConexion.mostrar($scope);
+      }
+    );
+  };
+});
+
 controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoading, DescargarNoticiasService, $cordovaSocialSharing, ShareStats) {
   $ionicLoading.show({
     hideOnStateChange: true
@@ -97,60 +143,4 @@ controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoadi
       });
   };
 
-});
-
-controllers.controller('CategoriaCtrl', function($controller, $scope, $stateParams, DescargarNoticiasService) {
-  $controller('NoticiasCtrl', { $scope: $scope });
-
-  $scope.cargar = function(callback) {
-    var categoriaId = $stateParams.id;
-    DescargarNoticiasService.recientes($scope.noticias.length, categoriaId, $scope.busqueda.keywords, function(noticias) {
-      $scope.postCargar(noticias);
-      if (callback) callback();
-    });
-  };
-});
-
-controllers.controller('TopCtrl', function($controller, $scope, DescargarNoticiasService, AlertaSinConexion) {
-  $controller('NoticiasCtrl', { $scope: $scope });
-
-  $scope.cargar = function() {
-    DescargarNoticiasService.top(
-      function(noticias) {
-        $scope.infiniteScroll = false;
-        $scope.postCargar({noticias: noticias});
-      },
-      function() {
-        AlertaSinConexion.mostrar($scope);
-      }
-    );
-  };
-});
-
-controllers.controller('TvCtrl', function($scope, TvService, AlertaSinConexion) {
-  $scope.infiniteScroll = true;
-  $scope.videos = [];
-
-  $scope.siguientePagina = function() {
-    TvService.siguientePagina(
-      function(videos) {
-        $scope.videos = $scope.videos.concat(videos);
-        $scope.$broadcast('scroll.infiniteScrollComplete');
-        $scope.$broadcast('scroll.refreshComplete');
-      },
-      function() {
-        AlertaSinConexion.mostrar($scope);
-      }
-    );
-  };
-
-  $scope.recargar = function() {
-    $scope.videos = [];
-    TvService.reiniciar() && $scope.siguientePagina();
-  };
-
-  $scope.puedeCargarMas = function() {
-    return $scope.infiniteScroll && ($scope.videos.length <= 0 ||
-                                     $scope.videos.length < TvService.getTotal());
-  };
 });
