@@ -60,3 +60,23 @@ factories.factory('AlmacenCategorias', function() {
     }
   };
 });
+
+factories.factory('AlertaSinConexion', function($ionicPopup) {
+  return {
+    mostrar: function($scope) {
+      $ionicPopup.alert({
+        template: '<h4 class="text-center">Error de conexión</h4>' +
+                  '<h5 class="text-center">Verifica tu conexión a Internet</h5>',
+        buttons: [
+          { text: 'OK',
+            type: 'button-calm'}
+        ]
+      }).then(function() {
+        $scope.errorCarga = true;
+        $scope.infiniteScroll = false;
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+    }
+  };
+});

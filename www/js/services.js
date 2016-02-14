@@ -2,7 +2,7 @@ var services = angular.module('mexicoxport.services', []);
 
 services.service('DescargarNoticiasService', function($http, $log, MEXICOXPORT_API_VERSION) {
 
-  this.recientes = function(cantidadNoticias, categoriaId, keywords, callback) {
+  this.recientes = function(cantidadNoticias, categoriaId, keywords, exitoCallback, errorCallback) {
     $log.debug('Iniciando descarga de noticias.');
 
     $log.debug('Descargando noticias...');
@@ -15,23 +15,23 @@ services.service('DescargarNoticiasService', function($http, $log, MEXICOXPORT_A
                v: MEXICOXPORT_API_VERSION}
     }).success(function(respuesta) {
       $log.debug(respuesta.noticias.length + ' noticias descargadas.');
-      callback(respuesta);
-    });
+      exitoCallback(respuesta);
+    }).error(errorCallback);
   };
 
-  this.top = function(callback) {
+  this.top = function(exitoCallback, errorCallback) {
     $log.debug('Descargando top de noticias...');
 
-    $http({url: 'http://mexicoxport.com/api/noticias/top.php',
-           method: 'GET'})
-      .success(function(noticias) {
-        $log.debug('Top de noticias descargado.');
-        callback(noticias);
-      }
-    );
+    $http({
+      url: 'http://mexicoxport.com/api/noticias/top.php',
+      method: 'GET'
+    }).success(function(noticias) {
+      $log.debug('Top de noticias descargado.');
+      exitoCallback(noticias);
+    }).error(errorCallback);
   };
 
-  this.noticia = function(id, callback) {
+  this.noticia = function(id, exitoCallback, errorCallback) {
     $log.debug('Obteniendo noticia con id ' + id + '...');
 
     $http({
@@ -40,8 +40,24 @@ services.service('DescargarNoticiasService', function($http, $log, MEXICOXPORT_A
       params: {noticia_id: id}
     }).success(function(noticia) {
       $log.debug('Noticia obtenida.');
-      callback(noticia);
-    });
+      exitoCallback(noticia);
+    }).error(errorCallback);
+  };
+
+  this.relacionadas = function(noticia, exitoCallback, errorCallback) {
+    $log.debug('Obteniendo relacionados de noticia con id ' + noticia.id + '...');
+
+    $http({
+      url: 'http://mexicoxport.com/api/noticias/related.php',
+      method: 'GET',
+      params: {
+        keywords: noticia.titulo.replace(' ', ','),
+        cantidad: 5,
+      }
+    }).success(function(relacionadas) {
+      noticia.relacionadas = relacionadas;
+      exitoCallback(noticia);
+    }).error(errorCallback);
   };
 
 });
@@ -66,7 +82,12 @@ services.service('TvService', function($log, GOOGLE_API_KEY, MEXICOXPORT_TV_PLAY
   var nextPageToken = null;
   var total = 0;
 
-  this.nextPage = function(exitoCallback, errorCallback) {
+  this.siguientePagina = function(exitoCallback, errorCallback) {
+    if (typeof gapi === 'undefined') {
+      errorCallback();
+      return;
+    }
+
     gapi.client.setApiKey(GOOGLE_API_KEY);
 
     $log.debug('Descargando información de videos de MexicoxportTv.');
@@ -86,7 +107,7 @@ services.service('TvService', function($log, GOOGLE_API_KEY, MEXICOXPORT_TV_PLAY
     }, errorCallback);
   };
 
-  this.reset = function() {
+  this.reiniciar = function() {
     nextPageToken = null;
   };
 
@@ -100,17 +121,22 @@ services.service('ShareStats', function($http, $log) {
     $log.debug('Registering share event within web API...');
 
     var date = new Date();
-    $http({
-      url: 'http://mexicoxport.com/api/noticias/share.php',
+
+    var request = {
       method: 'GET',
+      url: 'http://mexicoxport.com/api/noticias/share.php',
       params: {
-        month: date.getMonth(),
-        year: date.getYear()
+        month: date.getMonth() + 1,
+        year: date.getFullYear()
       }
-    }).success(function() {
+    };
+
+    $http(request).then(function(response) {
       $log.debug('Share event registered.');
-    }).error(function() {
+    }, function(response) {
       $log.debug('An error ocurred while registering share event. Please debug it.');
+      $log.debug(response.status);
+      $log.debug(response.data);
     });
   };
 });

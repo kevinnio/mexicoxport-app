@@ -12,7 +12,36 @@ controllers.controller('AppCtrl', function($scope, $location, AlmacenCategorias,
   }
 });
 
-controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService, $ionicLoading) {
+controllers.controller('TvCtrl', function($scope, TvService, AlertaSinConexion) {
+  $scope.infiniteScroll = true;
+  $scope.videos = [];
+
+  $scope.siguientePagina = function() {
+    TvService.siguientePagina(
+      function(videos) {
+        $scope.videos = $scope.videos.concat(videos);
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+        $scope.$broadcast('scroll.refreshComplete');
+      },
+      function() {
+        AlertaSinConexion.mostrar($scope);
+      }
+    );
+  };
+
+  $scope.recargar = function() {
+    $scope.videos = [];
+    TvService.reiniciar();
+    $scope.siguientePagina();
+  };
+
+  $scope.puedeCargarMas = function() {
+    return $scope.infiniteScroll && ($scope.videos.length <= 0 ||
+      $scope.videos.length < TvService.getTotal());
+  };
+});
+
+controllers.controller('NoticiasCtrl', function($scope, $stateParams, DescargarNoticiasService, $ionicLoading, AlertaSinConexion) {
   $scope.noticias = [];
   $scope.total = 0;
   $scope.infiniteScroll = true;
@@ -22,14 +51,21 @@ controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService
 
   $scope.refrescar = function() {
     $scope.noticias = [];
+    $scope.errorCarga = false;
     $scope.cargar();
   };
 
   $scope.cargar = function(callback) {
-    DescargarNoticiasService.recientes($scope.noticias.length, null, $scope.busqueda.keywords, function(respuesta) {
-      $scope.postCargar(respuesta);
-      if (callback) callback();
-    });
+    var categoriaId = $stateParams.categoriaId || null;
+    DescargarNoticiasService.recientes($scope.noticias.length, categoriaId, $scope.busqueda.keywords,
+      function(respuesta) {
+        $scope.postCargar(respuesta);
+        if (callback) callback();
+      },
+      function() {
+        AlertaSinConexion.mostrar($scope);
+      }
+    );
   };
 
   $scope.postCargar = function(respuesta) {
@@ -66,15 +102,39 @@ controllers.controller('NoticiasCtrl', function($scope, DescargarNoticiasService
 
 });
 
-controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoading, DescargarNoticiasService) {
-  $ionicLoading.show({
-    hideOnStateChange: true
-  });
+controllers.controller('TopCtrl', function($controller, $scope, DescargarNoticiasService, AlertaSinConexion) {
+  $controller('NoticiasCtrl', { $scope: $scope });
 
-  DescargarNoticiasService.noticia($stateParams.id, function(noticia) {
-    $scope.noticia = noticia;
+  $scope.cargar = function() {
+    DescargarNoticiasService.top(
+      function(noticias) {
+        $scope.infiniteScroll = false;
+        $scope.postCargar({noticias: noticias});
+      },
+      function() {
+        AlertaSinConexion.mostrar($scope);
+      }
+    );
+  };
+});
+
+controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoading, DescargarNoticiasService, $cordovaSocialSharing, ShareStats, AlertaSinConexion) {
+  $ionicLoading.show({ hideOnStateChange: true });
+
+  var despuesDeCargar = function() {
     $ionicLoading.hide();
-  });
+  };
+
+  DescargarNoticiasService.noticia($stateParams.id,
+    function(noticia) {
+      $scope.noticia = noticia;
+      DescargarNoticiasService.relacionadas(noticia, despuesDeCargar, despuesDeCargar);
+    },
+    function() {
+      despuesDeCargar();
+      AlertaSinConexion.mostrar($scope);
+    }
+  );
 
   $scope.compartirNoticia = function(noticia) {
     $cordovaSocialSharing.share(noticia.titulo,
@@ -82,7 +142,7 @@ controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoadi
                                 null,
                                 "http://mexicoxport.com" + noticia.url)
       .then(function() {
-        registerShareEvent();
+        ShareStats.registerShareEvent();
         console.log('Exito al compartir');
       }, function(err) {
         console.log('Error al compartir');
@@ -90,57 +150,4 @@ controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoadi
       });
   };
 
-});
-
-controllers.controller('CategoriaCtrl', function($controller, $scope, $stateParams, DescargarNoticiasService) {
-  $controller('NoticiasCtrl', { $scope: $scope });
-
-  $scope.cargar = function(callback) {
-    var categoriaId = $stateParams.id;
-    DescargarNoticiasService.recientes($scope.noticias.length, categoriaId, $scope.busqueda.keywords, function(noticias) {
-      $scope.postCargar(noticias);
-      if (callback) callback();
-    });
-  };
-});
-
-controllers.controller('TopCtrl', function($controller, $scope, $ionicLoading, DescargarNoticiasService) {
-  $controller('NoticiasCtrl', { $scope: $scope });
-
-  $scope.infiniteScroll = false;
-
-  $scope.cargar = function() {
-    $ionicLoading.show({ hideOnStateChange: true });
-
-    DescargarNoticiasService.top(function(noticias) {
-      $scope.postCargar({noticias: noticias});
-      $ionicLoading.hide();
-    });
-  };
-
-  $scope.cargar();
-});
-
-controllers.controller('TvCtrl', function($scope, TvService) {
-  $scope.videos = [];
-  $scope.service = TvService;
-
-  $scope.nextPage = function() {
-    $scope.service.nextPage(function(videos) {
-      $scope.videos = $scope.videos.concat(videos);
-      $scope.$broadcast('scroll.infiniteScrollComplete');
-      $scope.$broadcast('scroll.refreshComplete');
-    });
-  };
-
-  $scope.refresh = function() {
-    $scope.videos = [];
-    $scope.service.reset();
-    $scope.nextPage();
-  };
-
-  $scope.canLoad = function() {
-    return $scope.videos.length <= 0 ||
-           $scope.videos.length < $scope.service.getTotal();
-  };
 });

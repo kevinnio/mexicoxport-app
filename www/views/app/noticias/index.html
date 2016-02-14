@@ -4,7 +4,7 @@
     <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
     <div class="bar bar-header item-input-inset" id="buscarCampo">
       <label class="item item-input">
-        <input type="search" placeholder="Buscar noticias..." ng-keyup="buscar($event)"
+        <input type="search" placeholder="Buscar noticias" ng-keyup="buscar($event)"
                ng-model="busqueda.keywords">
       </label>
     </div>
@@ -26,6 +26,9 @@
     <div class="list">
       <div ng-repeat="noticia in noticias" ng-if="$index > 0" class="entry-item">
         <noticia-small></noticia-small>
+      </div>
+      <div class="entry-item" ng-show="errorCarga">
+        <h4>No se pudieron cargar las noticias</h4>
       </div>
 
       <ion-infinite-scroll ng-if="infiniteScroll"

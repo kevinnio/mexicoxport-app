@@ -29,9 +29,10 @@
       </ion-list>
       <ion-list>
         <ion-item nav-clear class="item-divider">Categorías</ion-item>
+        <ion-item nav-clear ng-hide="categorias.length > 0">Cargando...</ion-item>
         <ion-item nav-clear menu-close ng-repeat="categoria in categorias"
-                  ui-sref="app.categorias({id: categoria.id})"
-                  ng-class="{ current: $state.href('app.categorias', { id: categoria.id })
+                  ui-sref="app.categorias({ categoriaId: categoria.id })"
+                  ng-class="{ current: $state.href('app.categorias', { categoriaId: categoria.id })
                                        .includes($location.path()) }">
           <h2 class="menu-text">{{ categoria.nombre }}</h2>
         </ion-item>

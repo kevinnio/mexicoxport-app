@@ -1,6 +1,6 @@
 .noticias-view
 {
-  background-color: $content-bg !important;
+  background-color: white !important;
 
   .entry-data {
     display: inline-block;
@@ -118,21 +118,21 @@
     overflow-y: hidden;
 
     img {
-      width: 100%;
-      height: auto;
+      width: auto;
+      height: 100%;
       z-index: -99;
     }
   }
 
-  .cuerpo, .detalles {
+  .cuerpo {
     padding: 0.5em;
     margin: 0;
     text-align: justify;
+    border-top: 1px solid #EEE;
   }
 
   .detalles {
     font-size: smaller;
-    margin-top: 1em;
   }
 
 }
@@ -171,4 +171,31 @@ a {
 
 #buscarBoton {
   margin-bottom: 0.3em;
+}
+
+.separado {
+  padding: 1em 0.5em;
+  background: white;
+  color: gray;
+}
+
+.notas-relacionadas {
+  border-top: 1px solid #EEE;
+}
+
+div[ng-show="errorCarga"] {
+  background-color: #ebebeb;
+  background-image: url("../img/logo-small-white.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+
+  h4 {
+    text-align: center;
+    margin-top: 4em;
+  }
 }

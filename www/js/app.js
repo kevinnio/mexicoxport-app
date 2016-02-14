@@ -44,11 +44,11 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   });
 
   $stateProvider.state('app.categorias', {
-    url: "/categorias/:id",
+    url: "/categorias/:categoriaId/noticias",
     views: {
       'menuContent': {
         templateUrl: "views/app/noticias/index.html",
-        controller: 'CategoriaCtrl'
+        controller: 'NoticiasCtrl'
       }
     }
   });
