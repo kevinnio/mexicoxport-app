@@ -5,36 +5,42 @@
     </button>
   </ion-nav-buttons>
 
-  <ion-content class="noticia" ng-show="noticia">
-    <div class="imagen">
-      <pre-img ratio="_4_3">
-        <img ng-src="{{ noticia.imagen }}" spinner-on-load>
-      </pre-img>
+  <ion-content>
+    <div ng-show="errorCarga">
+      <h4 class="assertive text-center">No se pudo cargar la noticia</h4>
     </div>
 
-    <div class="titulo">
-      {{ noticia.titulo }}
-    </div>
+    <div class="noticia" ng-show="noticia">
+      <div class="imagen">
+        <pre-img ratio="_4_3">
+          <img ng-src="{{ noticia.imagen }}" spinner-on-load>
+        </pre-img>
+      </div>
 
-    <div class="separado">
-      {{ noticia.fecha | date:"EEEE, dd 'de' MMMM 'de' yyyy" }}
-    </div>
+      <div class="titulo">
+        {{ noticia.titulo }}
+      </div>
 
-    <div class="cuerpo">
-      <p><strong ng-bind-html="noticia.resumen | rawHtml"></strong></p>
-      <p ng-bind-html="noticia.cuerpo.trim() | rawHtml"></p>
-    </div>
+      <div class="separado">
+        {{ noticia.fecha | date:"EEEE, dd 'de' MMMM 'de' yyyy" }}
+      </div>
 
-    <div class="separado">
-      <strong>Fuente: </strong>{{ noticia.fuente }}
-    </div>
+      <div class="cuerpo">
+        <p><strong ng-bind-html="noticia.resumen | rawHtml"></strong></p>
+        <p ng-bind-html="noticia.cuerpo.trim() | rawHtml"></p>
+      </div>
 
-    <div class="notas-relacionadas separado">
-      <h4>Noticias relacionadas:</h4>
-      <div class="list">
-        <h5 ng-show=" ! noticia.relacionadas.length">No hay noticias relacionadas</h5>
-        <div ng-repeat="noticia in noticia.relacionadas" class="entry-item">
-          <noticia-small></noticia-small>
+      <div class="separado">
+        <strong>Fuente: </strong>{{ noticia.fuente }}
+      </div>
+
+      <div class="notas-relacionadas separado">
+        <h4>Noticias relacionadas:</h4>
+        <div class="list">
+          <h5 ng-show=" ! noticia.relacionadas.length">No hay noticias relacionadas</h5>
+          <div ng-repeat="noticia in noticia.relacionadas" class="entry-item">
+            <noticia-small></noticia-small>
+          </div>
         </div>
       </div>
     </div>

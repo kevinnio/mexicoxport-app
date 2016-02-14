@@ -31,7 +31,7 @@ services.service('DescargarNoticiasService', function($http, $log, MEXICOXPORT_A
     }).error(errorCallback);
   };
 
-  this.noticia = function(id, callback) {
+  this.noticia = function(id, exitoCallback, errorCallback) {
     $log.debug('Obteniendo noticia con id ' + id + '...');
 
     $http({
@@ -40,11 +40,11 @@ services.service('DescargarNoticiasService', function($http, $log, MEXICOXPORT_A
       params: {noticia_id: id}
     }).success(function(noticia) {
       $log.debug('Noticia obtenida.');
-      callback(noticia);
-    });
+      exitoCallback(noticia);
+    }).error(errorCallback);
   };
 
-  this.relacionadas = function(noticia, callback) {
+  this.relacionadas = function(noticia, exitoCallback, errorCallback) {
     $log.debug('Obteniendo relacionados de noticia con id ' + noticia.id + '...');
 
     $http({
@@ -56,10 +56,8 @@ services.service('DescargarNoticiasService', function($http, $log, MEXICOXPORT_A
       }
     }).success(function(relacionadas) {
       noticia.relacionadas = relacionadas;
-      callback(noticia);
-    }).error(function() {
-      callback(noticia);
-    });
+      exitoCallback(noticia);
+    }).error(errorCallback);
   };
 
 });

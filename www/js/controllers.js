@@ -117,17 +117,23 @@ controllers.controller('TopCtrl', function($controller, $scope, DescargarNoticia
   };
 });
 
-controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoading, DescargarNoticiasService, $cordovaSocialSharing, ShareStats) {
-  $ionicLoading.show({
-    hideOnStateChange: true
-  });
+controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoading, DescargarNoticiasService, $cordovaSocialSharing, ShareStats, AlertaSinConexion) {
+  $ionicLoading.show({ hideOnStateChange: true });
 
-  DescargarNoticiasService.noticia($stateParams.id, function(noticia) {
-    $scope.noticia = noticia;
-    DescargarNoticiasService.relacionadas(noticia, function(noticia) {
-      $ionicLoading.hide();
-    });
-  });
+  var despuesDeCargar = function() {
+    $ionicLoading.hide();
+  };
+
+  DescargarNoticiasService.noticia($stateParams.id,
+    function(noticia) {
+      $scope.noticia = noticia;
+      DescargarNoticiasService.relacionadas(noticia, despuesDeCargar, despuesDeCargar);
+    },
+    function() {
+      despuesDeCargar();
+      AlertaSinConexion.mostrar($scope);
+    }
+  );
 
   $scope.compartirNoticia = function(noticia) {
     $cordovaSocialSharing.share(noticia.titulo,
