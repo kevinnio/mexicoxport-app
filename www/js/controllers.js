@@ -31,7 +31,8 @@ controllers.controller('TvCtrl', function($scope, TvService, AlertaSinConexion) 
 
   $scope.recargar = function() {
     $scope.videos = [];
-    TvService.reiniciar() && $scope.siguientePagina();
+    TvService.reiniciar();
+    $scope.siguientePagina();
   };
 
   $scope.puedeCargarMas = function() {
