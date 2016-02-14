@@ -27,6 +27,9 @@
       <div ng-repeat="noticia in noticias" ng-if="$index > 0" class="entry-item">
         <noticia-small></noticia-small>
       </div>
+      <div class="entry-item" ng-show="errorCarga">
+        <h4 class="assertive text-center">No se pudieron cargar las noticias</h4>
+      </div>
 
       <ion-infinite-scroll ng-if="infiniteScroll"
                            on-infinite="cargar()"
