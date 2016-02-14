@@ -127,25 +127,30 @@ controllers.controller('TopCtrl', function($controller, $scope, DescargarNoticia
   };
 });
 
-controllers.controller('TvCtrl', function($scope, TvService) {
+controllers.controller('TvCtrl', function($scope, TvService, AlertaSinConexion) {
+  $scope.infiniteScroll = true;
   $scope.videos = [];
 
   $scope.siguientePagina = function() {
-    TvService.siguientePagina(function(videos) {
-      $scope.videos = $scope.videos.concat(videos);
-      $scope.$broadcast('scroll.infiniteScrollComplete');
-      $scope.$broadcast('scroll.refreshComplete');
-    });
+    TvService.siguientePagina(
+      function(videos) {
+        $scope.videos = $scope.videos.concat(videos);
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+        $scope.$broadcast('scroll.refreshComplete');
+      },
+      function() {
+        AlertaSinConexion.mostrar($scope);
+      }
+    );
   };
 
   $scope.recargar = function() {
     $scope.videos = [];
-    TvService.reset();
-    $scope.siguientePagina();
+    TvService.reiniciar() && $scope.siguientePagina();
   };
 
   $scope.puedeCargarMas = function() {
-    return $scope.videos.length <= 0 ||
-           $scope.videos.length < TvService.getTotal();
+    return $scope.infiniteScroll && ($scope.videos.length <= 0 ||
+                                     $scope.videos.length < TvService.getTotal());
   };
 });

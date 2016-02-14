@@ -85,6 +85,11 @@ services.service('TvService', function($log, GOOGLE_API_KEY, MEXICOXPORT_TV_PLAY
   var total = 0;
 
   this.siguientePagina = function(exitoCallback, errorCallback) {
+    if (typeof gapi === 'undefined') {
+      errorCallback();
+      return;
+    }
+
     gapi.client.setApiKey(GOOGLE_API_KEY);
 
     $log.debug('Descargando información de videos de MexicoxportTv.');
@@ -104,7 +109,7 @@ services.service('TvService', function($log, GOOGLE_API_KEY, MEXICOXPORT_TV_PLAY
     }, errorCallback);
   };
 
-  this.reset = function() {
+  this.reiniciar = function() {
     nextPageToken = null;
   };
 
