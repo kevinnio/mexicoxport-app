@@ -84,7 +84,7 @@ services.service('TvService', function($log, GOOGLE_API_KEY, MEXICOXPORT_TV_PLAY
   var nextPageToken = null;
   var total = 0;
 
-  this.nextPage = function(exitoCallback, errorCallback) {
+  this.siguientePagina = function(exitoCallback, errorCallback) {
     gapi.client.setApiKey(GOOGLE_API_KEY);
 
     $log.debug('Descargando información de videos de MexicoxportTv.');

@@ -129,24 +129,23 @@ controllers.controller('TopCtrl', function($controller, $scope, DescargarNoticia
 
 controllers.controller('TvCtrl', function($scope, TvService) {
   $scope.videos = [];
-  $scope.service = TvService;
 
-  $scope.nextPage = function() {
-    $scope.service.nextPage(function(videos) {
+  $scope.siguientePagina = function() {
+    TvService.siguientePagina(function(videos) {
       $scope.videos = $scope.videos.concat(videos);
       $scope.$broadcast('scroll.infiniteScrollComplete');
       $scope.$broadcast('scroll.refreshComplete');
     });
   };
 
-  $scope.refresh = function() {
+  $scope.recargar = function() {
     $scope.videos = [];
-    $scope.service.reset();
-    $scope.nextPage();
+    TvService.reset();
+    $scope.siguientePagina();
   };
 
-  $scope.canLoad = function() {
+  $scope.puedeCargarMas = function() {
     return $scope.videos.length <= 0 ||
-           $scope.videos.length < $scope.service.getTotal();
+           $scope.videos.length < TvService.getTotal();
   };
 });

@@ -3,13 +3,13 @@
     <img id="mainLogo" ng-src="img/logo.png">
   </ion-nav-title>
   <ion-content>
-    <ion-refresher pulling-text="Jala para recargar..." on-refresh="refresh()"></ion-refresher>
+    <ion-refresher pulling-text="Jala para recargar..." on-refresh="recargar()"></ion-refresher>
 
     <div class="list">
       <video-small ng-repeat="video in videos"></video-small>
 
-      <ion-infinite-scroll ng-if="canLoad()"
-                           on-infinite="nextPage()"
+      <ion-infinite-scroll ng-if="puedeCargarMas()"
+                           on-infinite="siguientePagina()"
                            distance="3%">
       </ion-infinite-scroll>
     </div>
