@@ -140,3 +140,23 @@ services.service('ShareStats', function($http, $log) {
     });
   };
 });
+
+services.service('Comments', function($http, $log) {
+  this.get = function(noticia, successCallback, errorCallback) {
+    $http({
+      url: 'http://mexicoxport.com/api/noticias/comentarios/index.php',
+      method: 'GET',
+      params: {
+        noticia_id: noticia.id
+      }
+    }).success(successCallback).error(errorCallback);
+  };
+
+  this.new = function(values, successCallback, errorCallback) {
+    $http({
+      url: 'http://mexicoxport.com/api/noticias/comentarios/store.php',
+      method: 'POST',
+      params: values
+    }).success(successCallback).error(errorCallback);
+  };
+});
