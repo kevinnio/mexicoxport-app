@@ -118,7 +118,8 @@ controllers.controller('TopCtrl', function($controller, $scope, DescargarNoticia
   };
 });
 
-controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoading, DescargarNoticiasService, $cordovaSocialSharing, ShareStats, AlertaSinConexion, Comments, StandardAlert) {
+controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoading, $ionicPopup, DescargarNoticiasService, $cordovaSocialSharing, ShareStats, AlertaSinConexion, Comments, StandardAlert) {
+  $scope.newComment = {};
   $ionicLoading.show({ hideOnStateChange: true });
 
   var despuesDeCargar = function() {
@@ -151,9 +152,31 @@ controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoadi
       });
   };
 
+  $scope.showNewCommentPopup = function() {
+    $ionicPopup.show({
+      scope: $scope,
+      title: 'Nuevo comentario',
+      templateUrl: '/views/app/dialogs/new-comment.html',
+      buttons: [
+        {
+          text: 'Cancelar',
+          type: 'button-dark'
+        },
+        {
+          text: 'Publicar',
+          type: 'button-calm',
+          onTap: function(e) {
+            $scope.storeComment();
+          }
+        }
+      ]
+    });
+  };
+
   $scope.storeComment = function() {
-    Comments.new($scope.newComment, function() {
-        StandardAlert.show('Publicado', 'Tu comentario ha sido publicado', function(comment) {
+    $scope.newComment.noticia_id = $scope.noticia.id;
+    Comments.new($scope.newComment, function(comment) {
+        StandardAlert.show(null, 'Tu comentario ha sido publicado', function() {
           $scope.noticia.comentarios.unshift(comment);
         });
       }, function() {
@@ -161,5 +184,10 @@ controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoadi
       }
     );
   };
+
+  // restricción de longitud de comentario
+  $scope.$watch('newComment.comentario', function(oldVal, newVal) {
+    if (newVal && newVal.length >= 255) $scope.newComment.comentario = oldVal;
+  });
 
 });
