@@ -156,7 +156,7 @@ controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoadi
     $ionicPopup.show({
       scope: $scope,
       title: 'Nuevo comentario',
-      templateUrl: '/views/app/dialogs/new-comment.html',
+      templateUrl: 'views/app/dialogs/new-comment.html',
       buttons: [
         {
           text: 'Cancelar',
