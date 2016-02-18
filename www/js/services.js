@@ -141,13 +141,14 @@ services.service('ShareStats', function($http, $log) {
   };
 });
 
-services.service('Comments', function($http, $log) {
+services.service('Comments', function($http) {
   this.get = function(noticia, successCallback, errorCallback) {
     $http({
       url: 'http://mexicoxport.com/api/noticias/comentarios/index.php',
       method: 'GET',
       params: {
-        noticia_id: noticia.id
+        noticia_id: noticia.id,
+        cantidad: 10,
       }
     }).success(successCallback).error(errorCallback);
   };
