@@ -118,19 +118,20 @@ controllers.controller('TopCtrl', function($controller, $scope, DescargarNoticia
   };
 });
 
-controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoading, DescargarNoticiasService, $cordovaSocialSharing, ShareStats, AlertaSinConexion) {
+controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoading, DescargarNoticiasService, $cordovaSocialSharing, ShareStats, AlertaSinConexion, Comments, StandardAlert) {
   $ionicLoading.show({ hideOnStateChange: true });
 
   var despuesDeCargar = function() {
     $ionicLoading.hide();
   };
 
-  DescargarNoticiasService.noticia($stateParams.id,
-    function(noticia) {
+  DescargarNoticiasService.noticia($stateParams.id, function(noticia) {
       $scope.noticia = noticia;
       DescargarNoticiasService.relacionadas(noticia, despuesDeCargar, despuesDeCargar);
-    },
-    function() {
+      Comments.get(noticia, function(comentarios) {
+        $scope.noticia.comentarios = comentarios;
+      }, despuesDeCargar);
+    }, function() {
       despuesDeCargar();
       AlertaSinConexion.mostrar($scope);
     }
@@ -148,6 +149,17 @@ controllers.controller('NoticiaCtrl', function($scope, $stateParams, $ionicLoadi
         console.log('Error al compartir');
         console.log(err);
       });
+  };
+
+  $scope.storeComment = function() {
+    Comments.new($scope.newComment, function() {
+        StandardAlert.show('Publicado', 'Tu comentario ha sido publicado', function(comment) {
+          $scope.noticia.comentarios.unshift(comment);
+        });
+      }, function() {
+        AlertaSinConexion.mostrar($scope);
+      }
+    );
   };
 
 });

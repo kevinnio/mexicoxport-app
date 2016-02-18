@@ -177,9 +177,6 @@ a {
   padding: 1em 0.5em;
   background: white;
   color: gray;
-}
-
-.notas-relacionadas {
   border-top: 1px solid #EEE;
 }
 
@@ -198,4 +195,14 @@ div[ng-show="errorCarga"] {
     text-align: center;
     margin-top: 4em;
   }
+}
+
+#comments {
+  .row, .col { padding: 0; }
+  span { color: gray; }
+  .comment {
+    border-bottom: 1px solid #EEE;
+    padding-top: 0.5em;
+  }
+  .comment:last-child { border-bottom: none; }
 }
