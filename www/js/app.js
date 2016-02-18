@@ -95,4 +95,5 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   $urlRouterProvider.otherwise('/app/noticias');
 
   $ionicConfigProvider.backButton.text('Atrás');
+  $ionicConfigProvider.scrolling.jsScrolling(false);
 });
