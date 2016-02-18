@@ -61,22 +61,30 @@ factories.factory('AlmacenCategorias', function() {
   };
 });
 
-factories.factory('AlertaSinConexion', function($ionicPopup) {
+factories.factory('AlertaSinConexion', function(StandardAlert) {
   return {
     mostrar: function($scope) {
-      $ionicPopup.alert({
-        template: '<h4 class="text-center">Error de conexión</h4>' +
-                  '<h5 class="text-center">Verifica tu conexión a Internet</h5>',
-        buttons: [
-          { text: 'OK',
-            type: 'button-calm'}
-        ]
-      }).then(function() {
+      StandardAlert.show('Error de conexión', 'Verifica tu conexión a Internet', function() {
         $scope.errorCarga = true;
         $scope.infiniteScroll = false;
         $scope.$broadcast('scroll.infiniteScrollComplete');
         $scope.$broadcast('scroll.refreshComplete');
       });
+    }
+  };
+});
+
+factories.factory('StandardAlert', function($ionicPopup) {
+  return {
+    show: function(title, body, callback) {
+      $ionicPopup.alert({
+        title: title,
+        template: '<h5 class="text-center">' + body + '</h5>',
+        buttons: [
+          { text: 'OK',
+            type: 'button-calm'}
+        ]
+      }).then(callback);
     }
   };
 });
