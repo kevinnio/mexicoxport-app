@@ -206,3 +206,9 @@ div[ng-show="errorCarga"] {
   }
   .comment:last-child { border-bottom: none; }
 }
+
+#commentBody {
+  min-height: 40vh;
+  resize: none;
+  overflow-y: auto;
+}
