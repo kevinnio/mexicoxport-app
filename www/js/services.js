@@ -148,16 +148,19 @@ services.service('Comments', function($http) {
       method: 'GET',
       params: {
         noticia_id: noticia.id,
-        cantidad: 10,
+        cantidad: 10
       }
     }).success(successCallback).error(errorCallback);
   };
 
-  this.new = function(values, successCallback, errorCallback) {
+  this.new = function(comment, successCallback, errorCallback) {
     $http({
       url: 'http://mexicoxport.com/api/noticias/comentarios/store.php',
       method: 'POST',
-      params: values
+      data: $.param(comment),
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     }).success(successCallback).error(errorCallback);
   };
 });
