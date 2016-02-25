@@ -52,7 +52,7 @@ services.service('DescargarNoticiasService', function($http, $log, MEXICOXPORT_A
       method: 'GET',
       params: {
         keywords: noticia.titulo.replace(' ', ','),
-        cantidad: 5,
+        cantidad: 3,
       }
     }).success(function(relacionadas) {
       noticia.relacionadas = relacionadas;
