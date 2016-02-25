@@ -34,24 +34,6 @@
         <strong>Fuente: </strong>{{ noticia.fuente }}
       </div>
 
-      <div id="comments" class="separado">
-        <div class="row">
-          <div class="col">
-            <h4>Comentarios</h4>
-          </div>
-          <div class="col text-right">
-            <button class="button button-calm" ng-click="showNewCommentPopup()">Comentar</button>
-          </div>
-        </div>
-        <div class="list">
-          <h5 ng-show=" ! noticia.comentarios.length">No hay comentarios publicados</h5>
-          <div class="comment entry-item" ng-repeat="comentario in noticia.comentarios">
-            <p><strong>{{ comentario.usuario }}</strong> - <span am-time-ago="comentario.created_at"></span></p>
-            <p>{{ comentario.comentario }}</p>
-          </div>
-        </div>
-      </div>
-
       <div class="notas-relacionadas separado">
         <h4>Noticias relacionadas:</h4>
         <div class="list">
@@ -59,6 +41,20 @@
           <div ng-repeat="noticia in noticia.relacionadas" class="entry-item">
             <noticia-small></noticia-small>
           </div>
+        </div>
+      </div>
+
+      <div id="comments" class="separado">
+        <h4>Comentarios</h4>
+        <div class="list">
+          <h5 ng-show=" ! noticia.comentarios.length">No hay comentarios publicados</h5>
+          <div class="comment entry-item" ng-repeat="comentario in noticia.comentarios">
+            <p><strong>{{ comentario.usuario }}</strong> - <span am-time-ago="comentario.created_at"></span></p>
+            <p>{{ comentario.comentario }}</p>
+          </div>
+        </div>
+        <div class="text-center">
+          <button class="button button-calm" ng-click="showNewCommentPopup()">Comentar</button>
         </div>
       </div>
     </div>
