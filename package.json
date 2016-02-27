@@ -1,6 +1,6 @@
 {
   "name": "mexicoxport-app",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "La aplicación móvil de mexicoxport.com",
   "dependencies": {
     "async": "^1.4.0",
@@ -42,10 +42,14 @@
     {
       "locator": "https://github.com/apache/cordova-plugin-splashscreen.git",
       "id": "cordova-plugin-splashscreen"
+    },
+    {
+      "locator": "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git",
+      "id": "cordova-plugin-x-socialsharing"
     }
   ],
   "cordovaPlatforms": [
-    "ios",
-    "android"
+    "android",
+    "ios"
   ]
 }

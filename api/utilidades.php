@@ -84,3 +84,14 @@ function renombrar_campos($filas, $campos) {
 
   return $nuevas_filas;
 }
+
+/**
+ * Genera el enlace para visitar una noticia en el sitio web de mexicoxport.
+ *
+ * @param array $noticia Una noticia extraída de la base de datos cuyos campos ya han sido renombrados.
+ *
+ * @return string
+ */
+function url_para_noticia($noticia) {
+  return "/noticias/{$noticia['id']}/" . f_url($noticia['titulo']);
+}

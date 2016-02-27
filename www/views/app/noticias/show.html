@@ -1,23 +1,62 @@
 <ion-view class="noticias-view">
-  <ion-content class="noticia" ng-show="noticia">
-    <div class="imagen">
-      <pre-img ratio="_4_3">
-        <img ng-src="{{ noticia.imagen }}" spinner-on-load>
-      </pre-img>
+  <ion-nav-buttons side="primary">
+    <button class="button button-calm button-share" ng-click="compartirNoticia(noticia)">
+      <i class="icon ion-android-share-alt"></i>
+    </button>
+  </ion-nav-buttons>
+
+  <ion-content>
+    <div ng-show="errorCarga">
+      <h4>No se pudo cargar la noticia</h4>
     </div>
 
-    <div class="titulo">
-      {{ noticia.titulo }}
-    </div>
+    <div class="noticia" ng-show="noticia">
+      <div class="imagen">
+        <pre-img ratio="_4_3">
+          <img ng-src="{{ noticia.imagen }}" spinner-on-load>
+        </pre-img>
+      </div>
 
-    <div class="card cuerpo">
-      <p ng-bind-html="noticia.resumen | rawHtml"></p>
-      <p ng-bind-html="noticia.cuerpo | rawHtml"></p>
-    </div>
+      <div class="titulo">
+        {{ noticia.titulo }}
+      </div>
 
-    <div class="card detalles">
-      <strong>Publicada el: </strong>{{ noticia.fecha | date:"dd 'de' MMMM 'de' yyyy" }}<br>
-      <strong>Fuente: </strong>{{ noticia.fuente }}
+      <div class="separado">
+        {{ noticia.fecha | date:"EEEE, dd 'de' MMMM 'de' yyyy" }}
+      </div>
+
+      <div class="cuerpo">
+        <p><strong ng-bind-html="noticia.resumen | rawHtml"></strong></p>
+        <p ng-bind-html="noticia.cuerpo.trim() | rawHtml"></p>
+      </div>
+
+      <div class="separado">
+        <strong>Fuente: </strong>{{ noticia.fuente }}
+      </div>
+
+      <div class="notas-relacionadas separado">
+        <h4>Noticias relacionadas:</h4>
+        <div class="list">
+          <h5 ng-show=" ! noticia.relacionadas.length">No hay noticias relacionadas</h5>
+          <div ng-repeat="noticia in noticia.relacionadas" class="entry-item">
+            <noticia-small></noticia-small>
+          </div>
+        </div>
+      </div>
+
+      <div id="comments" class="separado">
+        <h4>Comentarios</h4>
+        <div class="list">
+          <h5 ng-show=" ! noticia.comentarios.length">No hay comentarios publicados</h5>
+          <div class="comment entry-item" ng-repeat="comentario in noticia.comentarios">
+            <p><strong>{{ comentario.usuario }}</strong> - <span am-time-ago="comentario.created_at"></span></p>
+            <p>{{ comentario.comentario }}</p>
+          </div>
+        </div>
+        <div class="text-center">
+          <button class="button button-calm" ng-click="showNewCommentPopup()">Comentar</button>
+        </div>
+      </div>
     </div>
   </ion-content>
 </ion-view>

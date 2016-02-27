@@ -1,0 +1,10 @@
+<label class="item item-input">
+  <input type="text" placeholder="Nombre de usuario" ng-model="newComment.usuario">
+</label>
+<label class="item item-input">
+  <input type="text" placeholder="Correo electrónico" ng-model="newComment.email">
+</label>
+<label class="item item-input">
+  <textarea id="commentBody" maxlength="255" placeholder="Comentario" ng-model="newComment.comentario"></textarea>
+</label>
+<p class="form-help text-right">{{ 255 - newComment.comentario.length }}</p>
