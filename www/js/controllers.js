@@ -1,7 +1,7 @@
 var controllers = angular.module('mexicoxport.controllers', []);
 
 controllers.controller('AppCtrl', function($scope, $location, AlmacenCategorias, DescargarCategoriasService) {
-  $scope.version = '1.0';
+  $scope.version = '1.0.1';
   $scope.categorias = AlmacenCategorias.todas();
   $scope.$location = $location;
 
