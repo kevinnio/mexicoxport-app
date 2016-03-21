@@ -25,6 +25,7 @@ function obtener_noticias_en_json() {
     $imagen_nombre = basename($noticia['imagen']);
     $dir_imagen = trim(str_replace($imagen_nombre, '', $noticia['imagen']), '/');
     $noticia['miniatura'] = "$dir_imagen/mcith/mcith_$imagen_nombre";
+    $noticia['url'] = url_para_noticia($noticia);
   }
 
   enviarRespuesta(generar_respuesta($noticias, $parametros));
@@ -53,6 +54,7 @@ function obtener_total_de_noticias($parametros) {
 function campos_de_noticias() {
   return array('id'      => 'idNoticia',
                'titulo'  => 'Titulo',
+               'resumen' => 'Resumen',
                'imagen'  => 'Imagen',
                'fecha'   => 'FechaNoticia',
                'hora'    => 'time(FechaAlta)',
